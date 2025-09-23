@@ -12,6 +12,9 @@ $error = '';
 $es_super_admin = ($_SESSION['rol'] ?? 'admin_departamental') === 'super_admin';
 
 // Capturar parámetros de origen para determinar la URL de vuelta
+$from = $_GET['from'] ?? '';
+$encuesta_id = isset($_GET['encuesta_id']) ? (int)$_GET['encuesta_id'] : 0;
+
 try {
     $pdo = obtenerConexion();
     

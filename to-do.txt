@@ -59,7 +59,7 @@ tal las preguntas.
 
 - Pulir la función de buscar por ID.
 
-- Modificar los tipos de preguntas:  
+✔- Modificar los tipos de preguntas:  
     ✔Tipo: contacto (borrar)✔
     ✔Tipo: net_promoter_score (borrar)✔
     ✔Tipo: calificacion_estrellas (borrar)✔
@@ -69,21 +69,22 @@ tal las preguntas.
     ✔Tipo: slider (borrar)✔
     ✔Tipo: calificacion_estrellas (borrar)✔ 
 
-- Borrar Categorías de preguntas y sus preguntas:
+✔✔- Borrar Categorías de preguntas y sus preguntas:
     - Atención Primaria  ✔
     - Atención Secundaria ✔
     - Atención Terciaria ✔
     - Postas Rurales ✔
     - SAPU (?)
 
-- Que los mensajes de aviso (creación, eliminar o modificar) sean temporales. Que de alguna forma se dejen de mostrar luego de unos segundos
+✔✔- Que los mensajes de aviso (creación, eliminar o modificar) sean temporales. Que de alguna forma se dejen de mostrar luego de unos segundos
 
-- Limpiar caché de paginas, cada vez que se termine un 'proceso' (Crear, editar, modificar, eliminar, tambien al responder las encuestas)
-eliminar el caché, de modo que si se recarga la página NO SE DUPLIQUEN procesos, o si se retrocede y se vuelve a una página.
+- Limpiar caché de paginas, cada vez que se termine un 'proceso importante' (Crear, editar, modificar, eliminar, tambien al responder las encuestas)
+eliminar el caché, de modo que si se recarga la página NO SE DUPLIQUEN procesos, o si se retrocede en el navegador y se vuelve a una página no se queden
+los datos guardados.
 
 - En Banco de Preguntas agregar una función de 'Lupa' para buscar preguntas en especifico (Debe definirse si por Categoría o en general)
 
-- Implementar sistema de busqueda que FILTRE POR TIPO DE PREGUNTA.
+- Implementar sistema de busqueda que FILTRE POR TIPO DE PREGUNTA tanto para super_admin como para administrador_departamental.
 
 ✔✔- Hacer que las categorias sean 'desplegables' (similar a un Dropdowns en Bootstrap) y que al desplegar muestre las preguntas de esa, 
 categoria. Algo como una lista desplegable que sea dinamica.
