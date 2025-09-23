@@ -387,6 +387,10 @@ try {
                         ➕ Crear Nueva Pregunta
                     </a>
                     
+                    <a href="buscar_pregunta.php" class="btn" style="padding: 12px; text-align: center; text-decoration: none; font-weight: 600; background: linear-gradient(135deg, #007bff, #0056b3); color: white; box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);">
+                        🔍 Editar Pregunta
+                    </a>
+                    
                     <div style="border-top: 1px solid #e9ecef; margin: 0.5rem 0; padding-top: 1rem;">
                         <h4 style="color: #6c757d; font-size: 0.9rem; margin-bottom: 0.5rem;">
                             <?= $es_super_admin ? 'Acciones de Super Admin:' : 'Acciones Disponibles:' ?>

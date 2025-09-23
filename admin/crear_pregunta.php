@@ -12,18 +12,6 @@ $error = '';
 $es_super_admin = ($_SESSION['rol'] ?? 'admin_departamental') === 'super_admin';
 
 // Capturar parámetros de origen para determinar la URL de vuelta
-$from = $_GET['from'] ?? null;
-$encuesta_id = $_GET['encuesta_id'] ?? null;
-
-// Determinar URL y texto del botón de vuelta
-if ($from === 'agregar' && $encuesta_id) {
-    $url_vuelta = "agregar_preguntas.php?id=" . $encuesta_id;
-    $texto_vuelta = "← Volver a Agregar Preguntas";
-} else {
-    $url_vuelta = "gestionar_preguntas.php";
-    $texto_vuelta = "← Volver al Banco";
-}
-
 try {
     $pdo = obtenerConexion();
     
@@ -327,7 +315,7 @@ try {
                     <?= $es_super_admin ? '👑 Super Administrador' : '👤 Administrador Departamental' ?>
                 </small>
             </div>
-            <a href="<?= $url_vuelta ?>" class="back-btn"><?= $texto_vuelta ?></a>
+            <button onclick="history.back()" class="back-btn">← Volver</button>
         </div>
     </div>
     
@@ -335,9 +323,9 @@ try {
         <?php if ($mensaje): ?>
             <div class="alert alert-success">
                 <?= htmlspecialchars($mensaje) ?>
-                <a href="<?= $url_vuelta ?>" style="margin-left: 1rem;">
-                    <?= $from === 'agregar' ? 'Continuar agregando preguntas' : 'Ver todas las preguntas' ?>
-                </a>
+                <button onclick="history.back()" style="margin-left: 1rem; background: #0d47a1; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                    ← Continuar
+                </button>
             </div>
         <?php endif; ?>
         
@@ -431,7 +419,7 @@ try {
                 <div style="margin-top: 2rem; display: flex; gap: 1rem;">
                     <button type="submit" name="crear_pregunta" class="btn btn-success">💾 Crear Pregunta</button>
                     <button type="button" onclick="limpiarFormulario()" class="btn btn-secondary">🗑️ Limpiar</button>
-                    <a href="<?= $url_vuelta ?>" class="btn btn-primary"><?= $texto_vuelta ?></a>
+                    <button type="button" onclick="history.back()" class="btn btn-primary">← Volver</button>
                 </div>
             </form>
         </div>

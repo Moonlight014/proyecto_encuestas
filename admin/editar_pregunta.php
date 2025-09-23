@@ -12,19 +12,6 @@ $error = '';
 $pregunta = null;
 $es_super_admin = ($_SESSION['rol'] ?? 'admin_departamental') === 'super_admin';
 
-// Capturar parámetros de origen para determinar la URL de vuelta
-$from = $_GET['from'] ?? null;
-$encuesta_id = $_GET['encuesta_id'] ?? null;
-
-// Determinar URL y texto del botón de vuelta
-if ($from === 'agregar' && $encuesta_id) {
-    $url_vuelta = "agregar_preguntas.php?id=" . $encuesta_id;
-    $texto_vuelta = "← Volver a Agregar Preguntas";
-} else {
-    $url_vuelta = "gestionar_preguntas.php";
-    $texto_vuelta = "← Volver al Banco";
-}
-
 try {
     $pdo = obtenerConexion();
     
@@ -348,7 +335,7 @@ try {
                     <?= $es_super_admin ? '👑 Super Administrador' : '👤 Administrador Departamental' ?>
                 </small>
             </div>
-            <a href="<?= $url_vuelta ?>" class="back-btn"><?= $texto_vuelta ?></a>
+            <button onclick="history.back()" class="back-btn">← Volver</button>
         </div>
     </div>
     
@@ -446,7 +433,7 @@ try {
                         <button type="submit" name="actualizar_pregunta" class="btn btn-success">
                             💾 <?= $es_super_admin ? 'Actualizar Pregunta' : 'Crear Nueva Pregunta' ?>
                         </button>
-                        <a href="<?= $url_vuelta ?>" class="btn btn-secondary">Cancelar</a>
+                        <button type="button" onclick="history.back()" class="btn btn-secondary">Cancelar</button>
                     </div>
                 </form>
             </div>

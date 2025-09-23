@@ -24,13 +24,15 @@ opcion elegida)
 
 - MUY IMPORTANTE QUE AL EXPORTAR A EXCEL LAS RESPUESTAS ESTEN EN FORMATO ENTENDIBLE, COSA DE QUE HASTA UN NIÑO DE 5 AÑOS PUEDA ENTENDER.
 
-✔- En las preguntas de selección multiple, poner la opcion de establecer un limite maximo de opciones seleccionadas(y por ende un mensaje de aviso si el encuestado intenta 
+✔✔- En las preguntas de selección multiple, poner la opcion de establecer un limite maximo de opciones seleccionadas(y por ende un mensaje de aviso si el encuestado intenta 
 seleccionar más del limite). Y que este limite sea establecido por el creador de la encuesta al momento de ingresar/crear la pregunta. Igualmente pueden haber preguntas 
-SIN LIMITE, pero no deben ser tantas las opciones, de ser posible maximo 5 opciones. Asi evitaremos problemas al momento de exportarlas a Excel.
+SIN LIMITE, pero no deben ser tantas las opciones, de ser posible maximo 5 opciones. Asi evitaremos problemas al momento de exportarlas a Excel. (El limite de selecciones no
+puede ser superior que las opciones actuales.✔)
 
-- Hacer que, en los links públicos, no se vean las cosas como ' Categoría: Satisfacción | Tipo: texto_corto ' en cada pregunta.
+- Hacer que, en los links públicos, no se vean las cosas como ' Categoría: Satisfacción | Tipo: texto_corto ' en cada pregunta. Que esta vista sea exclusiva para el 
+administrador_departamental y super_admin. 
 
-- Hacer que cuando se dé el link público de una encuesta, sea un href.
+- Hacer que cuando se dé el link público de una encuesta, sea un href que abra una nueva pestaña con la encuesta y que a la vez copie en el portapapeles el  link.
 
 - Hacer que, a parte de generarse un link público de las encuestas, tambien se genere un código qr.
 
@@ -41,7 +43,7 @@ SIN LIMITE, pero no deben ser tantas las opciones, de ser posible maximo 5 opcio
 - Para reestablecer contraseña se enviará codigo al correo con el que se registraron.
 
 - Validaciones con las fechas de creaciones, la fecha de inicio debe auto asignarse al momento de crearse, y la fecha de fin no puede ser
-anterior a esta. Así mismo para editar una encuesta.
+anterior a esta. Así mismo para editar una encuesta, cuando se edite una encuesta debe tomar la fecha exacta del momento en el que se editó.
 
 ✔✔- En 'agregar_preguntas.php ' debe haber un boton para 'Crear Pregunta' que redirija a una pagina exclusiva para la creacion de preguntas
 y que sea personalizable.
@@ -54,6 +56,8 @@ de 'Editar Pregunta' que me lleve a otro interfaz para editar la pregunta, en do
 su id unico, y en el interfaz me deje 'editar' ESA pregunta, pero realmente no será editar, ya que al momento de modificarse deberá guardarse
 en la base de datos (y en el Banco de preguntas) como UNA PREGUNTA NUEVA. A menos que sea un usuario super_admin, quien SI PUEDE EDITAR como
 tal las preguntas.
+
+- Pulir la función de buscar por ID.
 
 - Modificar los tipos de preguntas:  
     ✔Tipo: contacto (borrar)✔
