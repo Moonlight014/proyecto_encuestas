@@ -1,0 +1,415 @@
+<?php
+session_start();
+require_once '../config/conexion.php';
+require_once '../config/url_helper.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$mensaje = '';
+$error = '';
+$es_super_admin = ($_SESSION['rol'] ?? 'admin_departamental') === 'super_admin';
+
+try {
+    $pdo = obtenerConexion();
+    
+    // Procesar exportación de respuestas
+    if ($_POST && isset($_POST['exportar_excel'])) {
+        $encuesta_id = $_POST['encuesta_id'];
+        header("Location: ../export_excel.php?id=" . $encuesta_id);
+        exit();
+    }
+    
+    // Procesar cambios de estado
+    if ($_POST && isset($_POST['cambiar_estado'])) {
+        $encuesta_id = $_POST['encuesta_id'];
+        $nuevo_estado = $_POST['nuevo_estado'];
+        
+        // Validar permisos: solo super_admin puede finalizar encuestas
+        if ($nuevo_estado === 'finalizada' && !$es_super_admin) {
+            $error = "Solo el Super Administrador puede finalizar encuestas.";
+        } else {
+            $stmt = $pdo->prepare("UPDATE encuestas SET estado = ? WHERE id = ?");
+            if ($stmt->execute([$nuevo_estado, $encuesta_id])) {
+                switch($nuevo_estado) {
+                    case 'finalizada':
+                        $mensaje = "Encuesta finalizada correctamente.";
+                        break;
+                    case 'pausada':
+                        $mensaje = "Encuesta pausada correctamente.";
+                        break;
+                    case 'activa':
+                        $mensaje = "Encuesta activada/reactivada correctamente.";
+                        break;
+                    default:
+                        $mensaje = "Estado de la encuesta actualizado correctamente.";
+                }
+            } else {
+                $error = "Error al actualizar el estado.";
+            }
+        }
+    }
+    
+    // Obtener todas las encuestas con información del departamento y usuario
+    $query = "
+        SELECT e.*, d.nombre as departamento_nombre, u.nombre as creador_nombre 
+        FROM encuestas e 
+        LEFT JOIN departamentos d ON e.departamento_id = d.id 
+        LEFT JOIN usuarios u ON e.creado_por = u.id 
+        ORDER BY e.fecha_creacion DESC
+    ";
+    
+    $encuestas = $pdo->query($query)->fetchAll();
+    
+} catch(PDOException $e) {
+    $error = "Error de conexión: " . $e->getMessage();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Encuestas - DAS Hualpén</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background: #0d47a1;
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .back-btn {
+            background: #32CD32;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #228B22;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .page-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid #32CD32;
+        }
+        .page-title {
+            color: #0d47a1;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .alert {
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid;
+        }
+        .alert-success {
+            background-color: #f0f8f0;
+            border-left-color: #32CD32;
+            color: #0f5132;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            border-left-color: #dc3545;
+            color: #721c24;
+        }
+        .encuestas-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .encuesta-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #e9ecef;
+        }
+        .encuesta-card.borrador {
+            border-left-color: #6c757d;
+        }
+        .encuesta-card.activa {
+            border-left-color: #32CD32;
+        }
+        .encuesta-card.pausada {
+            border-left-color: #ffc107;
+        }
+        .encuesta-card.finalizada {
+            border-left-color: #dc3545;
+        }
+        .encuesta-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        .encuesta-title {
+            color: #0d47a1;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .estado-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        .estado-borrador {
+            background: #f8f9fa;
+            color: #6c757d;
+        }
+        .estado-activa {
+            background: #d4edda;
+            color: #155724;
+        }
+        .estado-pausada {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .estado-finalizada {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .encuesta-meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .encuesta-descripcion {
+            color: #495057;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        .encuesta-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #0d47a1;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #1565c0;
+        }
+        .btn-success {
+            background: #32CD32;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #228B22;
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        .enlace-publico {
+            background: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            word-break: break-all;
+        }
+        .empty-state {
+            background: white;
+            padding: 3rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .empty-icon {
+            font-size: 3rem;
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div>
+                <h1>Gestionar Encuestas</h1>
+                <small style="opacity: 0.8; font-size: 0.8rem;">
+                    <?= $es_super_admin ? '👑 Super Administrador' : '👤 Administrador Departamental' ?>
+                </small>
+            </div>
+            <a href="dashboard.php" class="back-btn">← Volver al Panel</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="page-header">
+            <h2 class="page-title">Encuestas del Sistema</h2>
+            <p>Administra las encuestas creadas, cambia su estado y gestiona enlaces públicos.</p>
+            
+            <!-- Panel informativo sobre permisos -->
+            <div style="background: #e7f3ff; border-left: 4px solid #0d47a1; padding: 1rem; margin: 1rem 0; border-radius: 4px; font-size: 0.9rem; color: #084298;">
+                <strong>💡 Permisos de Estado:</strong><br>
+                <?php if ($es_super_admin): ?>
+                    • Como Super Administrador puedes <strong>activar</strong>, <strong>pausar</strong>, <strong>reactivar</strong> y <strong>finalizar</strong> encuestas<br>
+                    • La acción "Finalizar" es irreversible y solo tú puedes realizarla
+                <?php else: ?>
+                    • Como Administrador Departamental puedes <strong>activar</strong>, <strong>pausar</strong> y <strong>reactivar</strong> tus encuestas<br>
+                    • Solo el Super Administrador puede <strong>finalizar</strong> encuestas definitivamente
+                <?php endif; ?>
+            </div>
+        </div>
+        
+        <?php if ($mensaje): ?>
+            <div class="alert alert-success"><?= htmlspecialchars($mensaje) ?></div>
+        <?php endif; ?>
+        
+        <?php if ($error): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
+        
+        <div class="encuestas-grid">
+            <?php if (empty($encuestas)): ?>
+                <div class="empty-state">
+                    <div class="empty-icon">📋</div>
+                    <h3>No hay encuestas creadas</h3>
+                    <p>Comienza creando tu primera encuesta para el DAS Hualpén.</p>
+                    <a href="crear_encuesta.php" class="btn btn-primary">+ Crear Primera Encuesta</a>
+                </div>
+            <?php else: ?>
+                <?php foreach ($encuestas as $encuesta): ?>
+                    <div class="encuesta-card <?= $encuesta['estado'] ?>">
+                        <div class="encuesta-header">
+                            <div>
+                                <h3 class="encuesta-title"><?= htmlspecialchars($encuesta['titulo']) ?></h3>
+                                <div class="encuesta-meta">
+                                    <strong>Departamento:</strong> <?= htmlspecialchars($encuesta['departamento_nombre']) ?> | 
+                                    <strong>Creado por:</strong> <?= htmlspecialchars($encuesta['creador_nombre']) ?> | 
+                                    <strong>Fecha:</strong> <?= date('d/m/Y H:i', strtotime($encuesta['fecha_creacion'])) ?>
+                                </div>
+                            </div>
+                            <span class="estado-badge estado-<?= $encuesta['estado'] ?>"><?= ucfirst($encuesta['estado']) ?></span>
+                        </div>
+                        
+                        <div class="encuesta-descripcion">
+                            <?= htmlspecialchars($encuesta['descripcion']) ?>
+                        </div>
+                        
+                        <?php if ($encuesta['fecha_inicio'] || $encuesta['fecha_fin']): ?>
+                            <div class="encuesta-meta">
+                                <?php if ($encuesta['fecha_inicio']): ?>
+                                    <strong>Inicio:</strong> <?= date('d/m/Y H:i', strtotime($encuesta['fecha_inicio'])) ?>
+                                <?php endif; ?>
+                                <?php if ($encuesta['fecha_fin']): ?>
+                                    <?= $encuesta['fecha_inicio'] ? ' | ' : '' ?>
+                                    <strong>Fin:</strong> <?= date('d/m/Y H:i', strtotime($encuesta['fecha_fin'])) ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <?php if ($encuesta['estado'] === 'activa'): ?>
+                            <div class="enlace-publico">
+                                <strong>Enlace público:</strong><br>
+                                <?= generarUrlResponder($encuesta['enlace_publico']) ?>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <div class="encuesta-actions">
+                            <a href="editar_encuesta.php?id=<?= $encuesta['id'] ?>" class="btn btn-primary">Editar</a>
+                            <a href="agregar_preguntas.php?id=<?= $encuesta['id'] ?>" class="btn btn-secondary">+ Preguntas</a>
+                            
+                            <!-- Botón de exportar disponible para todas las encuestas -->
+                            <form method="POST" style="display: inline;">
+                                <input type="hidden" name="encuesta_id" value="<?= $encuesta['id'] ?>">
+                                <button type="submit" name="exportar_excel" class="btn btn-success">📊 Exportar Respuestas</button>
+                            </form>
+                            
+                            <?php if ($encuesta['estado'] === 'borrador'): ?>
+                                <form method="POST" style="display: inline;">
+                                    <input type="hidden" name="encuesta_id" value="<?= $encuesta['id'] ?>">
+                                    <input type="hidden" name="nuevo_estado" value="activa">
+                                    <button type="submit" name="cambiar_estado" class="btn btn-success">Activar</button>
+                                </form>
+                            <?php elseif ($encuesta['estado'] === 'activa'): ?>
+                                <form method="POST" style="display: inline;">
+                                    <input type="hidden" name="encuesta_id" value="<?= $encuesta['id'] ?>">
+                                    <input type="hidden" name="nuevo_estado" value="pausada">
+                                    <button type="submit" name="cambiar_estado" class="btn btn-warning">Pausar</button>
+                                </form>
+                                <?php if ($es_super_admin): ?>
+                                    <form method="POST" style="display: inline;">
+                                        <input type="hidden" name="encuesta_id" value="<?= $encuesta['id'] ?>">
+                                        <input type="hidden" name="nuevo_estado" value="finalizada">
+                                        <button type="submit" name="cambiar_estado" class="btn btn-danger" 
+                                                onclick="return confirm('⚠️ ¿Estás seguro de finalizar esta encuesta? Esta acción no se puede deshacer.')">
+                                            Finalizar
+                                        </button>
+                                    </form>
+                                <?php endif; ?>
+                            <?php elseif ($encuesta['estado'] === 'pausada'): ?>
+                                <form method="POST" style="display: inline;">
+                                    <input type="hidden" name="encuesta_id" value="<?= $encuesta['id'] ?>">
+                                    <input type="hidden" name="nuevo_estado" value="activa">
+                                    <button type="submit" name="cambiar_estado" class="btn btn-success">Reactivar</button>
+                                </form>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</body>
+</html>

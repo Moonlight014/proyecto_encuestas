@@ -1,0 +1,98 @@
+- El super_admin será como un 'sudo', mientras que el administrador_departamental será el 'usuario' que se registra, pero tendrá menos 
+privilegios que el super admin, como por ejemplo, el administrador_departamental solo podra visualizar y modificar encuestas creadas por 
+si mismo, osea, cada usuario registrado con el rol de administrador_departamental SOLAMENTE PODRÁ VER Y EDITAR LAS ENCUESTAS CREADAS POR 
+EL MISMO(osea se deben filtrar por su 'ID'). Por lo tanto, hay que hacer otras pantallas de visualizacion para el 
+administrador_departamental con sus restricciones ya aplicadas.
+
+✔✔- Todas las preguntas creadas deben ser almacenadas en el 'Banco de Preguntas', de donde los administrador_departamental NO PODRAN BORRAR 
+PREGUNTAS ni editar/modificar.
+
+✔✔- Las preguntas del Banco solo pueden ser modificadas por un super_admin.
+
+✔✔- Si un administrador_departamental quiere 'modificar' una pregunta del banco para agregarla a una encuesta, lo que hará es: Tomar una
+pregunta del Banco y cambiarla, pero al momento de cambiarla esta no reemplaza a la pregunta en el banco, si no que se agrega como una
+pregunta NUEVA.
+
+✔- Solamente el super_admin puede FINALIZAR una encuesta, los administrador_departamental solo podrán 'pausar' y 'reactivar' sus encuestas.
+(debe modificarse eso en la vista del administrador_departamental)
+
+✔✔- Agregar un boton 'Exportar A Excel' para exportar las respuestas de esa encuesta.
+
+- Ajustar el formato de los Excel exportados para que sea lo más amigable a la vista, con esto me refiero a que, si en una pregunta de
+selección multiple trae varias respuestas, estan deben ser entendibles en el Excel sin importar cuantas sean (ojala que sea casilla por
+opcion elegida)
+
+- MUY IMPORTANTE QUE AL EXPORTAR A EXCEL LAS RESPUESTAS ESTEN EN FORMATO ENTENDIBLE, COSA DE QUE HASTA UN NIÑO DE 5 AÑOS PUEDA ENTENDER.
+
+✔- En las preguntas de selección multiple, poner la opcion de establecer un limite maximo de opciones seleccionadas(y por ende un mensaje de aviso si el encuestado intenta 
+seleccionar más del limite). Y que este limite sea establecido por el creador de la encuesta al momento de ingresar/crear la pregunta. Igualmente pueden haber preguntas 
+SIN LIMITE, pero no deben ser tantas las opciones, de ser posible maximo 5 opciones. Asi evitaremos problemas al momento de exportarlas a Excel.
+
+- Hacer que, en los links públicos, no se vean las cosas como ' Categoría: Satisfacción | Tipo: texto_corto ' en cada pregunta.
+
+- Hacer que cuando se dé el link público de una encuesta, sea un href.
+
+- Hacer que, a parte de generarse un link público de las encuestas, tambien se genere un código qr.
+
+- Establecer un maximo de caracteres en los espacios de respuesta de texto.
+
+- Hacer que se puedan registrar solo administrador_departamental, NO super_admin.
+
+- Para reestablecer contraseña se enviará codigo al correo con el que se registraron.
+
+- Validaciones con las fechas de creaciones, la fecha de inicio debe auto asignarse al momento de crearse, y la fecha de fin no puede ser
+anterior a esta. Así mismo para editar una encuesta.
+
+✔✔- En 'agregar_preguntas.php ' debe haber un boton para 'Crear Pregunta' que redirija a una pagina exclusiva para la creacion de preguntas
+y que sea personalizable.
+
+✔✔- En el interfaz de 'Crear Pregunta', si es accedido desde el interfaz de 'Agregar Preguntas' a una encuesta, entonces el boton de 
+'Volver al Banco' debe ser un boton que devuelva a el interfaz en el que estaba anteriormente, osea el de 'Agregar Preguntas'.
+
+- En Banco Preguntas debe haber un boton que sea de 'Crear Pregunta' que lleve a un interfaz para la creacion de preguntas y otro de boton 
+de 'Editar Pregunta' que me lleve a otro interfaz para editar la pregunta, en donde debe dejar BUSCAR una pregunta del Banco de Preguntas por
+su id unico, y en el interfaz me deje 'editar' ESA pregunta, pero realmente no será editar, ya que al momento de modificarse deberá guardarse
+en la base de datos (y en el Banco de preguntas) como UNA PREGUNTA NUEVA. A menos que sea un usuario super_admin, quien SI PUEDE EDITAR como
+tal las preguntas.
+
+- Modificar los tipos de preguntas:  
+    ✔Tipo: contacto (borrar)✔
+    ✔Tipo: net_promoter_score (borrar)✔
+    ✔Tipo: calificacion_estrellas (borrar)✔
+    Tipo: numero (Agregar la opcion de aumentar o disminuir en el input(a la derecha)) 
+    ✔Tipo: email (borrar)✔
+    ✔Tipo: clasificacion (borrar)✔
+    ✔Tipo: slider (borrar)✔
+    ✔Tipo: calificacion_estrellas (borrar)✔ 
+
+- Borrar Categorías de preguntas y sus preguntas:
+    - Atención Primaria  ✔
+    - Atención Secundaria ✔
+    - Atención Terciaria ✔
+    - Postas Rurales ✔
+    - SAPU (?)
+
+- Que los mensajes de aviso (creación, eliminar o modificar) sean temporales. Que de alguna forma se dejen de mostrar luego de unos segundos
+
+- Limpiar caché de paginas, cada vez que se termine un 'proceso' (Crear, editar, modificar, eliminar, tambien al responder las encuestas)
+eliminar el caché, de modo que si se recarga la página NO SE DUPLIQUEN procesos, o si se retrocede y se vuelve a una página.
+
+- En Banco de Preguntas agregar una función de 'Lupa' para buscar preguntas en especifico (Debe definirse si por Categoría o en general)
+
+- Implementar sistema de busqueda que FILTRE POR TIPO DE PREGUNTA.
+
+✔✔- Hacer que las categorias sean 'desplegables' (similar a un Dropdowns en Bootstrap) y que al desplegar muestre las preguntas de esa, 
+categoria. Algo como una lista desplegable que sea dinamica.
+
+- Hacer que los estilos estén en un archivo separado ('styles.css') y que los archivos que requieran de un estilo en especifico incluyan este
+para obtenerlo y usarlo. Al hacer esto evitar cambios visuales de como se veia con los estilos en cada archivo.
+
+- En navbar o header hacer que ' Bienvenido, (usuario)
+Cerrar Sesión' estén SIEMPRE.
+
+- Agregar a navbar o header un drowdown con 'accesos directos' a los interfaces importantes, como por ejemplo;
+    Ver Encuestas
+    Banco de Preguntas
+    Reportes
+
+- Arreglar la Vista Previa al crear preguntas para que funcione con todos los tipos de preguntas.

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Acordeones</title>
+    <style>
+        .categoria-content {
+            display: none;
+            padding: 1rem;
+            background: #f0f0f0;
+        }
+        .categoria-content.open {
+            display: block;
+        }
+        .categoria-header {
+            background: #0d47a1;
+            color: white;
+            padding: 1rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="categoria-header" onclick="toggleCategoria('test')">
+        Click para probar
+    </div>
+    <div class="categoria-content" id="content-test">
+        Contenido que debería aparecer/desaparecer
+    </div>
+
+    <script>
+        function toggleCategoria(categoria) {
+            console.log('Función llamada con:', categoria);
+            const content = document.getElementById('content-' + categoria);
+            console.log('Elemento encontrado:', content);
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                console.log('Cerrado');
+            } else {
+                content.classList.add('open');
+                console.log('Abierto');
+            }
+        }
+    </script>
+</body>
+</html>

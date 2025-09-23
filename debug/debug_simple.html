@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Debug</title></head>
+<body>
+    <div onclick="test()" style="background:blue;color:white;padding:10px;cursor:pointer;">
+        CLICK AQUÍ
+    </div>
+    <div id="contenido" style="display:none;padding:10px;background:yellow;">
+        CONTENIDO OCULTO
+    </div>
+    
+    <script>
+        function test() {
+            alert('JavaScript funciona');
+            const div = document.getElementById('contenido');
+            if (div.style.display === 'none') {
+                div.style.display = 'block';
+            } else {
+                div.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
+
