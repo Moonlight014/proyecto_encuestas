@@ -271,11 +271,11 @@ try {
     
     <div class="container">
         <?php if ($mensaje): ?>
-            <div class="alert alert-success"><?= htmlspecialchars($mensaje) ?></div>
+            <div class="alert alert-success auto-hide-alert"><?= htmlspecialchars($mensaje) ?></div>
         <?php endif; ?>
         
         <?php if ($error): ?>
-            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+            <div class="alert alert-danger auto-hide-alert"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
         
         <!-- Información del rol -->
@@ -397,5 +397,27 @@ try {
             </div>
         </div>
     </div>
+
+    <script>
+        // Auto-ocultar mensajes de alerta después de 5 segundos
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('.auto-hide-alert');
+            alerts.forEach(function(alert) {
+                // Agregar animación de fade-out
+                setTimeout(function() {
+                    alert.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                    alert.style.opacity = '0';
+                    alert.style.transform = 'translateY(-10px)';
+                    
+                    // Remover completamente después de la animación
+                    setTimeout(function() {
+                        if (alert.parentNode) {
+                            alert.parentNode.removeChild(alert);
+                        }
+                    }, 500);
+                }, 5000); // 5 segundos
+            });
+        });
+    </script>
 </body>
 </html>

@@ -354,11 +354,11 @@ if (empty($enlace_publico)) {
     
     <div class="container">
         <?php if ($error): ?>
-            <div class="alert alert-danger">
+            <div class="alert alert-danger auto-hide-alert">
                 <strong>Error:</strong> <?= $error ?>
             </div>
         <?php elseif ($mensaje): ?>
-            <div class="alert alert-success">
+            <div class="alert alert-success auto-hide-alert">
                 <?= $mensaje ?>
                 <br><br>
                 <strong>Municipalidad de Hualpén - Dirección de Salud</strong><br>
@@ -417,5 +417,27 @@ if (empty($enlace_publico)) {
         <p><strong>Municipalidad de Hualpén - Dirección de Salud</strong></p>
         <p>Su participación nos ayuda a mejorar los servicios de salud para toda la comunidad</p>
     </div>
+
+    <script>
+        // Auto-ocultar mensajes de alerta después de 5 segundos
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('.auto-hide-alert');
+            alerts.forEach(function(alert) {
+                // Agregar animación de fade-out
+                setTimeout(function() {
+                    alert.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                    alert.style.opacity = '0';
+                    alert.style.transform = 'translateY(-10px)';
+                    
+                    // Remover completamente después de la animación
+                    setTimeout(function() {
+                        if (alert.parentNode) {
+                            alert.parentNode.removeChild(alert);
+                        }
+                    }, 500);
+                }, 5000); // 5 segundos
+            });
+        });
+    </script>
 </body>
 </html>

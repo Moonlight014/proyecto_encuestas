@@ -100,3 +100,5 @@ Cerrar Sesión' estén SIEMPRE.
     Reportes
 
 - Arreglar la Vista Previa al crear preguntas para que funcione con todos los tipos de preguntas.
+
+- Para el formato de los excel, probar como se veria exportando tambien el contenido de las respuestas.

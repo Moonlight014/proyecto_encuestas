@@ -321,7 +321,7 @@ try {
     
     <div class="container">
         <?php if ($mensaje): ?>
-            <div class="alert alert-success">
+            <div class="alert alert-success auto-hide-alert">
                 <?= htmlspecialchars($mensaje) ?>
                 <button onclick="history.back()" style="margin-left: 1rem; background: #0d47a1; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
                     ← Continuar
@@ -330,7 +330,7 @@ try {
         <?php endif; ?>
         
         <?php if ($error): ?>
-            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+            <div class="alert alert-danger auto-hide-alert"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
         
         <div class="card">
@@ -823,6 +823,24 @@ try {
                 mostrarInfoTipo(tipoPregunta.value);
                 mostrarOpcionesPorTipo(tipoPregunta.value);
             }
+
+            // Auto-ocultar mensajes de alerta después de 5 segundos
+            const alerts = document.querySelectorAll('.auto-hide-alert');
+            alerts.forEach(function(alert) {
+                // Agregar animación de fade-out
+                setTimeout(function() {
+                    alert.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                    alert.style.opacity = '0';
+                    alert.style.transform = 'translateY(-10px)';
+                    
+                    // Remover completamente después de la animación
+                    setTimeout(function() {
+                        if (alert.parentNode) {
+                            alert.parentNode.removeChild(alert);
+                        }
+                    }, 500);
+                }, 5000); // 5 segundos
+            });
         });
     </script>
 </body>
