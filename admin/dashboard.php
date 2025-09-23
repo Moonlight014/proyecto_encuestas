@@ -186,7 +186,7 @@ $rol = $_SESSION['rol'];
             </div>
             <div class="user-info">
                 <span>Bienvenido, <?= htmlspecialchars($nombre) ?></span>
-                <a href="logout.php" class="logout-btn">Cerrar Sesión</a>
+                <a href="../public/logout.php" class="logout-btn">Cerrar Sesión</a>
             </div>
         </div>
     </div>

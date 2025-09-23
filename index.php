@@ -3,6 +3,12 @@ session_start();
 require_once 'config/conexion.php';
 
 $error = '';
+$mensaje = '';
+
+// Verificar si hay mensaje de logout
+if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'sesion_cerrada') {
+    $mensaje = 'Tu sesión ha sido cerrada correctamente.';
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
     try {
@@ -169,6 +175,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
             margin-bottom: 1.5rem;
             border: 1px solid #f5c6cb;
         }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #c3e6cb;
+        }
         .credenciales-demo {
             background-color: #e7f3ff;
             border: 1px solid #b3d9ff;
@@ -196,6 +210,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
                 <strong>Credenciales:</strong><br>
                 admin@dashualpen.cl / admin123
             </div>
+
+            <?php if ($mensaje): ?>
+                <div class="alert-success">
+                    <strong>✓</strong> <?= htmlspecialchars($mensaje) ?>
+                </div>
+            <?php endif; ?>
 
             <?php if ($error): ?>
                 <div class="alert-danger">
