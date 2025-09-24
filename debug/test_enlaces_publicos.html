@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Enlaces Públicos</title>
+    <!-- Librerías necesarias para QR -->
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .btn { padding: 8px 15px; margin: 5px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-info { background: #17a2b8; color: white; }
+        .btn-secondary { background: #6c757d; color: white; }
+        .qr-container { border: 1px solid #ccc; padding: 15px; margin: 10px 0; text-align: center; }
+    </style>
+</head>
+<body>
+    <h2>Prueba de Funcionalidades de Enlaces Públicos</h2>
+    
+    <div style="border: 1px solid #ddd; padding: 20px; margin: 20px 0;">
+        <h3>Encuesta de Prueba</h3>
+        <p><strong>Enlace público:</strong></p>
+        
+        <div class="enlace-container" style="margin: 10px 0;">
+            <div class="enlace-row" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <a href="http://localhost:8002/public/responder.php?id=test123" 
+                   target="_blank" 
+                   class="enlace-publico-btn btn btn-info"
+                   onclick="copiarAlPortapapeles('http://localhost:8002/public/responder.php?id=test123', this)">
+                    🔗 Abrir Encuesta
+                </a>
+                <button type="button" 
+                        class="btn btn-secondary qr-btn" 
+                        onclick="toggleQR('qr-test', 'http://localhost:8002/public/responder.php?id=test123')">
+                    📱 QR
+                </button>
+            </div>
+            <div class="url-display" style="font-size: 0.9em; color: #666; margin-top: 5px; word-break: break-all;">
+                http://localhost:8002/public/responder.php?id=test123
+            </div>
+            <div id="qr-test" class="qr-container" style="display: none;">
+                <div class="qr-code"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para copiar al portapapeles
+        async function copiarAlPortapapeles(url, elemento) {
+            try {
+                await navigator.clipboard.writeText(url);
+                
+                // Feedback visual
+                const textoOriginal = elemento.innerHTML;
+                elemento.innerHTML = '✅ ¡Copiado!';
+                elemento.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    elemento.innerHTML = textoOriginal;
+                    elemento.style.background = '#17a2b8';
+                }, 2000);
+                
+            } catch (err) {
+                // Fallback para navegadores que no soportan clipboard API
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    const textoOriginal = elemento.innerHTML;
+                    elemento.innerHTML = '✅ ¡Copiado!';
+                    elemento.style.background = '#28a745';
+                    
+                    setTimeout(() => {
+                        elemento.innerHTML = textoOriginal;
+                        elemento.style.background = '#17a2b8';
+                    }, 2000);
+                } catch (err) {
+                    alert('No se pudo copiar automáticamente. URL: ' + url);
+                }
+                
+                document.body.removeChild(textArea);
+            }
+        }
+
+        // Función para mostrar/ocultar código QR
+        function toggleQR(containerId, url) {
+            const container = document.getElementById(containerId);
+            const qrCodeDiv = container.querySelector('.qr-code');
+            
+            if (container.style.display === 'none') {
+                // Mostrar QR
+                container.style.display = 'block';
+                
+                // Generar QR si no existe
+                if (!qrCodeDiv.innerHTML) {
+                    qrCodeDiv.innerHTML = '<canvas id="qr-canvas-' + containerId + '"></canvas>';
+                    
+                    const qr = new QRious({
+                        element: document.getElementById('qr-canvas-' + containerId),
+                        value: url,
+                        size: 200,
+                        backgroundAlpha: 1,
+                        foreground: '#0d47a1',
+                        background: '#ffffff',
+                        level: 'M'
+                    });
+                    
+                    // Agregar botón para descargar QR
+                    const downloadBtn = document.createElement('button');
+                    downloadBtn.innerHTML = '💾 Descargar QR';
+                    downloadBtn.className = 'btn btn-info';
+                    downloadBtn.style.marginTop = '10px';
+                    downloadBtn.onclick = function() {
+                        const canvas = document.getElementById('qr-canvas-' + containerId);
+                        const link = document.createElement('a');
+                        link.download = 'qr-encuesta.png';
+                        link.href = canvas.toDataURL();
+                        link.click();
+                    };
+                    
+                    qrCodeDiv.appendChild(downloadBtn);
+                }
+            } else {
+                // Ocultar QR
+                container.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -362,7 +362,33 @@ try {
                         <?php if ($encuesta['estado'] === 'activa'): ?>
                             <div class="enlace-publico">
                                 <strong>Enlace público:</strong><br>
-                                <?= generarUrlResponder($encuesta['enlace_publico']) ?>
+                                <?php 
+                                $url_publica = generarUrlResponder($encuesta['enlace_publico']);
+                                $encuesta_id_encoded = urlencode($encuesta['enlace_publico']);
+                                ?>
+                                <div class="enlace-container" style="margin: 10px 0;">
+                                    <div class="enlace-row" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                        <a href="<?= $url_publica ?>" 
+                                           target="_blank" 
+                                           class="enlace-publico-btn btn btn-info btn-sm"
+                                           onclick="copiarAlPortapapeles('<?= $url_publica ?>', this)"
+                                           style="text-decoration: none; flex: 1; min-width: 200px;">
+                                            🔗 Abrir Encuesta
+                                        </a>
+                                        <button type="button" 
+                                                class="btn btn-secondary btn-sm qr-btn" 
+                                                onclick="toggleQR('qr-<?= $encuesta['id'] ?>', '<?= $url_publica ?>')"
+                                                style="white-space: nowrap;">
+                                            📱 QR
+                                        </button>
+                                    </div>
+                                    <div class="url-display" style="font-size: 0.9em; color: #666; margin-top: 5px; word-break: break-all;">
+                                        <?= $url_publica ?>
+                                    </div>
+                                    <div id="qr-<?= $encuesta['id'] ?>" class="qr-container" style="display: none; margin-top: 10px; text-align: center;">
+                                        <div class="qr-code"></div>
+                                    </div>
+                                </div>
                             </div>
                         <?php endif; ?>
                         
@@ -411,5 +437,128 @@ try {
             <?php endif; ?>
         </div>
     </div>
+
+    <!-- Librerías necesarias para QR -->
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    
+    <script>
+        // Función para copiar al portapapeles
+        async function copiarAlPortapapeles(url, elemento) {
+            try {
+                await navigator.clipboard.writeText(url);
+                
+                // Feedback visual
+                const textoOriginal = elemento.innerHTML;
+                elemento.innerHTML = '✅ ¡Copiado!';
+                elemento.style.background = '#28a745';
+                
+                setTimeout(() => {
+                    elemento.innerHTML = textoOriginal;
+                    elemento.style.background = '';
+                }, 2000);
+                
+            } catch (err) {
+                // Fallback para navegadores que no soportan clipboard API
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    const textoOriginal = elemento.innerHTML;
+                    elemento.innerHTML = '✅ ¡Copiado!';
+                    elemento.style.background = '#28a745';
+                    
+                    setTimeout(() => {
+                        elemento.innerHTML = textoOriginal;
+                        elemento.style.background = '';
+                    }, 2000);
+                } catch (err) {
+                    alert('No se pudo copiar automáticamente. URL: ' + url);
+                }
+                
+                document.body.removeChild(textArea);
+            }
+        }
+
+        // Función para mostrar/ocultar código QR
+        function toggleQR(containerId, url) {
+            const container = document.getElementById(containerId);
+            const qrCodeDiv = container.querySelector('.qr-code');
+            
+            if (container.style.display === 'none') {
+                // Mostrar QR
+                container.style.display = 'block';
+                
+                // Generar QR si no existe
+                if (!qrCodeDiv.innerHTML) {
+                    qrCodeDiv.innerHTML = '<canvas id="qr-canvas-' + containerId + '"></canvas>';
+                    
+                    const qr = new QRious({
+                        element: document.getElementById('qr-canvas-' + containerId),
+                        value: url,
+                        size: 200,
+                        backgroundAlpha: 1,
+                        foreground: '#0d47a1',
+                        background: '#ffffff',
+                        level: 'M'
+                    });
+                    
+                    // Agregar botón para descargar QR
+                    const downloadBtn = document.createElement('button');
+                    downloadBtn.innerHTML = '💾 Descargar QR';
+                    downloadBtn.className = 'btn btn-sm btn-primary';
+                    downloadBtn.style.marginTop = '10px';
+                    downloadBtn.onclick = function() {
+                        const canvas = document.getElementById('qr-canvas-' + containerId);
+                        const link = document.createElement('a');
+                        link.download = 'qr-encuesta.png';
+                        link.href = canvas.toDataURL();
+                        link.click();
+                    };
+                    
+                    qrCodeDiv.appendChild(downloadBtn);
+                }
+            } else {
+                // Ocultar QR
+                container.style.display = 'none';
+            }
+        }
+
+        // Mejorar estilos dinámicamente
+        document.addEventListener('DOMContentLoaded', function() {
+            // Agregar estilos para los botones QR
+            const style = document.createElement('style');
+            style.textContent = `
+                .btn-info {
+                    background: #17a2b8;
+                    color: white;
+                }
+                .btn-info:hover {
+                    background: #138496;
+                    color: white;
+                }
+                .btn-sm {
+                    padding: 0.25rem 0.5rem;
+                    font-size: 0.875rem;
+                }
+                .qr-container {
+                    border: 1px solid #dee2e6;
+                    border-radius: 8px;
+                    padding: 15px;
+                    background: #ffffff;
+                }
+                .enlace-publico {
+                    background: #f8f9fa !important;
+                    border: 1px solid #dee2e6;
+                    border-radius: 6px;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
 </body>
+</html>
 </html>
