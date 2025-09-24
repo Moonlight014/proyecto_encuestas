@@ -17,8 +17,13 @@ try {
     $stmt = $pdo->query("SELECT COUNT(*) FROM banco_preguntas WHERE activa = 1");
     $total_preguntas = $stmt->fetchColumn();
     
+    // Obtener total de respuestas recibidas
+    $stmt = $pdo->query("SELECT COUNT(*) FROM respuestas_encuesta");
+    $total_respuestas = $stmt->fetchColumn();
+    
 } catch(PDOException $e) {
     $error = "Error de conexión: " . $e->getMessage();
+    $total_respuestas = 0;
 }
 
 $nombre = $_SESSION['nombre'];
@@ -207,7 +212,7 @@ $rol = $_SESSION['rol'];
                 <div class="stat-label">Preguntas en el Banco</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">0</div>
+                <div class="stat-number"><?= $total_respuestas ?></div>
                 <div class="stat-label">Respuestas Recibidas</div>
             </div>
         </div>
