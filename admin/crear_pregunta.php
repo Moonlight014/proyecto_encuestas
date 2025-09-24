@@ -421,9 +421,8 @@ try {
                     <input type="number" name="limite_maximo" class="form-control" 
                            placeholder="0 = Sin límite" min="0" max="2" style="width: 200px;"
                            oninput="validarLimiteInput(this)">
-                    <small style="color: #6c757d;"> Máximo actual: 2 (número de opciones)</small>
-                           <br>
-                    <small style="color: #6c757d;">Deja en 0 para selecciones ilimitadas(Máximo recomendado: 5).</small>
+                    <small id="limite-help-text" style="color: #6c757d; display: block; margin-top: 0.5rem;">Máximo actual: 2 opciones</small>
+                    <small style="color: #6c757d; display: block; margin-top: 0.25rem;">Deja en 0 para selecciones ilimitadas (Máximo recomendado: 5).</small>
                 </div>
             ` : '';
             
@@ -435,14 +434,15 @@ try {
                             <div class="opcion-item">
                                 <input type="text" name="opciones_lista[opcion_1]" class="form-control" 
                                        placeholder="Primera opción" required>
-                                <button type="button" class="btn-remove" onclick="this.parentElement.remove()">✕</button>
+                                <button type="button" class="btn-remove" onclick="eliminarOpcion(this)">✕</button>
                             </div>
                             <div class="opcion-item">
                                 <input type="text" name="opciones_lista[opcion_2]" class="form-control" 
                                        placeholder="Segunda opción" required>
-                                <button type="button" class="btn-remove" onclick="this.parentElement.remove()">✕</button>
+                                <button type="button" class="btn-remove" onclick="eliminarOpcion(this)">✕</button>
                             </div>
                         </div>
+                        <br>
                         <button type="button" onclick="agregarOpcion()" class="btn btn-secondary">+ Agregar Opción</button>
                     </div>
                     ${limiteField}
@@ -617,10 +617,10 @@ try {
                     limiteInput.value = opciones;
                 }
                 
-                // Actualizar el texto de ayuda
-                const helpText = limiteInput.nextElementSibling;
-                if (helpText && helpText.tagName === 'SMALL') {
-                    helpText.innerHTML = `Deja en 0 para selecciones ilimitadas (Máximo recomendado: 5). Máximo actual: ${opciones} (número de opciones)`;
+                // Actualizar solo el texto del número de opciones
+                const helpText = document.getElementById('limite-help-text');
+                if (helpText) {
+                    helpText.innerHTML = `Máximo actual: ${opciones} opciones`;
                 }
             }
         }
@@ -752,6 +752,8 @@ try {
             if (tipoPregunta.value) {
                 mostrarInfoTipo(tipoPregunta.value);
                 mostrarOpcionesPorTipo(tipoPregunta.value);
+                // Validar límite de opciones al cargar
+                setTimeout(() => validarLimiteOpciones(), 100);
             }
 
             // Auto-ocultar mensajes de alerta después de 5 segundos

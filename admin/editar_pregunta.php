@@ -599,9 +599,9 @@ try {
                     <label class="form-label">Límite Máximo de Selecciones</label>
                     <input type="number" name="limite_maximo" class="form-control" 
                            placeholder="0 = Sin límite" min="0" max="10" style="width: 200px;"
-                           value="${limite_actual}">
-                           <br>
-                    <small style="color: #6c757d;">Deja en 0 para selecciones ilimitadas. Máximo recomendado: 5</small>
+                           value="${limite_actual}" oninput="validarLimiteInputEditar(this)">
+                    <small id="limite-help-text-editar" style="color: #6c757d; display: block; margin-top: 0.5rem;">Máximo actual: -- opciones</small>
+                    <small style="color: #6c757d; display: block; margin-top: 0.25rem;">Deja en 0 para selecciones ilimitadas (Máximo recomendado: 5).</small>
                 </div>
             ` : '';
             
@@ -610,6 +610,7 @@ try {
                     <label class="form-label">${titulo} *</label>
                     <div class="opciones-container">
                         <div id="opcionesList"></div>
+                        <br>
                         <button type="button" onclick="agregarOpcion()" class="btn btn-secondary">+ Agregar Opción</button>
                     </div>
                     ${limiteField}
@@ -832,11 +833,14 @@ try {
             // Mostrar opciones iniciales si hay un tipo seleccionado
             if (tipoPregunta.value) {
                 mostrarOpcionesPorTipo(tipoPregunta.value);
+                // Validar límite después de cargar opciones
+                setTimeout(() => validarLimiteOpcionesEditar(), 200);
             }
             
             // Cambiar opciones cuando cambie el tipo
             tipoPregunta.addEventListener('change', function() {
                 mostrarOpcionesPorTipo(this.value);
+                setTimeout(() => validarLimiteOpcionesEditar(), 200);
             });
 
             // Auto-ocultar mensajes de alerta después de 5 segundos
@@ -856,6 +860,49 @@ try {
                     }, 500);
                 }, 3000); // 3 segundos
             });
+        });
+        
+        // Función para validar límite de opciones en editar
+        function validarLimiteOpcionesEditar() {
+            const opciones = document.querySelectorAll('#opcionesList .opcion-item').length;
+            const limiteInput = document.querySelector('input[name="limite_maximo"]');
+            
+            if (limiteInput) {
+                limiteInput.max = opciones;
+                if (parseInt(limiteInput.value) > opciones) {
+                    limiteInput.value = opciones;
+                }
+                
+                // Actualizar solo el texto del número de opciones
+                const helpText = document.getElementById('limite-help-text-editar');
+                if (helpText) {
+                    helpText.innerHTML = `Máximo actual: ${opciones} opciones`;
+                }
+            }
+        }
+        
+        function validarLimiteInputEditar(input) {
+            const opciones = document.querySelectorAll('#opcionesList .opcion-item').length;
+            const valor = parseInt(input.value);
+            
+            if (valor > opciones) {
+                input.value = opciones;
+                alert(`El límite no puede ser mayor al número de opciones disponibles (${opciones})`);
+            }
+        }
+        
+        // Sobrescribir funciones existentes para incluir validación de límite
+        const originalAgregarOpcion = agregarOpcion;
+        agregarOpcion = function(key = '', value = '') {
+            originalAgregarOpcion(key, value);
+            setTimeout(() => validarLimiteOpcionesEditar(), 50);
+        };
+        
+        // Agregar event listener para el botón de eliminar opciones
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-remove') && e.target.closest('#opcionesList')) {
+                setTimeout(() => validarLimiteOpcionesEditar(), 50);
+            }
         });
     </script>
 </body>

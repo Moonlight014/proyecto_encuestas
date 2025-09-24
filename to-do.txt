@@ -105,7 +105,7 @@ avanzar a la pagina (de la que se retrocedió) no se queden los datos guardados.
 ✅✅- Hacer que las categorias sean 'desplegables' (similar a un Dropdowns en Bootstrap) y que al desplegar muestre las preguntas de esa, 
 categoria. Algo como una lista desplegable que sea dinamica.
 
-🟨🟨- Hacer que los estilos estén en un archivo separado ('styles.css') y que los archivos que requieran de un estilo en especifico incluyan 
+✅✅- Hacer que los estilos estén en un archivo separado ('styles.css') y que los archivos que requieran de un estilo en especifico incluyan 
 este para obtenerlo y usarlo. Al hacer esto evitar cambios visuales de como se veia con los estilos en cada archivo.
 
 🟨🟨- En 'navbar' o 'header' hacer que el mensaje ' Bienvenido, (usuario)
@@ -116,15 +116,15 @@ Cerrar Sesión(boton que cierre la sesion)' estén SIEMPRE en todas las pantalla
     - Banco de Preguntas
     - Reportes (no sé)
 
-🟨🟨- Arreglar la Vista Previa al crear preguntas para que funcione con todos los tipos de preguntas.
-🟨🟨- La vista previa de preguntas se mostrará en la creacion de encuestas 
+🟨🟨- Arreglar la Vista Previa al crear preguntas para que funcione perfectamente con todos los tipos de preguntas.
+🟨🟨- La vista previa de preguntas se mostrará en la creacion de preguntas.
 
-🟨🟨- Pulir en la funcion de 'limite de selecciones en preguntas de selección multiple' ya que actualmente el codigo por default 
+✅✅- Pulir en la funcion de 'limite de selecciones en preguntas de selección multiple' ya que actualmente el codigo por default 
 ( Máximo actual: 2 (número de opciones) Deja en 0 para selecciones ilimitadas(Máximo recomendado: 5).) al borrar todas las opciones y agregar
 una nuevamente se vuelve así (Deja en 0 para selecciones ilimitadas (Máximo recomendado: 5). Máximo actual: 1 (número de opciones) Deja en 
 0 para selecciones ilimitadas(Máximo recomendado: 5).). Ademas hay redundancia, esa parte se repite mucho en el codigo de la funcion. 
 
-🟨🟨- Ajustar las vistas para que sean dinamicas y adaptables a interfaz movil/tablet.
+🟨✅- Ajustar las vistas para que sean dinamicas y adaptables a interfaz movil/tablet.
 
 🟨🟨- En export_excel.php, modificar codigo para que, en caso de que no se encuentre el 'autoload.php' ejecutar un codigo de composer que lo
 vuelva a generar, para que así siemre esté autoload y por ende siempre se exporte el archivo en el formato adecuado (XLSX).
