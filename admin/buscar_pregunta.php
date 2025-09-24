@@ -51,180 +51,27 @@ try {
     <title>Buscar y Editar Pregunta - Sistema de Encuestas</title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos del sistema -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/lists.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #F8F9FA;
-            min-height: 100vh;
-            color: #333;
-        }
-        .header {
-            background: #0d47a1;
-            color: white;
-            padding: 1rem;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-        }
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        /* Estilos específicos de buscar pregunta que no están en archivos comunes */
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: white;
-        }
-        .back-btn {
-            background: #32CD32;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        .back-btn:hover {
-            background: #228B22;
-            transform: translateY(-1px);
-        }
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .section {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-            border-top: 4px solid #32CD32;
-        }
-        .section-title {
-            color: #0d47a1;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-        .search-form {
+            color: var(--text-white);
             display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            align-items: end;
-        }
-        .form-group {
-            flex: 1;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #333;
-        }
-        .form-control {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e9ecef;
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-        }
-        .form-control:focus {
-            outline: none;
-            border-color: #0d47a1;
-        }
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            font-weight: 500;
-        }
-        .btn-primary {
-            background: #0d47a1;
-            color: white;
-        }
-        .btn-primary:hover {
-            background: #1565c0;
-            transform: translateY(-1px);
-        }
-        .btn-success {
-            background: #32CD32;
-            color: white;
-        }
-        .btn-success:hover {
-            background: #228B22;
-            transform: translateY(-1px);
-        }
-        .btn-warning {
-            background: #ffc107;
-            color: #212529;
-        }
-        .btn-warning:hover {
-            background: #e0a800;
-            transform: translateY(-1px);
-        }
-        .alert {
-            padding: 1rem;
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-        }
-        .alert-success {
-            background: #f0f8f0;
-            color: #0f5132;
-            border-left: 4px solid #32CD32;
-        }
-        .alert-danger {
-            background: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #dc3545;
-        }
-        .pregunta-card {
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid #32CD32;
-        }
-        .pregunta-header {
-            display: flex;
-            justify-content: between;
             align-items: center;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .pregunta-id {
-            background: #0d47a1;
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 1.2rem;
             font-weight: 600;
         }
-        .pregunta-meta {
-            color: #6c757d;
-            font-size: 0.9rem;
+        .logo i {
+            margin-right: 0.5rem;
         }
-        .pregunta-texto {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin: 1rem 0;
-            color: #333;
+        /* Ajuste específico de contenedor para esta página */
+        .container {
+            max-width: 1000px;
         }
+
+        /* Estilos específicos para opciones-preview */
         .opciones-preview {
             background: #f8f9fa;
             padding: 1rem;
@@ -241,28 +88,7 @@ try {
             color: #6c757d;
             font-size: 0.9rem;
         }
-        .actions-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .role-info {
-            background: #e7f3ff;
-            padding: 1rem;
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid #0d47a1;
-        }
-        .role-info h4 {
-            color: #0d47a1;
-            margin-bottom: 0.5rem;
-        }
-        .role-info p {
-            color: #084298;
-            margin: 0;
-            font-size: 0.9rem;
-        }
+
     </style>
 </head>
 <body>

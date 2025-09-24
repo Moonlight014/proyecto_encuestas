@@ -1,0 +1,359 @@
+/* 
+ * Estilos específicos para Formularios de Preguntas
+ * Contiene estilos para crear y editar preguntas con funcionalidades avanzadas
+ */
+
+/* ========================================
+   FORMULARIOS DE PREGUNTAS - COMPONENTES ESPECÍFICOS
+   ======================================== */
+
+/* Información del tipo de pregunta */
+.tipo-info {
+    background: #e3f2fd;
+    border: 1px solid #2196f3;
+    border-radius: var(--border-radius-sm);
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #1565c0;
+}
+
+/* Vista previa de pregunta */
+.preview-section {
+    background: var(--bg-light);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.preview-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.preview-content {
+    padding: 1rem;
+    background: var(--bg-white);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-light);
+}
+
+/* Configuración de opciones específicas */
+.config-section {
+    background: var(--bg-light);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    padding: 1.5rem;
+    margin-top: 1rem;
+}
+
+.config-title {
+    color: var(--color-primary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Elementos dinámicos de opciones */
+.dynamic-options {
+    margin-top: 1rem;
+}
+
+.option-group {
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.option-group:last-child {
+    margin-bottom: 0;
+}
+
+.option-group-title {
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+}
+
+/* Controles de rango y escala */
+.range-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.range-input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.range-input-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: var(--text-primary);
+}
+
+.range-input-group input {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.9rem;
+}
+
+/* Controles de matriz */
+.matrix-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.matrix-column {
+    background: var(--bg-white);
+    padding: 1rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-light);
+}
+
+.matrix-column-title {
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Lista de elementos dinámicos */
+.dynamic-list {
+    margin-bottom: 1rem;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: var(--bg-light);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-light);
+}
+
+.list-item:last-child {
+    margin-bottom: 0;
+}
+
+.list-item input {
+    flex: 1;
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.9rem;
+}
+
+.list-item .btn-remove {
+    flex-shrink: 0;
+}
+
+/* Botón para agregar elementos */
+.add-item-btn {
+    background: var(--color-secondary);
+    color: var(--text-white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.add-item-btn:hover {
+    background: var(--color-secondary-hover);
+}
+
+/* Información de ayuda */
+.help-text {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    line-height: 1.4;
+}
+
+.help-text.important {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.help-text.warning {
+    color: #856404;
+}
+
+/* Límites y validaciones */
+.limit-info {
+    background: #fff3cd;
+    border: 1px solid var(--color-warning);
+    border-radius: var(--border-radius-sm);
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #856404;
+}
+
+.limit-info .icon {
+    margin-right: 0.5rem;
+}
+
+/* Información contextual */
+.context-info {
+    background: #e7f3ff;
+    border-left: 4px solid var(--color-primary);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.9rem;
+    color: #084298;
+}
+
+.context-info strong {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Configuración de fecha */
+.date-config {
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius-sm);
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+.date-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #e7f3ff;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 1rem;
+}
+
+.date-info .icon {
+    color: var(--color-primary);
+    font-size: 1.1rem;
+}
+
+.current-date {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+/* Botones de acción del formulario */
+.form-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.form-actions .btn {
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Indicadores de progreso */
+.progress-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    background: var(--bg-light);
+    border-radius: var(--border-radius-sm);
+    border-left: 4px solid var(--color-success);
+}
+
+.progress-indicator .icon {
+    color: var(--color-success);
+}
+
+.progress-text {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   RESPONSIVE - FORMULARIOS DE PREGUNTAS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .matrix-controls {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .range-controls {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .form-actions .btn {
+        flex: none;
+        width: 100%;
+    }
+    
+    .list-item {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    
+    .list-item .btn-remove {
+        align-self: flex-end;
+    }
+}
+
+@media (max-width: 480px) {
+    .config-section,
+    .option-group,
+    .matrix-column,
+    .date-config {
+        padding: 1rem;
+    }
+    
+    .range-controls {
+        grid-template-columns: 1fr;
+    }
+    
+    .progress-indicator {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    
+    .context-info strong {
+        flex-direction: column;
+        gap: 0.25rem;
+        text-align: center;
+    }
+}

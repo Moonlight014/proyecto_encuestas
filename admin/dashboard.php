@@ -35,26 +35,13 @@ $rol = $_SESSION['rol'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Principal - DAS Hualpén</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos del sistema -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background: #0d47a1;
-            color: white;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        /* Estilos específicos del dashboard que no están en archivos externos */
         .logo-header {
             display: flex;
             align-items: center;
@@ -63,7 +50,7 @@ $rol = $_SESSION['rol'];
         .logo-small {
             width: 40px;
             height: 40px;
-            background: #32CD32;
+            background: var(--color-success);
             border-radius: 6px;
             display: flex;
             align-items: center;
@@ -75,71 +62,18 @@ $rol = $_SESSION['rol'];
             font-weight: 600;
             margin: 0;
         }
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .logout-btn {
-            background: #32CD32;
-            color: white;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-        .logout-btn:hover {
-            background: #228B22;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .welcome-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-left: 4px solid #32CD32;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #0d47a1;
-            margin-bottom: 0.5rem;
-        }
-        .stat-label {
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
         .actions-section {
-            background: white;
+            background: var(--bg-white);
             padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
         }
         .section-title {
-            color: #212529;
+            color: var(--text-dark);
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
-            border-bottom: 2px solid #f8f9fa;
+            border-bottom: 2px solid var(--bg-light);
             padding-bottom: 0.5rem;
         }
         .action-buttons {
@@ -151,34 +85,31 @@ $rol = $_SESSION['rol'];
             display: block;
             text-decoration: none;
             padding: 1rem;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             text-align: center;
             font-weight: 500;
             transition: all 0.2s;
         }
-        .btn-primary {
-            background: #0d47a1;
-            color: white;
-        }
-        .btn-primary:hover {
-            background: #1565c0;
+        .action-btn:hover {
             transform: translateY(-2px);
-        }
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-        .btn-secondary:hover {
-            background: #5a6268;
-            transform: translateY(-2px);
+            text-decoration: none;
         }
         .btn-info {
-            background: #32CD32;
-            color: white;
+            background: var(--color-success);
+            color: var(--text-white);
         }
         .btn-info:hover {
-            background: #228B22;
-            transform: translateY(-2px);
+            background: var(--color-success-hover);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
     </style>
 </head>

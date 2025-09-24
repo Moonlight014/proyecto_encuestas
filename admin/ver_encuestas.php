@@ -91,223 +91,48 @@ try {
     <title>Gestionar Encuestas - DAS Hualpén</title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos del sistema -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/lists.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background: #0d47a1;
-            color: white;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .back-btn {
-            background: #32CD32;
-            color: white;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-        .back-btn:hover {
-            background: #228B22;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .page-header {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-top: 4px solid #32CD32;
-        }
-        .page-title {
-            color: #0d47a1;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        .alert {
-            padding: 12px 16px;
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid;
-        }
-        .alert-success {
-            background-color: #f0f8f0;
-            border-left-color: #32CD32;
-            color: #0f5132;
-        }
-        .alert-danger {
-            background-color: #f8d7da;
-            border-left-color: #dc3545;
-            color: #721c24;
-        }
-        .encuestas-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-        .encuesta-card {
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-left: 4px solid #e9ecef;
-        }
-        .encuesta-card.borrador {
-            border-left-color: #6c757d;
-        }
-        .encuesta-card.activa {
-            border-left-color: #32CD32;
-        }
-        .encuesta-card.pausada {
-            border-left-color: #ffc107;
-        }
-        .encuesta-card.finalizada {
-            border-left-color: #dc3545;
-        }
-        .encuesta-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-        .encuesta-title {
-            color: #0d47a1;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        .estado-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-        .estado-borrador {
-            background: #f8f9fa;
-            color: #6c757d;
-        }
-        .estado-activa {
-            background: #d4edda;
-            color: #155724;
-        }
-        .estado-pausada {
-            background: #fff3cd;
-            color: #856404;
-        }
-        .estado-finalizada {
-            background: #f8d7da;
-            color: #721c24;
-        }
-        .encuesta-meta {
-            color: #6c757d;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-        .encuesta-descripcion {
-            color: #495057;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-        .encuesta-actions {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        .btn-primary {
-            background: #0d47a1;
-            color: white;
-        }
-        .btn-primary:hover {
-            background: #1565c0;
-        }
-        .btn-success {
-            background: #32CD32;
-            color: white;
-        }
-        .btn-success:hover {
-            background: #228B22;
-        }
-        .btn-warning {
-            background: #ffc107;
-            color: #212529;
-        }
-        .btn-warning:hover {
-            background: #e0a800;
-        }
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-        .btn-danger:hover {
-            background: #c82333;
-        }
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
+        /* Estilos específicos de ver encuestas que no están en archivos comunes */
         .enlace-publico {
-            background: #f8f9fa;
+            background: var(--bg-light);
             padding: 0.5rem;
-            border-radius: 4px;
+            border-radius: var(--border-radius-sm);
             font-family: monospace;
             font-size: 0.85rem;
             margin-top: 0.5rem;
             word-break: break-all;
         }
-        .empty-state {
-            background: white;
-            padding: 3rem;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
         .empty-icon {
             font-size: 3rem;
-            color: #6c757d;
+            color: var(--text-muted);
             margin-bottom: 1rem;
         }
-        
-        /* Estilos para el botón Nueva Encuesta */
         .action-btn {
+            background: var(--color-success);
+            color: var(--text-white);
+            padding: 0.6rem 1.2rem;
+            text-decoration: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+            font-weight: 500;
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             box-shadow: 0 2px 8px rgba(50, 205, 50, 0.2);
         }
         .action-btn:hover {
-            background: #228B22 !important;
+            background: var(--color-success-hover) !important;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(50, 205, 50, 0.3);
+            color: var(--text-white);
+            text-decoration: none;
         }
-        
         /* Responsive para el header */
         @media (max-width: 768px) {
             .page-header > div {
