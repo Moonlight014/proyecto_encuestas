@@ -462,7 +462,7 @@ try {
                 <div style="margin-top: 2rem; display: flex; gap: 1rem;">
                     <button type="submit" name="crear_pregunta" class="btn btn-success"><i class="fa-solid fa-save"></i> Crear Pregunta</button>
                     <button type="button" onclick="limpiarFormulario()" class="btn btn-secondary"><i class="fa-solid fa-trash"></i> Limpiar</button>
-                    <button type="button" onclick="history.back()" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+                    <button type="button" onclick="history.back()" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver</button>
                 </div>
             </form>
         </div>

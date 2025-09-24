@@ -55,9 +55,10 @@ try {
         if (empty($titulo) || empty($descripcion)) {
             $_SESSION['error_encuesta'] = "El título y la descripción son obligatorios.";
         } else {
-            // Validación: Fecha fin no puede ser anterior a fecha inicio (ahora)
-            if ($fecha_fin && $fecha_fin < $fecha_inicio) {
-                $_SESSION['error_encuesta'] = "La Fecha de Fin no puede ser anterior a la Fecha de Inicio (se toma automáticamente con la fecha y hora actual).";
+            // Validación ESTRICTA: fecha_fin debe ser futura (no puede ser igual o anterior al momento actual)
+            $momento_actual = date('Y-m-d H:i:s');
+            if ($fecha_fin && $fecha_fin <= $momento_actual) {
+                $_SESSION['error_encuesta'] = "La fecha de cierre debe ser futura. No se puede establecer una fecha que ya pasó o es el momento actual.";
             } else {
                 // Generar enlace público único
                 $enlace_publico = 'enc_' . uniqid();
@@ -81,6 +82,15 @@ try {
     
 } catch(PDOException $e) {
     $error = "Error de conexión: " . $e->getMessage();
+}
+
+// Determinar texto del botón "Volver" basado en el referer
+$texto_volver = "Volver";
+$referer = $_SERVER['HTTP_REFERER'] ?? '';
+if (strpos($referer, 'ver_encuestas.php') !== false) {
+    $texto_volver = "Volver a Encuestas";
+} elseif (strpos($referer, 'dashboard.php') !== false) {
+    $texto_volver = "Volver al Panel";
 }
 ?>
 
@@ -211,7 +221,7 @@ try {
     <div class="header">
         <div class="header-content">
             <h1>Crear Nueva Encuesta</h1>
-            <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver al Panel</a>
+            <a href="#" onclick="volverAtras(); return false;" class="back-btn"><i class="fa-solid fa-arrow-left"></i> <?= htmlspecialchars($texto_volver) ?></a>
         </div>
     </div>
     
@@ -255,17 +265,17 @@ try {
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label">Fecha de Inicio</label>
-                        <input type="text" class="form-control" value="<?= date('d/m/Y H:i') ?> (automática)" readonly disabled>
-                        <small style="color:#6c757d;">Se toma automáticamente al crear la encuesta.</small>
+                        <label class="form-label">Fecha de Apertura</label>
+                        <input type="text" class="form-control" value="<?= date('d/m/Y H:i') ?> (hoy)" readonly disabled>
+                        <small style="color:#6c757d;">La encuesta estará disponible desde ahora.</small>
                     </div>
                     
                     <div class="form-group">
-                        <label for="fecha_fin" class="form-label">Fecha de Fin (opcional)</label>
+                        <label for="fecha_fin" class="form-label">Fecha de Cierre (opcional)</label>
                         <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control"
-                               min="<?= date('Y-m-d\TH:i') ?>"
+                               min="<?= date('Y-m-d\TH:i', strtotime('+5 minutes')) ?>"
                                value="<?= isset($_POST['fecha_fin']) ? htmlspecialchars($_POST['fecha_fin']) : '' ?>">
-                        <small style="color:#6c757d;">Debe ser igual o posterior a la fecha de inicio (ahora).</small>
+                        <small style="color:#6c757d;">Si deseas que la encuesta tenga una fecha límite, selecciona cuándo debe cerrar.</small>
                     </div>
                 </div>
                 
@@ -275,5 +285,105 @@ try {
             </form>
         </div>
     </div>
+
+    <script>
+        // Función para volver a la página anterior de manera inteligente
+        function volverAtras() {
+            // Verificar si hay historial disponible y es seguro navegar hacia atrás
+            if (window.history.length > 1 && document.referrer) {
+                try {
+                    // Verificar si el referrer es del mismo dominio
+                    const referrerUrl = new URL(document.referrer);
+                    const currentUrl = new URL(window.location.href);
+                    
+                    if (referrerUrl.hostname === currentUrl.hostname) {
+                        // Verificar que no sea la misma página (evita loops)
+                        if (document.referrer !== window.location.href) {
+                            window.history.back();
+                            return;
+                        }
+                    }
+                } catch (e) {
+                    // Error al procesar URLs, usar fallback
+                    console.log('Error procesando referrer:', e);
+                }
+            }
+            
+            // Fallback: ir al dashboard por defecto
+            window.location.href = 'dashboard.php';
+        }
+
+        // Validación ESTRICTA en tiempo real para fecha_fin
+        document.addEventListener('DOMContentLoaded', function() {
+            const fechaFinInput = document.getElementById('fecha_fin');
+            
+            if (fechaFinInput) {
+                // Actualizar valor mínimo cada vez que se abre el selector
+                function updateMinDateTime() {
+                    const now = new Date();
+                    // Agregar 5 minutos de margen para evitar conflictos
+                    now.setMinutes(now.getMinutes() + 5);
+                    
+                    const minDateTime = now.getFullYear() + '-' + 
+                        String(now.getMonth() + 1).padStart(2, '0') + '-' + 
+                        String(now.getDate()).padStart(2, '0') + 'T' + 
+                        String(now.getHours()).padStart(2, '0') + ':' + 
+                        String(now.getMinutes()).padStart(2, '0');
+                    
+                    fechaFinInput.setAttribute('min', minDateTime);
+                }
+                
+                // Establecer mínimo inicial
+                updateMinDateTime();
+                
+                // Actualizar mínimo cuando se hace foco en el campo
+                fechaFinInput.addEventListener('focus', updateMinDateTime);
+                
+                // Validación ESTRICTA al cambiar el valor
+                fechaFinInput.addEventListener('change', function() {
+                    const selectedDateTime = new Date(this.value);
+                    const currentDateTime = new Date();
+                    
+                    // Debe ser estrictamente mayor al momento actual (no igual)
+                    if (selectedDateTime <= currentDateTime) {
+                        alert('La fecha de cierre debe ser futura. No puedes seleccionar una fecha que ya pasó o es el momento actual.');
+                        this.value = '';
+                        return;
+                    }
+                });
+                
+                // Validación adicional al enviar el formulario
+                const form = fechaFinInput.closest('form');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        if (fechaFinInput.value) {
+                            const selectedDateTime = new Date(fechaFinInput.value);
+                            const currentDateTime = new Date();
+                            
+                            if (selectedDateTime <= currentDateTime) {
+                                e.preventDefault();
+                                alert('Error: La fecha de cierre debe ser futura. Por favor, selecciona una fecha válida.');
+                                fechaFinInput.focus();
+                                return false;
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        // Prevenir navegación hacia atrás después de operaciones importantes
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                // La página fue cargada desde caché del navegador
+                location.reload();
+            }
+        });
+
+        // Limpiar historial para prevenir duplicaciones
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
 </body>
 </html>

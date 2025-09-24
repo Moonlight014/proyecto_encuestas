@@ -17,6 +17,16 @@ $mensaje = '';
 $error = '';
 $es_super_admin = ($_SESSION['rol'] ?? 'admin_departamental') === 'super_admin';
 
+// Verificar si hay mensajes en la sesión (incluyendo desde editar_encuesta.php)
+if (isset($_SESSION['mensaje_encuesta'])) {
+    $mensaje = $_SESSION['mensaje_encuesta'];
+    unset($_SESSION['mensaje_encuesta']);
+}
+if (isset($_SESSION['error_encuesta'])) {
+    $error = $_SESSION['error_encuesta'];
+    unset($_SESSION['error_encuesta']);
+}
+
 try {
     $pdo = obtenerConexion();
     
@@ -286,6 +296,30 @@ try {
             color: #6c757d;
             margin-bottom: 1rem;
         }
+        
+        /* Estilos para el botón Nueva Encuesta */
+        .action-btn {
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(50, 205, 50, 0.2);
+        }
+        .action-btn:hover {
+            background: #228B22 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(50, 205, 50, 0.3);
+        }
+        
+        /* Responsive para el header */
+        @media (max-width: 768px) {
+            .page-header > div {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 1rem;
+            }
+            .action-btn {
+                align-self: stretch;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -303,8 +337,15 @@ try {
     
     <div class="container">
         <div class="page-header">
-            <h2 class="page-title">Encuestas del Sistema</h2>
-            <p>Administra las encuestas creadas, cambia su estado y gestiona enlaces públicos.</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div>
+                    <h2 class="page-title">Encuestas del Sistema</h2>
+                    <p>Administra las encuestas creadas, cambia su estado y gestiona enlaces públicos.</p>
+                </div>
+                <a href="crear_encuesta.php" class="action-btn btn-primary" style="background: #32CD32; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 8px; white-space: nowrap;">
+                    <i class="fa-solid fa-plus"></i> Nueva Encuesta
+                </a>
+            </div>
             
             <!-- Panel informativo sobre permisos -->
             <div style="background: #e7f3ff; border-left: 4px solid #0d47a1; padding: 1rem; margin: 1rem 0; border-radius: 4px; font-size: 0.9rem; color: #084298;">
@@ -344,7 +385,7 @@ try {
                                 <div class="encuesta-meta">
                                     <strong>Departamento:</strong> <?= htmlspecialchars($encuesta['departamento_nombre']) ?> | 
                                     <strong>Creado por:</strong> <?= htmlspecialchars($encuesta['creador_nombre']) ?> | 
-                                    <strong>Fecha:</strong> <?= date('d/m/Y H:i', strtotime($encuesta['fecha_creacion'])) ?>
+                                    <strong>Fecha Creación:</strong> <?= date('d/m/Y H:i', strtotime($encuesta['fecha_creacion'])) ?>
                                 </div>
                             </div>
                             <span class="estado-badge estado-<?= $encuesta['estado'] ?>"><?= ucfirst($encuesta['estado']) ?></span>
@@ -710,7 +751,19 @@ try {
             `;
             document.head.appendChild(style);
         });
+
+        // Prevenir navegación hacia atrás después de operaciones importantes
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                // La página fue cargada desde caché del navegador
+                location.reload();
+            }
+        });
+
+        // Limpiar historial para prevenir duplicaciones
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
     </script>
 </body>
-</html>
 </html>

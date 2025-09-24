@@ -1,125 +1,131 @@
-✔✔: Terminado.
-✔: Falta pulir.
+✅✅: Terminado.
+✅❌: Falta pulir.
+🟨: No implementado AÚN.
 
-- El super_admin será como un 'sudo', mientras que el administrador_departamental será el 'usuario' que se registra, pero tendrá menos 
+🟨🟨- El super_admin será como un 'sudo', mientras que el administrador_departamental será el 'usuario' que se registra, pero tendrá menos 
 privilegios que el super admin, como por ejemplo, el administrador_departamental solo podra visualizar y modificar encuestas creadas por 
 si mismo, osea, cada usuario registrado con el rol de administrador_departamental SOLAMENTE PODRÁ VER Y EDITAR LAS ENCUESTAS CREADAS POR 
 EL MISMO(osea se deben filtrar por su 'ID'). Por lo tanto, hay que hacer otras pantallas de visualizacion para el 
 administrador_departamental con sus restricciones ya aplicadas.
-- Se puede 'adaptar' los codigos actuales de 'super_admin' para que, con una validacion de rol del usuario logeado (si es 
+🟨🟨- Se puede 'adaptar' los codigos actuales de 'super_admin' para que, con una validacion de rol del usuario logeado (si es 
 administrador_departamental) 'filtre' o no incluya las partes que no tiene permitido acceso el administrador_departamental.
-    - En gestionar encuestas, recordar que si el usuario logeado es de rol administrador_departamental este solo podrá visualizar las 
+    🟨🟨- En gestionar encuestas, recordar que si el usuario logeado es de rol administrador_departamental este solo podrá visualizar las 
     encuestas creadas por si mismo (no por TODOS los administrador_departamental, solo por ese usuario, osea filtrar por su 'id' unico)
     - 
 
-✔✔- Todas las preguntas creadas deben ser almacenadas en el 'Banco de Preguntas', de donde los administrador_departamental NO PODRAN BORRAR 
+✅✅- Todas las preguntas creadas deben ser almacenadas en el 'Banco de Preguntas', de donde los administrador_departamental NO PODRAN BORRAR 
 PREGUNTAS ni editar/modificar.
 
-✔✔- Las preguntas del Banco solo pueden ser modificadas por un super_admin.
+✅✅- Las preguntas del Banco solo pueden ser modificadas por un super_admin.
 
-✔✔- Si un administrador_departamental quiere 'modificar' una pregunta del banco para agregarla a una encuesta, lo que hará es: Tomar una
+✅✅- Si un administrador_departamental quiere 'modificar' una pregunta del banco para agregarla a una encuesta, lo que hará es: Tomar una
 pregunta del Banco y cambiarla, pero al momento de cambiarla esta no reemplaza a la pregunta en el banco, si no que se agrega como una
 pregunta NUEVA.
 
-✔- Solamente el super_admin puede FINALIZAR una encuesta, los administrador_departamental solo podrán 'pausar' y 'reactivar' sus encuestas.
+✅❌- Solamente el super_admin puede FINALIZAR una encuesta, los administrador_departamental solo podrán 'pausar' y 'reactivar' sus encuestas.
 (debe modificarse eso en la vista del administrador_departamental)
 
-✔✔- Agregar un boton 'Exportar A Excel' para exportar las respuestas de esa encuesta.
-- Ajustar el formato de los Excel exportados para que sea lo más amigable a la vista, con esto me refiero a que, si en una pregunta de
+✅✅- Agregar un boton 'Exportar A Excel' para exportar las respuestas de esa encuesta.
+🟨🟨- Ajustar el formato de los Excel exportados para que sea lo más amigable a la vista, con esto me refiero a que, si en una pregunta de
 selección multiple trae varias respuestas, estan deben ser entendibles en el Excel sin importar cuantas sean (ojala que sea casilla por
 opcion elegida)
-- MUY IMPORTANTE QUE AL EXPORTAR A EXCEL LAS RESPUESTAS ESTEN EN FORMATO ENTENDIBLE, COSA DE QUE HASTA UN NIÑO DE 5 AÑOS PUEDA ENTENDER.
+🟨🟨- MUY IMPORTANTE QUE AL EXPORTAR A EXCEL LAS RESPUESTAS ESTEN EN FORMATO ENTENDIBLE, COSA DE QUE HASTA UN NIÑO DE 5 AÑOS PUEDA ENTENDER.
 
-✔✔- En las preguntas de selección multiple, poner la opcion de establecer un limite maximo de opciones seleccionadas(y por ende un mensaje 
+✅✅- En las preguntas de selección multiple, poner la opcion de establecer un limite maximo de opciones seleccionadas(y por ende un mensaje 
 de aviso si el encuestado intenta seleccionar más del limite). Y que este limite sea establecido por el creador de la encuesta al momento de 
 ingresar/crear la pregunta. Igualmente pueden haber preguntas SIN LIMITE, pero no deben ser tantas las opciones, de ser posible maximo 5 
 opciones. Asi evitaremos problemas al momento de exportarlas a Excel. (El limite de selecciones no puede ser superior que las opciones 
-actuales.✔)
+actuales.✅)
 
-✔✔- Hacer que, en los links públicos, NO se vean las cosas como ' Categoría: Satisfacción | Tipo: texto_corto ' en cada pregunta. Que esta 
+✅✅- Hacer que, en los links públicos, NO se vean las cosas como ' Categoría: Satisfacción | Tipo: texto_corto ' en cada pregunta. Que esta 
 vista sea exclusiva para el administrador_departamental y super_admin, NO PARA EL ENCUESTADO. Debe haber entonces una vista previa de la 
 encuesta que sea exclusiva para los administradores, y otra vista que será la que verá el encuestado y a la que redirecciona el link publico.
-✔✔- Hacer que cuando se genere el link público de una encuesta, sea un href que abra una nueva pestaña con la encuesta y que a la vez copie 
+✅✅- Hacer que cuando se genere el link público de una encuesta, sea un href que abra una nueva pestaña con la encuesta y que a la vez copie 
 en el portapapeles el  link.
-- En la parte inferior al boton 'Abrir Encuesta' sale el url de la encuesta publica, añadir una forma de que presionandolo se copie (solo se 
-copie) en caso de que el administrador quiera solo copiar el enlace y no abrirlo.
-✔✔- Hacer que, a parte de generarse un link público de las encuestas, tambien se genere un código qr.
+✅✅- En la parte inferior al boton 'Abrir Encuesta' sale el url de la encuesta publica, añadir una forma de que presionandolo se copie (solo 
+se copie) en caso de que el administrador quiera solo copiar el enlace y no abrirlo.
+✅✅- Hacer que, a parte de generarse un link público de las encuestas, tambien se genere un código qr.
 
-✔✔- Establecer un maximo de caracteres personalizable por el creador de la pregunta en los espacios de respuesta de texto.
+✅✅- Establecer un maximo de caracteres personalizable por el creador de la pregunta en los espacios de respuesta de texto.
 
-- Hacer que se puedan registrar solo administrador_departamental, NO super_admin.
-- Para reestablecer contraseña se enviará codigo al correo con el que se registraron.
+🟨🟨- Hacer que se puedan registrar solo administrador_departamental, NO super_admin.
+🟨🟨- Para reestablecer contraseña se enviará codigo al correo con el que se registraron.
 
-- Validaciones con las fechas de creaciones, la fecha de inicio debe auto asignarse al momento de crearse, y la fecha de fin no puede ser
-anterior a esta. Así mismo para editar una encuesta, cuando se edite una encuesta debe tomar la fecha exacta del momento en el que se editó.
+✅✅- Validaciones con las fechas de creaciones de encuesta, la fecha de inicio debe auto asignarse al momento de crearse, y la fecha de fin 
+no puede ser anterior a esta. Así mismo para editar una encuesta, cuando se edite una encuesta debe tomar la fecha exacta del momento en el 
+que se editó.
+✅✅- En Editar Encuesta debe tomar el tiempo actual en fecha hora para Fecha de Inicio, y Fecha de Fin debe ser una ingresable que NO PUEDE 
+SER ANTERIOR A LA FECHA DE INICIO.
 
-✔✔- En 'agregar_preguntas.php ' debe haber un boton para 'Crear Pregunta' que redirija a una pagina exclusiva para la creacion de preguntas
+✅✅- En 'agregar_preguntas.php ' debe haber un boton para 'Crear Pregunta' que redirija a una pagina exclusiva para la creacion de preguntas
 y que sea personalizable.
 
-✔✔- En el interfaz de 'Crear Pregunta', si es accedido desde el interfaz de 'Agregar Preguntas' a una encuesta, entonces el boton de 
+✅✅- En el interfaz de 'Crear Pregunta', si es accedido desde el interfaz de 'Agregar Preguntas' a una encuesta, entonces el boton de 
 'Volver al Banco' debe ser un boton que devuelva a el interfaz en el que estaba anteriormente, osea el de 'Agregar Preguntas'.
 
-✔- En Banco Preguntas debe haber un boton que sea de 'Crear Pregunta' que lleve a un interfaz para la creacion de preguntas y otro de boton 
-de 'Editar Pregunta' que me lleve a otro interfaz para editar la pregunta, en donde debe dejar BUSCAR una pregunta del Banco de Preguntas por
-su id unico, y en el interfaz me deje 'editar' ESA pregunta, pero realmente no será editar, ya que al momento de modificarse deberá guardarse
-en la base de datos (y en el Banco de preguntas) como UNA PREGUNTA NUEVA. A menos que sea un usuario super_admin, quien SI PUEDE EDITAR como
-tal las preguntas.
+✅❌- En Banco Preguntas debe haber un boton que sea de 'Crear Pregunta' que lleve a un interfaz para la creacion de preguntas y otro de 
+boton de 'Editar Pregunta' que me lleve a otro interfaz para editar la pregunta, en donde debe dejar BUSCAR una pregunta del Banco de 
+Preguntas por su id unico, y en el interfaz me deje 'editar' ESA pregunta, pero realmente no será editar, ya que al momento de modificarse 
+deberá guardarse en la base de datos (y en el Banco de preguntas) como UNA PREGUNTA NUEVA. A menos que sea un usuario super_admin, quien SI 
+PUEDE EDITAR como tal las preguntas.
 
-- Pulir la función de buscar por ID.
+🟨🟨- Pulir la función de buscar por ID.
 
-✔- Modificar los tipos de preguntas:  
-    ✔Tipo: contacto (borrar)✔
-    ✔Tipo: net_promoter_score (borrar)✔
-    ✔Tipo: calificacion_estrellas (borrar)✔
+✅- Modificar los tipos de preguntas:  
+    ✅Tipo: contacto (borrar)✅
+    ✅Tipo: net_promoter_score (borrar)✅
+    ✅Tipo: calificacion_estrellas (borrar)✅
     Tipo: numero (Agregar la opcion de aumentar o disminuir en el input(a la derecha)) 
-    ✔Tipo: email (borrar)✔
-    ✔Tipo: clasificacion (borrar)✔
-    ✔Tipo: slider (borrar)✔
-    ✔Tipo: calificacion_estrellas (borrar)✔ 
-✔✔- Borrar Categorías de preguntas y sus preguntas:
-    - Atención Primaria  ✔
-    - Atención Secundaria ✔
-    - Atención Terciaria ✔
-    - Postas Rurales ✔
+    ✅Tipo: email (borrar)✅
+    ✅Tipo: clasificacion (borrar)✅
+    ✅Tipo: slider (borrar)✅
+    ✅Tipo: calificacion_estrellas (borrar)✅ 
+✅✅- Borrar Categorías de preguntas y sus preguntas:
+    - Atención Primaria  ✅
+    - Atención Secundaria ✅
+    - Atención Terciaria ✅
+    - Postas Rurales ✅
     - SAPU (?)
 
-✔✔- Que los mensajes de aviso (creación, eliminar, modificar) sean temporales. Que de alguna forma se dejen de mostrar luego de 3 segundos.
+✅✅- Que los mensajes de aviso (creación, eliminar, modificar) sean temporales. Que de alguna forma se dejen de mostrar luego de 3 segundos.
 
-✔- Limpiar caché de paginas, cada vez que se termine un 'proceso importante' (Crear, editar, modificar, eliminar, tambien al responder las 
+✅- Limpiar caché de paginas, cada vez que se termine un 'proceso importante' (Crear, editar, modificar, eliminar, tambien al responder las 
 encuestas) eliminar el caché, de modo que si se recarga la página NO SE DUPLIQUEN procesos, o si se retrocede en el navegador y se vuelve a
 avanzar a la pagina (de la que se retrocedió) no se queden los datos guardados.
-- Al menos para responder encuestas, se pueden limpiar los campos luego de apretar el boton de enviar encuestas.
+🟨🟨- Al menos para responder encuestas, se pueden limpiar los campos luego de apretar el boton de enviar encuestas.
 
-- En Banco de Preguntas agregar una función de 'Lupa' para buscar preguntas en especifico (Debe definirse si por Categoría o en general)
-- Implementar sistema de busqueda que FILTRE POR TIPO DE PREGUNTA tanto para super_admin como para administrador_departamental.
+🟨🟨- En Banco de Preguntas agregar una función de 'Lupa' para buscar preguntas en especifico (Debe definirse si por Categoría o en general)
+🟨🟨- Implementar sistema de busqueda que FILTRE POR TIPO DE PREGUNTA tanto para super_admin como para administrador_departamental.
 
-✔✔- Hacer que las categorias sean 'desplegables' (similar a un Dropdowns en Bootstrap) y que al desplegar muestre las preguntas de esa, 
+✅✅- Hacer que las categorias sean 'desplegables' (similar a un Dropdowns en Bootstrap) y que al desplegar muestre las preguntas de esa, 
 categoria. Algo como una lista desplegable que sea dinamica.
 
-- Hacer que los estilos estén en un archivo separado ('styles.css') y que los archivos que requieran de un estilo en especifico incluyan este
-para obtenerlo y usarlo. Al hacer esto evitar cambios visuales de como se veia con los estilos en cada archivo.
+🟨🟨- Hacer que los estilos estén en un archivo separado ('styles.css') y que los archivos que requieran de un estilo en especifico incluyan 
+este para obtenerlo y usarlo. Al hacer esto evitar cambios visuales de como se veia con los estilos en cada archivo.
 
-- En 'navbar' o 'header' hacer que el mensaje ' Bienvenido, (usuario)
+🟨🟨- En 'navbar' o 'header' hacer que el mensaje ' Bienvenido, (usuario)
 Cerrar Sesión(boton que cierre la sesion)' estén SIEMPRE en todas las pantallas.
 
-- Agregar a navbar o header un drowdown con 'accesos directos' a los interfaces importantes, como por ejemplo;
+🟨🟨- Agregar a navbar o header un drowdown con 'accesos directos' a los interfaces importantes, como por ejemplo;
     Ver Encuestas
     Banco de Preguntas
     Reportes
 
-- Arreglar la Vista Previa al crear preguntas para que funcione con todos los tipos de preguntas.
+🟨🟨- Arreglar la Vista Previa al crear preguntas para que funcione con todos los tipos de preguntas.
+🟨🟨- La vista previa de preguntas se mostrará en la creacion de encuestas 
 
-- Para el formato de los excel, probar como se veria exportando tambien el contenido de las respuestas.
+🟨🟨- Para el formato de los excel, probar como se veria exportando tambien el contenido de las respuestas.
 
-- Pulir la funcion de 'limite de selecciones en preguntas de selección multiple' ya que actualmente el codigo por default 
+🟨🟨- Pulir la funcion de 'limite de selecciones en preguntas de selección multiple' ya que actualmente el codigo por default 
 ( Máximo actual: 2 (número de opciones) Deja en 0 para selecciones ilimitadas(Máximo recomendado: 5).) al borrar todas las opciones y agregar
 una nuevamente se vuelve así (Deja en 0 para selecciones ilimitadas (Máximo recomendado: 5). Máximo actual: 1 (número de opciones) Deja en 
 0 para selecciones ilimitadas(Máximo recomendado: 5).). Ademas hay redundancia, esa parte se repite mucho en el codigo de la funcion. 
 
-- Ajustar las vistas para que sean dinamicas y adaptables a interfaz movil/tablet.
+🟨🟨- Ajustar las vistas para que sean dinamicas y adaptables a interfaz movil/tablet.
 
-- En Editar Encuesta debe tomar el tiempo actual en fecha hora para Fecha de Inicio, y Fecha de Fin debe ser una ingresable que NO PUEDE SER
-ANTERIOR A LA FECHA DE INICIO.
-
-- En export_excel.php, modificar codigo para que, en caso de que no se encuentre el 'autoload.php' ejecutar un codigo de composer que lo
+🟨🟨- En export_excel.php, modificar codigo para que, en caso de que no se encuentre el 'autoload.php' ejecutar un codigo de composer que lo
 vuelva a generar, para que así siemre esté autoload y por ende siempre se exporte el archivo en el formato adecuado (XLSX).
+
+🟨🟨- Evitar que salgan errores como 'Documento expirado. Este documento ya no está disponible.' al momento de retroceder con el navegador 
+(y no con los botones de 'volver' de la pagina), ya que yo a veces al retroceder con el BackButton de mi mouse me da esos errores, y quiero 
+evitarlos.

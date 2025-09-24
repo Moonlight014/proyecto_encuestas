@@ -64,8 +64,8 @@ try {
             color: #333;
         }
         .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: #0d47a1;
+            color: white;
             padding: 1rem;
             box-shadow: 0 2px 20px rgba(0,0,0,0.1);
         }
@@ -79,10 +79,10 @@ try {
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #0d47a1;
+            color: white;
         }
         .back-btn {
-            background: #6c757d;
+            background: #32CD32;
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 6px;
@@ -91,7 +91,7 @@ try {
             transition: all 0.2s;
         }
         .back-btn:hover {
-            background: #5a6268;
+            background: #228B22;
             transform: translateY(-1px);
         }
         .container {
@@ -105,6 +105,7 @@ try {
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
+            border-top: 4px solid #32CD32;
         }
         .section-title {
             color: #0d47a1;
@@ -157,7 +158,7 @@ try {
             color: white;
         }
         .btn-primary:hover {
-            background: #0a3a87;
+            background: #1565c0;
             transform: translateY(-1px);
         }
         .btn-success {
@@ -165,7 +166,7 @@ try {
             color: white;
         }
         .btn-success:hover {
-            background: #28a745;
+            background: #228B22;
             transform: translateY(-1px);
         }
         .btn-warning {
@@ -182,20 +183,21 @@ try {
             margin-bottom: 1.5rem;
         }
         .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: #f0f8f0;
+            color: #0f5132;
+            border-left: 4px solid #32CD32;
         }
         .alert-danger {
             background: #f8d7da;
             color: #721c24;
-            border: 1px solid #f5c6cb;
+            border-left: 4px solid #dc3545;
         }
         .pregunta-card {
             border: 2px solid #e9ecef;
             border-radius: 8px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
+            border-left: 4px solid #32CD32;
         }
         .pregunta-header {
             display: flex;
@@ -246,18 +248,18 @@ try {
             flex-wrap: wrap;
         }
         .role-info {
-            background: #e3f2fd;
+            background: #e7f3ff;
             padding: 1rem;
             border-radius: 6px;
             margin-bottom: 1.5rem;
-            border-left: 4px solid #2196f3;
+            border-left: 4px solid #0d47a1;
         }
         .role-info h4 {
-            color: #1565c0;
+            color: #0d47a1;
             margin-bottom: 0.5rem;
         }
         .role-info p {
-            color: #0d47a1;
+            color: #084298;
             margin: 0;
             font-size: 0.9rem;
         }
@@ -267,7 +269,9 @@ try {
     <div class="header">
         <div class="header-content">
             <div class="logo"><i class="fa-solid fa-database"></i> Buscar y Editar Pregunta</div>
-            <button onclick="history.back()" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+            <button onclick="document.referrer && document.referrer.includes('dashboard') ? history.back() : window.location.href='dashboard.php'" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i> Volver
+            </button>
         </div>
     </div>
     
