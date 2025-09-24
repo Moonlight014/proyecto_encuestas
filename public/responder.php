@@ -3,8 +3,15 @@
 require_once '../config/conexion.php';
 require_once '../includes/render_preguntas.php';
 
+// Headers anti-caché para prevenir duplicación de procesos
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 $mensaje = '';
 $error = '';
+$error_persistente = false; // Variable para errores que no deben desaparecer
+$mensaje_persistente = false; // Variable para mensajes que no deben desaparecer
 $encuesta = null;
 $preguntas = [];
 $enlace_publico = $_GET['id'] ?? '';
@@ -54,56 +61,78 @@ if (empty($enlace_publico)) {
             }
         }
         
-        // Procesar respuesta
+        // Procesar respuesta - Implementar protección contra reenvío
         if ($_POST && isset($_POST['enviar_respuesta']) && $encuesta && !empty($preguntas)) {
-            $respuestas = $_POST['respuestas'] ?? [];
+            // Verificar token de una sola vez para prevenir reenvío duplicado
+            $form_token = $_POST['form_token'] ?? '';
+            $ip_hash = hash('sha256', $_SERVER['REMOTE_ADDR'] . $encuesta['id']);
             
-            // Validar respuestas obligatorias
-            $errores_validacion = [];
-            foreach ($preguntas as $pregunta) {
-                if (($pregunta['obligatoria'] || $pregunta['obligatoria_encuesta']) && empty($respuestas[$pregunta['id']])) {
-                    $errores_validacion[] = "La pregunta '" . substr($pregunta['texto'], 0, 50) . "...' es obligatoria.";
+            // Verificar si ya existe una respuesta con este token en los últimos 5 minutos
+            $stmt = $pdo->prepare("
+                SELECT COUNT(*) FROM respuestas_encuesta 
+                WHERE ip_hash = ? AND encuesta_id = ? AND fecha_completada > DATE_SUB(NOW(), INTERVAL 5 MINUTE)
+            ");
+            $stmt->execute([$ip_hash, $encuesta['id']]);
+            $respuestas_recientes = $stmt->fetchColumn();
+            
+            if ($respuestas_recientes > 0) {
+                $error = "Ya ha enviado una respuesta recientemente. Si necesita enviar otra respuesta, espere unos minutos.";
+                $error_persistente = true; // Marcar como error que no debe desaparecer
+            } else {
+                $respuestas = $_POST['respuestas'] ?? [];
+                
+                // Validar respuestas obligatorias
+                $errores_validacion = [];
+                foreach ($preguntas as $pregunta) {
+                    if (($pregunta['obligatoria'] || $pregunta['obligatoria_encuesta']) && empty($respuestas[$pregunta['id']])) {
+                        $errores_validacion[] = "La pregunta '" . substr($pregunta['texto'], 0, 50) . "...' es obligatoria.";
+                    }
                 }
-            }
-            
-            if (empty($errores_validacion)) {
-                // Crear hash de IP para control de duplicados (opcional)
-                $ip_hash = hash('sha256', $_SERVER['REMOTE_ADDR'] . $encuesta['id']);
                 
-                // Generar token de sesión único
-                $sesion_token = uniqid('resp_', true);
-                
-                // Insertar respuesta de encuesta
-                $stmt = $pdo->prepare("
-                    INSERT INTO respuestas_encuesta (encuesta_id, ip_hash, sesion_token, estado, progreso_porcentaje, fecha_completada) 
-                    VALUES (?, ?, ?, 'completada', 100.00, NOW())
-                ");
-                
-                if ($stmt->execute([$encuesta['id'], $ip_hash, $sesion_token])) {
-                    $respuesta_encuesta_id = $pdo->lastInsertId();
+                if (empty($errores_validacion)) {
+                    // Generar token de sesión único
+                    $sesion_token = uniqid('resp_', true);
                     
-                    // Insertar respuestas detalladas
+                    // Insertar respuesta de encuesta
                     $stmt = $pdo->prepare("
-                        INSERT INTO respuestas_detalle (respuesta_encuesta_id, pregunta_id, valor_respuesta) 
-                        VALUES (?, ?, ?)
+                        INSERT INTO respuestas_encuesta (encuesta_id, ip_hash, sesion_token, estado, progreso_porcentaje, fecha_completada) 
+                        VALUES (?, ?, ?, 'completada', 100.00, NOW())
                     ");
                     
-                    foreach ($respuestas as $pregunta_id => $valor) {
-                        if (!empty($valor)) {
-                            // Convertir valor a JSON para almacenar
-                            $valor_json = json_encode($valor);
-                            $stmt->execute([$respuesta_encuesta_id, $pregunta_id, $valor_json]);
+                    if ($stmt->execute([$encuesta['id'], $ip_hash, $sesion_token])) {
+                        $respuesta_encuesta_id = $pdo->lastInsertId();
+                        
+                        // Insertar respuestas detalladas
+                        $stmt = $pdo->prepare("
+                            INSERT INTO respuestas_detalle (respuesta_encuesta_id, pregunta_id, valor_respuesta) 
+                            VALUES (?, ?, ?)
+                        ");
+                        
+                        foreach ($respuestas as $pregunta_id => $valor) {
+                            if (!empty($valor)) {
+                                // Convertir valor a JSON para almacenar
+                                $valor_json = json_encode($valor);
+                                $stmt->execute([$respuesta_encuesta_id, $pregunta_id, $valor_json]);
+                            }
                         }
+                        
+                        // Redirect con mensaje de éxito para evitar reenvío
+                        header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . urlencode($enlace_publico) . "&success=1");
+                        exit();
+                    } else {
+                        $error = "Error al procesar su respuesta. Por favor, intente nuevamente.";
                     }
-                    
-                    $mensaje = "¡Gracias por participar! Su respuesta ha sido registrada exitosamente.";
-                    $preguntas = []; // Ocultar formulario después de enviar
                 } else {
-                    $error = "Error al procesar su respuesta. Por favor, intente nuevamente.";
+                    $error = implode('<br>', $errores_validacion);
                 }
-            } else {
-                $error = implode('<br>', $errores_validacion);
             }
+        }
+        
+        // Mostrar mensaje de éxito después del redirect
+        if (isset($_GET['success']) && $_GET['success'] == '1') {
+            $mensaje = "¡Gracias por participar! Su respuesta ha sido registrada exitosamente.";
+            $mensaje_persistente = true; // Marcar como mensaje que no debe desaparecer
+            $preguntas = []; // Ocultar formulario después de enviar
         }
         
     } catch(PDOException $e) {
@@ -322,6 +351,34 @@ if (empty($enlace_publico)) {
             color: #721c24;
             border-left: 4px solid #dc3545;
         }
+        .persistent-alert {
+            animation: pulse-glow 2s infinite;
+            box-shadow: 0 0 10px rgba(220, 53, 69, 0.3);
+        }
+        .persistent-success-alert {
+            animation: pulse-glow-success 3s infinite;
+            box-shadow: 0 0 15px rgba(50, 205, 50, 0.4);
+            border: 2px solid rgba(50, 205, 50, 0.6);
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 10px rgba(220, 53, 69, 0.3); }
+            50% { box-shadow: 0 0 15px rgba(220, 53, 69, 0.5); }
+            100% { box-shadow: 0 0 10px rgba(220, 53, 69, 0.3); }
+        }
+        @keyframes pulse-glow-success {
+            0% { 
+                box-shadow: 0 0 15px rgba(50, 205, 50, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 25px rgba(50, 205, 50, 0.7);
+                transform: scale(1.02);
+            }
+            100% { 
+                box-shadow: 0 0 15px rgba(50, 205, 50, 0.4);
+                transform: scale(1);
+            }
+        }
         .progreso {
             background: #e9ecef;
             height: 8px;
@@ -354,15 +411,25 @@ if (empty($enlace_publico)) {
     
     <div class="container">
         <?php if ($error): ?>
-            <div class="alert alert-danger auto-hide-alert">
+            <div class="alert alert-danger <?= $error_persistente ? 'persistent-alert' : 'auto-hide-alert' ?>">
                 <strong>Error:</strong> <?= $error ?>
+                <?php if ($error_persistente): ?>
+                    <div style="margin-top: 10px; font-size: 0.9em; color: #721c24;">
+                        <i>💡 Este mensaje permanecerá visible para su información.</i>
+                    </div>
+                <?php endif; ?>
             </div>
         <?php elseif ($mensaje): ?>
-            <div class="alert alert-success auto-hide-alert">
+            <div class="alert alert-success <?= $mensaje_persistente ? 'persistent-success-alert' : 'auto-hide-alert' ?>">
                 <?= $mensaje ?>
                 <br><br>
                 <strong>Municipalidad de Hualpén - Dirección de Salud</strong><br>
                 Su opinión es importante para mejorar nuestros servicios.
+                <?php if ($mensaje_persistente): ?>
+                    <div style="margin-top: 15px; font-size: 0.9em; color: #155724; text-align: center;">
+                        <i>✨ Este mensaje permanece visible como confirmación de su participación.</i>
+                    </div>
+                <?php endif; ?>
             </div>
         <?php elseif ($encuesta): ?>
             <div class="encuesta-card">
@@ -381,6 +448,7 @@ if (empty($enlace_publico)) {
                 
                 <?php if (!empty($preguntas)): ?>
                     <form method="POST" class="form-content">
+                        <input type="hidden" name="form_token" value="<?= uniqid('form_', true) ?>">
                         <?php foreach ($preguntas as $index => $pregunta): ?>
                             <div class="pregunta-grupo">
                                 <div class="pregunta-header">
@@ -419,23 +487,62 @@ if (empty($enlace_publico)) {
     </div>
 
     <script>
-        // Auto-ocultar mensajes de alerta después de 5 segundos
+        // Auto-ocultar mensajes de alerta después de 3 segundos (excepto persistentes)
         document.addEventListener('DOMContentLoaded', function() {
             const alerts = document.querySelectorAll('.auto-hide-alert');
             alerts.forEach(function(alert) {
-                // Agregar animación de fade-out
-                setTimeout(function() {
-                    alert.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-                    alert.style.opacity = '0';
-                    alert.style.transform = 'translateY(-10px)';
-                    
-                    // Remover completamente después de la animación
+                // Solo aplicar auto-hide si NO es una alerta persistente (error o éxito)
+                if (!alert.classList.contains('persistent-alert') && !alert.classList.contains('persistent-success-alert')) {
+                    // Agregar animación de fade-out
                     setTimeout(function() {
-                        if (alert.parentNode) {
-                            alert.parentNode.removeChild(alert);
-                        }
-                    }, 500);
-                }, 3000); // 3 segundos
+                        alert.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                        alert.style.opacity = '0';
+                        alert.style.transform = 'translateY(-10px)';
+                        
+                        // Remover completamente después de la animación
+                        setTimeout(function() {
+                            if (alert.parentNode) {
+                                alert.parentNode.removeChild(alert);
+                            }
+                        }, 500);
+                    }, 3000); // 3 segundos
+                }
+            });
+            
+            // Para alertas de error persistentes, mostrar un efecto visual especial
+            const persistentAlerts = document.querySelectorAll('.persistent-alert');
+            persistentAlerts.forEach(function(alert) {
+                // Agregar un pequeño icono de información permanente
+                const infoIcon = document.createElement('span');
+                infoIcon.innerHTML = ' 📌';
+                infoIcon.style.float = 'right';
+                infoIcon.style.fontSize = '1.2em';
+                infoIcon.title = 'Este mensaje permanece visible para su información';
+                alert.appendChild(infoIcon);
+            });
+            
+            // Para alertas de éxito persistentes, mostrar un efecto visual especial diferente
+            const persistentSuccessAlerts = document.querySelectorAll('.persistent-success-alert');
+            persistentSuccessAlerts.forEach(function(alert) {
+                // Agregar un icono de éxito permanente
+                const successIcon = document.createElement('span');
+                successIcon.innerHTML = ' 🏆';
+                successIcon.style.float = 'right';
+                successIcon.style.fontSize = '1.5em';
+                successIcon.style.animation = 'bounce 2s infinite';
+                successIcon.title = 'Confirmación permanente de su participación exitosa';
+                alert.appendChild(successIcon);
+                
+                // Agregar estilo de bounce animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes bounce {
+                        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+                        40% { transform: translateY(-10px); }
+                        60% { transform: translateY(-5px); }
+                    }
+                `;
+                document.head.appendChild(style);
             });
         });
     </script>

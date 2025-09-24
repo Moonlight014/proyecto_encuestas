@@ -2,6 +2,11 @@
 session_start();
 require_once '../config/conexion.php';
 
+// Headers anti-caché para prevenir duplicación de procesos
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -18,7 +23,17 @@ $encuesta_id = isset($_GET['encuesta_id']) ? (int)$_GET['encuesta_id'] : 0;
 try {
     $pdo = obtenerConexion();
     
-    // Procesar formulario de creación
+    // Variables para mostrar mensajes después del redirect
+    if (isset($_SESSION['mensaje_crear_pregunta'])) {
+        $mensaje = $_SESSION['mensaje_crear_pregunta'];
+        unset($_SESSION['mensaje_crear_pregunta']);
+    }
+    if (isset($_SESSION['error_crear_pregunta'])) {
+        $error = $_SESSION['error_crear_pregunta'];
+        unset($_SESSION['error_crear_pregunta']);
+    }
+    
+    // Procesar formulario de creación - Patrón PRG (Post-Redirect-Get)
     if ($_POST && isset($_POST['crear_pregunta'])) {
         $categoria_id = $_POST['categoria_id'];
         $tipo_pregunta_id = $_POST['tipo_pregunta_id'];
@@ -119,13 +134,18 @@ try {
         if ($stmt->execute([$categoria_id, $tipo_pregunta_id, $texto, $opciones, $orden,
                            $departamento, $obligatoria, $activa, $created_by])) {
             $nueva_id = $pdo->lastInsertId();
-            $mensaje = "Pregunta creada correctamente con ID #$nueva_id.";
-            
-            // Limpiar formulario después de crear
-            $_POST = [];
+            $_SESSION['mensaje_crear_pregunta'] = "Pregunta creada correctamente con ID #$nueva_id.";
         } else {
-            $error = "Error al crear la pregunta.";
+            $_SESSION['error_crear_pregunta'] = "Error al crear la pregunta.";
         }
+        
+        // Redirect para evitar reenvío del formulario (Patrón PRG)
+        $redirect_url = $_SERVER['PHP_SELF'];
+        if ($from && $encuesta_id) {
+            $redirect_url .= "?from=" . urlencode($from) . "&encuesta_id=" . $encuesta_id;
+        }
+        header("Location: " . $redirect_url);
+        exit();
     }
     
     // Cargar categorías, tipos y departamentos para los selectores

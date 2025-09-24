@@ -3,6 +3,11 @@ session_start();
 require_once '../config/conexion.php';
 require_once '../config/url_helper.php';
 
+// Headers anti-caché para prevenir duplicación de procesos
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -382,8 +387,15 @@ try {
                                             📱 QR
                                         </button>
                                     </div>
-                                    <div class="url-display" style="font-size: 0.9em; color: #666; margin-top: 5px; word-break: break-all;">
-                                        <?= $url_publica ?>
+                                    <div class="url-display" style="font-size: 0.9em; margin-top: 5px; word-break: break-all;">
+                                        <span class="url-clickable" 
+                                              onclick="copiarSoloUrl('<?= $url_publica ?>', this)"
+                                              style="color: #007bff; cursor: pointer; text-decoration: underline; transition: all 0.3s ease;"
+                                              onmouseover="this.style.color='#0056b3'; this.style.backgroundColor='#e6f3ff'; this.style.padding='2px 4px'; this.style.borderRadius='3px';"
+                                              onmouseout="this.style.color='#007bff'; this.style.backgroundColor='transparent'; this.style.padding='0';"
+                                              title="Haz clic para copiar solo el enlace (sin abrir)">
+                                            📋 <?= $url_publica ?>
+                                        </span>
                                     </div>
                                     <div id="qr-<?= $encuesta['id'] ?>" class="qr-container" style="display: none; margin-top: 10px; text-align: center;">
                                         <div class="qr-code"></div>
@@ -486,6 +498,79 @@ try {
             }, 100); // Pequeño delay para permitir que la navegación ocurra primero
         }
 
+        // Función para copiar SOLO el URL sin abrir la encuesta
+        function copiarSoloUrl(url, elemento) {
+            // Prevenir cualquier acción de navegación
+            event.preventDefault();
+            event.stopPropagation();
+            
+            // Ejecutar la copia inmediatamente
+            navigator.clipboard.writeText(url).then(() => {
+                // Feedback visual mejorado para URL
+                const textoOriginal = elemento.innerHTML;
+                elemento.innerHTML = '✅ ¡Enlace copiado!';
+                elemento.style.color = '#28a745';
+                elemento.style.backgroundColor = '#d4edda';
+                elemento.style.padding = '4px 8px';
+                elemento.style.borderRadius = '4px';
+                elemento.style.fontWeight = 'bold';
+                
+                setTimeout(() => {
+                    elemento.innerHTML = textoOriginal;
+                    elemento.style.color = '#007bff';
+                    elemento.style.backgroundColor = 'transparent';
+                    elemento.style.padding = '0';
+                    elemento.style.fontWeight = 'normal';
+                }, 3000); // 3 segundos para mostrar confirmación
+                
+            }).catch(err => {
+                // Fallback para navegadores que no soportan clipboard API
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                textArea.style.top = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    
+                    // Feedback visual
+                    const textoOriginal = elemento.innerHTML;
+                    elemento.innerHTML = '✅ ¡Enlace copiado!';
+                    elemento.style.color = '#28a745';
+                    elemento.style.backgroundColor = '#d4edda';
+                    elemento.style.padding = '4px 8px';
+                    elemento.style.borderRadius = '4px';
+                    elemento.style.fontWeight = 'bold';
+                    
+                    setTimeout(() => {
+                        elemento.innerHTML = textoOriginal;
+                        elemento.style.color = '#007bff';
+                        elemento.style.backgroundColor = 'transparent';
+                        elemento.style.padding = '0';
+                        elemento.style.fontWeight = 'normal';
+                    }, 3000);
+                    
+                } catch (err) {
+                    console.error('No se pudo copiar el enlace:', err);
+                    // Mostrar mensaje de error
+                    const textoOriginal = elemento.innerHTML;
+                    elemento.innerHTML = '❌ Error al copiar';
+                    elemento.style.color = '#dc3545';
+                    
+                    setTimeout(() => {
+                        elemento.innerHTML = textoOriginal;
+                        elemento.style.color = '#007bff';
+                    }, 3000);
+                }
+                
+                document.body.removeChild(textArea);
+            });
+        }
+
         // Función para mostrar/ocultar código QR
         function toggleQR(containerId, url) {
             const container = document.getElementById(containerId);
@@ -557,6 +642,38 @@ try {
                     background: #f8f9fa !important;
                     border: 1px solid #dee2e6;
                     border-radius: 6px;
+                }
+                .url-clickable {
+                    user-select: text;
+                    -webkit-user-select: text;
+                    -moz-user-select: text;
+                    -ms-user-select: text;
+                    word-break: break-all;
+                    position: relative;
+                }
+                .url-clickable:hover {
+                    transform: translateY(-1px);
+                    box-shadow: 0 2px 4px rgba(0,123,255,0.2);
+                }
+                .url-clickable::before {
+                    content: "👆 Clic para copiar";
+                    position: absolute;
+                    top: -25px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #333;
+                    color: white;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+                    font-size: 11px;
+                    white-space: nowrap;
+                    opacity: 0;
+                    transition: opacity 0.3s;
+                    pointer-events: none;
+                    z-index: 1000;
+                }
+                .url-clickable:hover::before {
+                    opacity: 1;
                 }
             `;
             document.head.appendChild(style);

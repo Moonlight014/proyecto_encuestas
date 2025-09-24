@@ -2,12 +2,27 @@
 session_start();
 require_once 'config/conexion.php';
 
+// Headers anti-caché para prevenir duplicación de procesos de login
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 $error = '';
 $mensaje = '';
 
 // Verificar si hay mensaje de logout
 if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'sesion_cerrada') {
     $mensaje = 'Tu sesión ha sido cerrada correctamente.';
+}
+
+// Verificar si hay mensajes en la sesión (PRG)
+if (isset($_SESSION['mensaje_login'])) {
+    $mensaje = $_SESSION['mensaje_login'];
+    unset($_SESSION['mensaje_login']);
+}
+if (isset($_SESSION['error_login'])) {
+    $error = $_SESSION['error_login'];
+    unset($_SESSION['error_login']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
@@ -29,17 +44,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
             
             $stmt = $pdo->prepare("UPDATE usuarios SET ultimo_acceso = NOW() WHERE id = ?");
             if (!$stmt->execute([$user['id']])) {
-                $error = "No se pudo actualizar el último acceso. Intente nuevamente.";
+                $_SESSION['error_login'] = "No se pudo actualizar el último acceso. Intente nuevamente.";
+                header("Location: " . $_SERVER['PHP_SELF']);
+                exit();
             } else {
                 header("Location: admin/dashboard.php");
                 exit();
             }
         } else {
-            $error = "Credenciales incorrectas o cuenta inactiva.";
+            $_SESSION['error_login'] = "Credenciales incorrectas o cuenta inactiva.";
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit();
         }
     } catch(PDOException $e) {
         error_log("PDOException in login.php: " . $e->getMessage());
-        $error = "Error de conexión al sistema.";
+        $_SESSION['error_login'] = "Error de conexión al sistema.";
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
     }
 }
 ?>

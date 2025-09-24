@@ -6,6 +6,11 @@ privilegios que el super admin, como por ejemplo, el administrador_departamental
 si mismo, osea, cada usuario registrado con el rol de administrador_departamental SOLAMENTE PODRÁ VER Y EDITAR LAS ENCUESTAS CREADAS POR 
 EL MISMO(osea se deben filtrar por su 'ID'). Por lo tanto, hay que hacer otras pantallas de visualizacion para el 
 administrador_departamental con sus restricciones ya aplicadas.
+- Se puede 'adaptar' los codigos actuales de 'super_admin' para que, con una validacion de rol del usuario logeado (si es 
+administrador_departamental) 'filtre' o no incluya las partes que no tiene permitido acceso el administrador_departamental.
+    - En gestionar encuestas, recordar que si el usuario logeado es de rol administrador_departamental este solo podrá visualizar las 
+    encuestas creadas por si mismo (no por TODOS los administrador_departamental, solo por ese usuario, osea filtrar por su 'id' unico)
+    - 
 
 ✔✔- Todas las preguntas creadas deben ser almacenadas en el 'Banco de Preguntas', de donde los administrador_departamental NO PODRAN BORRAR 
 PREGUNTAS ni editar/modificar.
@@ -31,12 +36,13 @@ ingresar/crear la pregunta. Igualmente pueden haber preguntas SIN LIMITE, pero n
 opciones. Asi evitaremos problemas al momento de exportarlas a Excel. (El limite de selecciones no puede ser superior que las opciones 
 actuales.✔)
 
-- Hacer que, en los links públicos, no se vean las cosas como ' Categoría: Satisfacción | Tipo: texto_corto ' en cada pregunta. Que esta vista 
-sea exclusiva para el 
-administrador_departamental y super_admin. 
-- Hacer que cuando se genere el link público de una encuesta, sea un href que abra una nueva pestaña con la encuesta y que a la vez copie en 
+- Hacer que, en los links públicos, NO se vean las cosas como ' Categoría: Satisfacción | Tipo: texto_corto ' en cada pregunta. Que esta vista 
+sea exclusiva para el administrador_departamental y super_admin, NO PARA EL ENCUESTADO. 
+✔✔- Hacer que cuando se genere el link público de una encuesta, sea un href que abra una nueva pestaña con la encuesta y que a la vez copie en 
 el portapapeles el  link.
-- Hacer que, a parte de generarse un link público de las encuestas, tambien se genere un código qr.
+- En la parte inferior al boton 'Abrir Encuesta' sale el url de la encuesta publica, añadir una forma de que presionandolo se copie (solo se 
+copie) en caso de que el administrador quiera solo copiar el enlace y no abrirlo.
+✔✔- Hacer que, a parte de generarse un link público de las encuestas, tambien se genere un código qr.
 
 ✔✔- Establecer un maximo de caracteres personalizable por el creador de la pregunta en los espacios de respuesta de texto.
 
@@ -78,9 +84,10 @@ tal las preguntas.
 
 ✔✔- Que los mensajes de aviso (creación, eliminar, modificar) sean temporales. Que de alguna forma se dejen de mostrar luego de 3 segundos.
 
-- Limpiar caché de paginas, cada vez que se termine un 'proceso importante' (Crear, editar, modificar, eliminar, tambien al responder las 
-encuestas) eliminar el caché, de modo que si se recarga la página NO SE DUPLIQUEN procesos, o si se retrocede en el navegador y se vuelve a 
-una página no se queden los datos guardados.
+✔- Limpiar caché de paginas, cada vez que se termine un 'proceso importante' (Crear, editar, modificar, eliminar, tambien al responder las 
+encuestas) eliminar el caché, de modo que si se recarga la página NO SE DUPLIQUEN procesos, o si se retrocede en el navegador y se vuelve a
+avanzar a la pagina (de la que se retrocedió) no se queden los datos guardados.
+- Al menos para responder encuestas, se pueden limpiar los campos luego de apretar el boton de enviar encuestas.
 
 - En Banco de Preguntas agregar una función de 'Lupa' para buscar preguntas en especifico (Debe definirse si por Categoría o en general)
 - Implementar sistema de busqueda que FILTRE POR TIPO DE PREGUNTA tanto para super_admin como para administrador_departamental.
@@ -91,8 +98,8 @@ categoria. Algo como una lista desplegable que sea dinamica.
 - Hacer que los estilos estén en un archivo separado ('styles.css') y que los archivos que requieran de un estilo en especifico incluyan este
 para obtenerlo y usarlo. Al hacer esto evitar cambios visuales de como se veia con los estilos en cada archivo.
 
-- En navbar o header hacer que ' Bienvenido, (usuario)
-Cerrar Sesión' estén SIEMPRE.
+- En 'navbar' o 'header' hacer que el mensaje ' Bienvenido, (usuario)
+Cerrar Sesión(boton que cierre la sesion)' estén SIEMPRE en todas las pantallas.
 
 - Agregar a navbar o header un drowdown con 'accesos directos' a los interfaces importantes, como por ejemplo;
     Ver Encuestas

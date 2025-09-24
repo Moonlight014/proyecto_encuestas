@@ -2,6 +2,11 @@
 session_start();
 require_once '../config/conexion.php';
 
+// Headers anti-caché para prevenir duplicación de procesos
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -17,7 +22,21 @@ try {
     $categorias = $pdo->query("SELECT * FROM categorias WHERE activo = 1 ORDER BY nombre")->fetchAll();
     $departamentos = $pdo->query("SELECT * FROM departamentos WHERE activo = 1 ORDER BY nombre")->fetchAll();
     
-    // Procesar formulario
+    // Variables para mostrar mensajes después del redirect
+    $mensaje = '';
+    $error = '';
+    
+    // Verificar si hay mensajes en la sesión
+    if (isset($_SESSION['mensaje_encuesta'])) {
+        $mensaje = $_SESSION['mensaje_encuesta'];
+        unset($_SESSION['mensaje_encuesta']);
+    }
+    if (isset($_SESSION['error_encuesta'])) {
+        $error = $_SESSION['error_encuesta'];
+        unset($_SESSION['error_encuesta']);
+    }
+    
+    // Procesar formulario - Patrón PRG (Post-Redirect-Get)
     if ($_POST && isset($_POST['titulo'])) {
         $titulo = trim($_POST['titulo']);
         $descripcion = trim($_POST['descripcion']);
@@ -34,11 +53,11 @@ try {
         }
         
         if (empty($titulo) || empty($descripcion)) {
-            $error = "El título y la descripción son obligatorios.";
+            $_SESSION['error_encuesta'] = "El título y la descripción son obligatorios.";
         } else {
             // Validación: Fecha fin no puede ser anterior a fecha inicio (ahora)
             if ($fecha_fin && $fecha_fin < $fecha_inicio) {
-                $error = "La Fecha de Fin no puede ser anterior a la Fecha de Inicio (se toma automáticamente con la fecha y hora actual).";
+                $_SESSION['error_encuesta'] = "La Fecha de Fin no puede ser anterior a la Fecha de Inicio (se toma automáticamente con la fecha y hora actual).";
             } else {
                 // Generar enlace público único
                 $enlace_publico = 'enc_' . uniqid();
@@ -48,12 +67,16 @@ try {
                 
                 if ($stmt->execute([$titulo, $descripcion, $departamento_id, $_SESSION['user_id'], $fecha_inicio, $fecha_fin, $enlace_publico])) {
                     $encuesta_id = $pdo->lastInsertId();
-                    $mensaje = "Encuesta creada exitosamente. ID: $encuesta_id";
+                    $_SESSION['mensaje_encuesta'] = "Encuesta creada exitosamente. ID: $encuesta_id";
                 } else {
-                    $error = "Error al crear la encuesta.";
+                    $_SESSION['error_encuesta'] = "Error al crear la encuesta.";
                 }
             }
         }
+        
+        // Redirect para evitar reenvío del formulario (Patrón PRG)
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit();
     }
     
 } catch(PDOException $e) {

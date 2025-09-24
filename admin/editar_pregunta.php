@@ -2,6 +2,11 @@
 session_start();
 require_once '../config/conexion.php';
 
+// Headers anti-caché para prevenir duplicación de procesos
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -21,7 +26,17 @@ try {
         throw new Exception('ID de pregunta inválido');
     }
     
-    // Procesar formulario de edición
+    // Variables para mostrar mensajes después del redirect
+    if (isset($_SESSION['mensaje_editar_pregunta'])) {
+        $mensaje = $_SESSION['mensaje_editar_pregunta'];
+        unset($_SESSION['mensaje_editar_pregunta']);
+    }
+    if (isset($_SESSION['error_editar_pregunta'])) {
+        $error = $_SESSION['error_editar_pregunta'];
+        unset($_SESSION['error_editar_pregunta']);
+    }
+    
+    // Procesar formulario de edición - Patrón PRG (Post-Redirect-Get)
     if ($_POST && isset($_POST['actualizar_pregunta'])) {
         $categoria_id = $_POST['categoria_id'];
         $tipo_pregunta_id = $_POST['tipo_pregunta_id'];
@@ -130,9 +145,9 @@ try {
             
             if ($stmt->execute([$categoria_id, $tipo_pregunta_id, $texto, $opciones, 
                                $departamento, $obligatoria, $activa, $pregunta_id])) {
-                $mensaje = "Pregunta actualizada correctamente.";
+                $_SESSION['mensaje_editar_pregunta'] = "Pregunta actualizada correctamente.";
             } else {
-                $error = "Error al actualizar la pregunta.";
+                $_SESSION['error_editar_pregunta'] = "Error al actualizar la pregunta.";
             }
         } else {
             // Administradores departamentales crean una nueva pregunta basada en la existente
@@ -150,15 +165,15 @@ try {
                                $ultimo_orden + 1, $departamento, $obligatoria, $activa, 
                                $_SESSION['username'] ?? 'admin'])) {
                 $nueva_pregunta_id = $pdo->lastInsertId();
-                $mensaje = "Nueva pregunta creada correctamente (ID: $nueva_pregunta_id). La pregunta original se mantiene sin modificar.";
-                
-                // Opcional: Redirigir a la nueva pregunta
-                // header("Location: editar_pregunta.php?id=$nueva_pregunta_id");
-                // exit();
+                $_SESSION['mensaje_editar_pregunta'] = "Nueva pregunta creada correctamente (ID: $nueva_pregunta_id). La pregunta original se mantiene sin modificar.";
             } else {
-                $error = "Error al crear la nueva pregunta.";
+                $_SESSION['error_editar_pregunta'] = "Error al crear la nueva pregunta.";
             }
         }
+        
+        // Redirect para evitar reenvío del formulario (Patrón PRG)
+        header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $pregunta_id);
+        exit();
     }
     
     // Cargar datos de la pregunta

@@ -2,6 +2,11 @@
 session_start();
 require_once '../config/conexion.php';
 
+// Headers anti-caché para prevenir duplicación de procesos
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -27,7 +32,17 @@ try {
     // Obtener departamentos
     $departamentos = $pdo->query("SELECT * FROM departamentos WHERE activo = 1 ORDER BY nombre")->fetchAll();
     
-    // Procesar formulario
+    // Variables para mostrar mensajes después del redirect
+    if (isset($_SESSION['mensaje_editar_encuesta'])) {
+        $mensaje = $_SESSION['mensaje_editar_encuesta'];
+        unset($_SESSION['mensaje_editar_encuesta']);
+    }
+    if (isset($_SESSION['error_editar_encuesta'])) {
+        $error = $_SESSION['error_editar_encuesta'];
+        unset($_SESSION['error_editar_encuesta']);
+    }
+    
+    // Procesar formulario - Patrón PRG (Post-Redirect-Get)
     if ($_POST && isset($_POST['actualizar'])) {
         $titulo = trim($_POST['titulo']);
         $descripcion = trim($_POST['descripcion']);
@@ -46,27 +61,25 @@ try {
         }
         
         if (empty($titulo) || empty($descripcion)) {
-            $error = "El título y la descripción son obligatorios.";
+            $_SESSION['error_editar_encuesta'] = "El título y la descripción son obligatorios.";
         } else {
             // Validación: fecha_fin >= fecha_inicio
             if ($fecha_fin && $fecha_fin < $fecha_inicio_actual) {
-                $error = "La Fecha de Fin no puede ser anterior a la Fecha de Inicio.";
+                $_SESSION['error_editar_encuesta'] = "La Fecha de Fin no puede ser anterior a la Fecha de Inicio.";
             } else {
                 $stmt = $pdo->prepare("UPDATE encuestas SET titulo = ?, descripcion = ?, departamento_id = ?, fecha_inicio = ?, fecha_fin = ? WHERE id = ?");
                 
                 if ($stmt->execute([$titulo, $descripcion, $departamento_id, $fecha_inicio_actual, $fecha_fin, $encuesta_id])) {
-                    $mensaje = "Encuesta actualizada correctamente.";
-                    // Actualizar datos locales
-                    $encuesta['titulo'] = $titulo;
-                    $encuesta['descripcion'] = $descripcion;
-                    $encuesta['departamento_id'] = $departamento_id;
-                    $encuesta['fecha_inicio'] = $fecha_inicio_actual;
-                    $encuesta['fecha_fin'] = $fecha_fin;
+                    $_SESSION['mensaje_editar_encuesta'] = "Encuesta actualizada correctamente.";
                 } else {
-                    $error = "Error al actualizar la encuesta.";
+                    $_SESSION['error_editar_encuesta'] = "Error al actualizar la encuesta.";
                 }
             }
         }
+        
+        // Redirect para evitar reenvío del formulario (Patrón PRG) 
+        header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $encuesta_id);
+        exit();
     }
     
 } catch(PDOException $e) {
