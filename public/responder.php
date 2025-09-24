@@ -147,6 +147,8 @@ if (empty($enlace_publico)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $encuesta ? htmlspecialchars($encuesta['titulo']) : 'Encuesta' ?> - DAS Hualpén</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -415,7 +417,7 @@ if (empty($enlace_publico)) {
                 <strong>Error:</strong> <?= $error ?>
                 <?php if ($error_persistente): ?>
                     <div style="margin-top: 10px; font-size: 0.9em; color: #721c24;">
-                        <i>💡 Este mensaje permanecerá visible para su información.</i>
+                        <i><i class="fa-solid fa-lightbulb"></i> Este mensaje permanecerá visible para su información.</i>
                     </div>
                 <?php endif; ?>
             </div>
@@ -427,7 +429,7 @@ if (empty($enlace_publico)) {
                 Su opinión es importante para mejorar nuestros servicios.
                 <?php if ($mensaje_persistente): ?>
                     <div style="margin-top: 15px; font-size: 0.9em; color: #155724; text-align: center;">
-                        <i>✨ Este mensaje permanece visible como confirmación de su participación.</i>
+                        <i><i class="fa-solid fa-sparkles"></i> Este mensaje permanece visible como confirmación de su participación.</i>
                     </div>
                 <?php endif; ?>
             </div>
@@ -526,7 +528,7 @@ if (empty($enlace_publico)) {
             persistentSuccessAlerts.forEach(function(alert) {
                 // Agregar un icono de éxito permanente
                 const successIcon = document.createElement('span');
-                successIcon.innerHTML = ' 🏆';
+                successIcon.innerHTML = ' <i class="fa-solid fa-trophy"></i>';
                 successIcon.style.float = 'right';
                 successIcon.style.fontSize = '1.5em';
                 successIcon.style.animation = 'bounce 2s infinite';

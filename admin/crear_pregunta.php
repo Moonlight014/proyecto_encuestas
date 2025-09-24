@@ -164,6 +164,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Nueva Pregunta - DAS Hualpén</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -353,10 +355,10 @@ try {
             <div>
                 <h1>Crear Nueva Pregunta</h1>
                 <small style="opacity: 0.8; font-size: 0.8rem;">
-                    <?= $es_super_admin ? '👑 Super Administrador' : '👤 Administrador Departamental' ?>
+                    <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
                 </small>
             </div>
-            <button onclick="history.back()" class="back-btn">← Volver</button>
+            <button onclick="history.back()" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver</button>
         </div>
     </div>
     
@@ -375,10 +377,10 @@ try {
         <?php endif; ?>
         
         <div class="card">
-            <h2 class="page-title">🆕 Nueva Pregunta para el Banco</h2>
+            <h2 class="page-title"><i class="fa-solid fa-plus-circle"></i> Nueva Pregunta para el Banco</h2>
             <?php if ($from === 'agregar' && $encuesta_id): ?>
                 <div style="background: #e7f3ff; border-left: 4px solid #0d47a1; padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px; font-size: 0.9rem; color: #084298;">
-                    <strong>💡 Creando desde Agregar Preguntas:</strong><br>
+                    <strong><i class="fa-solid fa-lightbulb"></i> Creando desde Agregar Preguntas:</strong><br>
                     Esta pregunta se agregará al Banco y podrás seleccionarla inmediatamente para tu encuesta.
                 </div>
             <?php endif; ?>
@@ -458,9 +460,9 @@ try {
                 </div>
                 
                 <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-                    <button type="submit" name="crear_pregunta" class="btn btn-success">💾 Crear Pregunta</button>
-                    <button type="button" onclick="limpiarFormulario()" class="btn btn-secondary">🗑️ Limpiar</button>
-                    <button type="button" onclick="history.back()" class="btn btn-primary">← Volver</button>
+                    <button type="submit" name="crear_pregunta" class="btn btn-success"><i class="fa-solid fa-save"></i> Crear Pregunta</button>
+                    <button type="button" onclick="limpiarFormulario()" class="btn btn-secondary"><i class="fa-solid fa-trash"></i> Limpiar</button>
+                    <button type="button" onclick="history.back()" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Volver</button>
                 </div>
             </form>
         </div>

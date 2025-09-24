@@ -49,6 +49,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar y Editar Pregunta - Sistema de Encuestas</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -264,8 +266,8 @@ try {
 <body>
     <div class="header">
         <div class="header-content">
-            <div class="logo">🗃️ Buscar y Editar Pregunta</div>
-            <button onclick="history.back()" class="back-btn">← Volver</button>
+            <div class="logo"><i class="fa-solid fa-database"></i> Buscar y Editar Pregunta</div>
+            <button onclick="history.back()" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver</button>
         </div>
     </div>
     
@@ -280,7 +282,7 @@ try {
         
         <!-- Información del rol -->
         <div class="role-info">
-            <h4><?= $es_super_admin ? '🔧 Modo Super Administrador' : '👤 Modo Administrador Departamental' ?></h4>
+            <h4><?= $es_super_admin ? '<i class="fa-solid fa-tools"></i> Modo Super Administrador' : '<i class="fa-solid fa-user"></i> Modo Administrador Departamental' ?></h4>
             <p>
                 <?php if ($es_super_admin): ?>
                     Puedes editar preguntas directamente en el banco. Los cambios modificarán la pregunta original.
@@ -292,7 +294,7 @@ try {
         
         <!-- Formulario de búsqueda -->
         <div class="section">
-            <h2 class="section-title">🔍 Buscar Pregunta por ID</h2>
+            <h2 class="section-title"><i class="fa-solid fa-search"></i> Buscar Pregunta por ID</h2>
             
             <form method="POST" class="search-form">
                 <div class="form-group">
@@ -307,7 +309,7 @@ try {
                            required>
                 </div>
                 <button type="submit" name="buscar_pregunta" class="btn btn-primary">
-                    🔍 Buscar
+                    <i class="fa-solid fa-search"></i> Buscar
                 </button>
             </form>
         </div>
@@ -315,7 +317,7 @@ try {
         <!-- Resultado de la búsqueda -->
         <?php if ($pregunta): ?>
             <div class="section">
-                <h2 class="section-title">📝 Pregunta Encontrada</h2>
+                <h2 class="section-title"><i class="fa-solid fa-file-alt"></i> Pregunta Encontrada</h2>
                 
                 <div class="pregunta-card">
                     <div class="pregunta-header">
@@ -356,7 +358,7 @@ try {
                     <div class="actions-buttons">
                         <a href="editar_pregunta.php?id=<?= $pregunta['id'] ?>&from=busqueda" 
                            class="btn <?= $es_super_admin ? 'btn-warning' : 'btn-success' ?>">
-                            <?= $es_super_admin ? '✏️ Editar Pregunta' : '📋 Usar como Base' ?>
+                            <?= $es_super_admin ? '<i class="fa-solid fa-edit"></i> Editar Pregunta' : '<i class="fa-solid fa-clipboard"></i> Usar como Base' ?>
                         </a>
                         
                         <?php if ($es_super_admin && $pregunta['activa']): ?>
@@ -381,7 +383,7 @@ try {
         
         <!-- Instrucciones -->
         <div class="section">
-            <h3 class="section-title">💡 Instrucciones</h3>
+            <h3 class="section-title"><i class="fa-solid fa-lightbulb"></i> Instrucciones</h3>
             <div style="color: #6c757d; line-height: 1.6;">
                 <p><strong>1.</strong> Ingresa el ID único de la pregunta que deseas buscar</p>
                 <p><strong>2.</strong> Haz clic en "Buscar" para localizar la pregunta</p>

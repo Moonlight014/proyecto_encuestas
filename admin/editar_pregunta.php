@@ -205,6 +205,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Pregunta - DAS Hualpén</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -378,10 +380,10 @@ try {
             <div>
                 <h1><?= $es_super_admin ? 'Editar Pregunta' : 'Crear Pregunta Basada en Existente' ?></h1>
                 <small style="opacity: 0.8; font-size: 0.8rem;">
-                    <?= $es_super_admin ? '👑 Super Administrador' : '👤 Administrador Departamental' ?>
+                    <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
                 </small>
             </div>
-            <button onclick="history.back()" class="back-btn">← Volver</button>
+            <button onclick="history.back()" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver</button>
         </div>
     </div>
     
@@ -407,7 +409,7 @@ try {
                 
                 <?php if ($from === 'agregar' && $encuesta_id): ?>
                     <div style="background: #e7f3ff; border-left: 4px solid #0d47a1; padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px; font-size: 0.9rem; color: #084298;">
-                        <strong>💡 <?= $es_super_admin ? 'Editando desde Agregar Preguntas:' : 'Creando desde Agregar Preguntas:' ?></strong><br>
+                        <strong><i class="fa-solid fa-lightbulb"></i> <?= $es_super_admin ? 'Editando desde Agregar Preguntas:' : 'Creando desde Agregar Preguntas:' ?></strong><br>
                         <?= $es_super_admin ? 'Los cambios se aplicarán directamente a la pregunta del banco.' : 'Se creará una nueva pregunta basada en esta. La original permanecerá sin cambios.' ?>
                     </div>
                 <?php endif; ?>
@@ -477,7 +479,7 @@ try {
                     
                     <div style="margin-top: 2rem; display: flex; gap: 1rem;">
                         <button type="submit" name="actualizar_pregunta" class="btn btn-success">
-                            💾 <?= $es_super_admin ? 'Actualizar Pregunta' : 'Crear Nueva Pregunta' ?>
+                            <i class="fa-solid fa-save"></i> <?= $es_super_admin ? 'Actualizar Pregunta' : 'Crear Nueva Pregunta' ?>
                         </button>
                         <button type="button" onclick="history.back()" class="btn btn-secondary">Cancelar</button>
                     </div>

@@ -69,6 +69,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestionar Preguntas - DAS Hualpén</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -299,10 +301,10 @@ try {
             <div>
                 <h1>Gestionar Banco de Preguntas</h1>
                 <small style="opacity: 0.8; font-size: 0.8rem;">
-                    <?= $es_super_admin ? '👑 Super Administrador' : '👤 Administrador Departamental' ?>
+                    <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
                 </small>
             </div>
-            <a href="dashboard.php" class="back-btn">← Volver al Panel</a>
+            <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver al Panel</a>
         </div>
     </div>
     
@@ -389,11 +391,11 @@ try {
                 
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                     <a href="crear_pregunta.php" class="btn create-btn" style="padding: 12px; text-align: center; text-decoration: none; font-weight: 600;">
-                        ➕ Crear Nueva Pregunta
+                        <i class="fa-solid fa-plus"></i> Crear Nueva Pregunta
                     </a>
                     
                     <a href="buscar_pregunta.php" class="btn" style="padding: 12px; text-align: center; text-decoration: none; font-weight: 600; background: linear-gradient(135deg, #007bff, #0056b3); color: white; box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);">
-                        🔍 Editar Pregunta
+                        <i class="fa-solid fa-search"></i> Editar Pregunta
                     </a>
                     
                     <div style="border-top: 1px solid #e9ecef; margin: 0.5rem 0; padding-top: 1rem;">

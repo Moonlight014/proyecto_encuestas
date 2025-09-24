@@ -91,6 +91,11 @@ try {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Encuesta - DAS Hualpén</title>
     <style>
@@ -219,7 +224,7 @@ try {
     <div class="header">
         <div class="header-content">
             <h1>Editar Encuesta</h1>
-            <a href="ver_encuestas.php" class="back-btn">← Volver a Encuestas</a>
+            <a href="ver_encuestas.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver a Encuestas</a>
         </div>
     </div>
     

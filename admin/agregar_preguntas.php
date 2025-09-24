@@ -65,6 +65,8 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>Agregar Preguntas - DAS Hualpén</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: Arial, sans-serif; padding: 2rem; background: #f8f9fa; }
         h1 { color: #0d47a1; }
@@ -193,10 +195,10 @@ try {
     <h1>Agregar Preguntas: <?= htmlspecialchars($encuesta['titulo']) ?></h1>
     <div style="margin-bottom: 1rem;">
         <small style="color: #6c757d; font-size: 0.9rem;">
-            <?= $es_super_admin ? '👑 Super Administrador' : '👤 Administrador Departamental' ?>
+            <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
         </small>
     </div>
-    <a class="back-btn" href="ver_encuestas.php">← Volver</a>
+    <a class="back-btn" href="ver_encuestas.php"><i class="fa-solid fa-arrow-left"></i> Volver</a>
     
     <?php if ($mensaje): ?>
         <div class="alert alert-success auto-hide-alert"><?= htmlspecialchars($mensaje) ?></div>
@@ -205,7 +207,7 @@ try {
     <form method="POST">
         <!-- Panel informativo sobre nuevas funciones -->
         <div style="background: #e7f3ff; border-left: 4px solid #0d47a1; padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px; font-size: 0.9rem; color: #084298;">
-            <strong>💡 Nuevas Opciones de Gestión:</strong><br>
+            <strong><i class="fa-solid fa-lightbulb"></i> Nuevas Opciones de Gestión:</strong><br>
             • <strong>Seleccionar:</strong> Marca las preguntas que quieres agregar a tu encuesta<br>
             • <strong><?= $es_super_admin ? 'Editar:' : 'Usar como Base:' ?></strong> <?= $es_super_admin ? 'Modifica directamente la pregunta del banco' : 'Crea una nueva pregunta basada en la existente' ?><br>
             • <strong>Crear Nueva:</strong> Agrega una pregunta completamente nueva al banco
@@ -230,7 +232,7 @@ try {
                                     <a href="editar_pregunta.php?id=<?= $pregunta['id'] ?>&from=agregar&encuesta_id=<?= $encuesta_id ?>" 
                                        class="btn-edit" 
                                        title="<?= $es_super_admin ? 'Editar pregunta' : 'Usar como base para nueva pregunta' ?>">
-                                        <?= $es_super_admin ? '✏️ Editar' : '📋 Usar como Base' ?>
+                                        <?= $es_super_admin ? '<i class="fa-solid fa-edit"></i> Editar' : '<i class="fa-solid fa-clipboard"></i> Usar como Base' ?>
                                     </a>
                                 </div>
                             </div>
@@ -242,15 +244,15 @@ try {
         
         <div class="botones-container">
             <button type="submit" name="agregar_preguntas" class="btn">
-                ✅ Agregar Preguntas Seleccionadas
+                <i class="fa-solid fa-check"></i> Agregar Preguntas Seleccionadas
             </button>
             <a href="crear_pregunta.php?from=agregar&encuesta_id=<?= $encuesta_id ?>" class="btn-secondary">
-                ➕ Crear Nueva Pregunta
+                <i class="fa-solid fa-plus"></i> Crear Nueva Pregunta
             </a>
         </div>
         
         <div class="botones-info">
-            <strong>💡 Opciones disponibles:</strong><br>
+            <strong><i class="fa-solid fa-lightbulb"></i> Opciones disponibles:</strong><br>
             • Selecciona preguntas existentes del banco para agregarlas a tu encuesta<br>
             • O crea una nueva pregunta personalizada con el botón "Crear Nueva Pregunta"
         </div>

@@ -116,3 +116,9 @@ una nuevamente se vuelve así (Deja en 0 para selecciones ilimitadas (Máximo re
 0 para selecciones ilimitadas(Máximo recomendado: 5).). Ademas hay redundancia, esa parte se repite mucho en el codigo de la funcion. 
 
 - Ajustar las vistas para que sean dinamicas y adaptables a interfaz movil/tablet.
+
+- En Editar Encuesta debe tomar el tiempo actual en fecha hora para Fecha de Inicio, y Fecha de Fin debe ser una ingresable que NO PUEDE SER
+ANTERIOR A LA FECHA DE INICIO.
+
+- En export_excel.php, modificar codigo para que, en caso de que no se encuentre el 'autoload.php' ejecutar un codigo de composer que lo
+vuelva a generar, para que así siemre esté autoload y por ende siempre se exporte el archivo en el formato adecuado (XLSX).

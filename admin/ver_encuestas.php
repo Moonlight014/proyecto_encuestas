@@ -294,10 +294,10 @@ try {
             <div>
                 <h1>Gestionar Encuestas</h1>
                 <small style="opacity: 0.8; font-size: 0.8rem;">
-                    <?= $es_super_admin ? '👑 Super Administrador' : '👤 Administrador Departamental' ?>
+                    <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
                 </small>
             </div>
-            <a href="dashboard.php" class="back-btn">← Volver al Panel</a>
+            <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver al Panel</a>
         </div>
     </div>
     
@@ -308,7 +308,7 @@ try {
             
             <!-- Panel informativo sobre permisos -->
             <div style="background: #e7f3ff; border-left: 4px solid #0d47a1; padding: 1rem; margin: 1rem 0; border-radius: 4px; font-size: 0.9rem; color: #084298;">
-                <strong>💡 Permisos de Estado:</strong><br>
+                <strong><i class="fa-solid fa-lightbulb"></i> Permisos de Estado:</strong><br>
                 <?php if ($es_super_admin): ?>
                     • Como Super Administrador puedes <strong>activar</strong>, <strong>pausar</strong>, <strong>reactivar</strong> y <strong>finalizar</strong> encuestas<br>
                     • La acción "Finalizar" es irreversible y solo tú puedes realizarla
@@ -330,7 +330,7 @@ try {
         <div class="encuestas-grid">
             <?php if (empty($encuestas)): ?>
                 <div class="empty-state">
-                    <div class="empty-icon">📋</div>
+                    <div class="empty-icon"><i class="fa-solid fa-clipboard-list"></i></div>
                     <h3>No hay encuestas creadas</h3>
                     <p>Comienza creando tu primera encuesta para el DAS Hualpén.</p>
                     <a href="crear_encuesta.php" class="btn btn-primary">+ Crear Primera Encuesta</a>
@@ -380,7 +380,7 @@ try {
                                            class="enlace-publico-btn btn btn-info btn-sm"
                                            onclick="copiarAlPortapapeles('<?= $url_publica ?>', this); return true;"
                                            style="text-decoration: none; flex: 1; min-width: 200px;">
-                                            🔗 Abrir Encuesta
+                                            <i class="fa-solid fa-external-link-alt"></i> Abrir Encuesta
                                         </a>
                                         <button type="button" 
                                                 class="btn btn-secondary btn-sm qr-btn" 
@@ -405,7 +405,7 @@ try {
                                 </div>
                             </div>
                         <?php endif; ?>
-                        
+                        <br>
                         <div class="encuesta-actions">
                             <a href="editar_encuesta.php?id=<?= $encuesta['id'] ?>" class="btn btn-primary">Editar</a>
                             <a href="agregar_preguntas.php?id=<?= $encuesta['id'] ?>" class="btn btn-secondary">+ Preguntas</a>
@@ -413,7 +413,7 @@ try {
                             <!-- Botón de exportar disponible para todas las encuestas -->
                             <form method="POST" style="display: inline;">
                                 <input type="hidden" name="encuesta_id" value="<?= $encuesta['id'] ?>">
-                                <button type="submit" name="exportar_excel" class="btn btn-success">📊 Exportar Respuestas</button>
+                                <button type="submit" name="exportar_excel" class="btn btn-success"><i class="fa-solid fa-file-excel"></i> Exportar Respuestas</button>
                             </form>
                             
                             <?php if ($encuesta['estado'] === 'borrador'): ?>
@@ -433,8 +433,8 @@ try {
                                         <input type="hidden" name="encuesta_id" value="<?= $encuesta['id'] ?>">
                                         <input type="hidden" name="nuevo_estado" value="finalizada">
                                         <button type="submit" name="cambiar_estado" class="btn btn-danger" 
-                                                onclick="return confirm('⚠️ ¿Estás seguro de finalizar esta encuesta? Esta acción no se puede deshacer.')">
-                                            Finalizar
+                                                onclick="return confirm('¿Estás seguro de finalizar esta encuesta? Esta acción no se puede deshacer.')">
+                                            <i class="fa-solid fa-flag-checkered"></i> Finalizar
                                         </button>
                                     </form>
                                 <?php endif; ?>
@@ -598,7 +598,7 @@ try {
                     
                     // Agregar botón para descargar QR
                     const downloadBtn = document.createElement('button');
-                    downloadBtn.innerHTML = '💾 Descargar QR';
+                    downloadBtn.innerHTML = '<i class="fa-solid fa-download"></i> Descargar QR';
                     downloadBtn.className = 'btn btn-sm btn-primary';
                     downloadBtn.style.marginTop = '10px';
                     downloadBtn.onclick = function() {

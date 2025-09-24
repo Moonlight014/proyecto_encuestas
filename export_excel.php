@@ -14,7 +14,7 @@ foreach ($autoloadCandidates as $path) {
         break;
     }
 }
-// Si no hay autoload, exportaremos CSV como alternativa sin dependencias
+// Si NO hay autoload, exportaremos CSV como alternativa sin dependencias
 // Cuando autoload esté disponible, exportaremos XLSX con PhpSpreadsheet
 
 require_once __DIR__ . '/config/conexion.php';

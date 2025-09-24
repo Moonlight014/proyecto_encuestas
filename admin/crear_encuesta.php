@@ -88,6 +88,8 @@ try {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Encuesta - DAS Hualpén</title>
     <style>
@@ -209,7 +211,7 @@ try {
     <div class="header">
         <div class="header-content">
             <h1>Crear Nueva Encuesta</h1>
-            <a href="dashboard.php" class="back-btn">← Volver al Panel</a>
+            <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver al Panel</a>
         </div>
     </div>
     

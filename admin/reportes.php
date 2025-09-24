@@ -44,6 +44,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes - DAS Hualpén</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -163,7 +165,7 @@ try {
     <div class="header">
         <div class="header-content">
             <h1>Reportes del Sistema</h1>
-            <a href="dashboard.php" class="back-btn">← Volver al Panel</a>
+            <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver al Panel</a>
         </div>
     </div>
     
