@@ -108,13 +108,14 @@ categoria. Algo como una lista desplegable que sea dinamica.
 ✅✅- Hacer que los estilos estén en un archivo separado ('styles.css') y que los archivos que requieran de un estilo en especifico incluyan 
 este para obtenerlo y usarlo. Al hacer esto evitar cambios visuales de como se veia con los estilos en cada archivo.
 
-🟨🟨- En 'navbar' o 'header' hacer que el mensaje ' Bienvenido, (usuario)
-Cerrar Sesión(boton que cierre la sesion)' estén SIEMPRE en todas las pantallas.
 
+🟨🟨- Añadir un navbar basandose en el archivo 'navbar_example.php' y en este 'navbar' o 'header' hacer que el mensaje ' Bienvenido, (usuario)
+Cerrar Sesión(boton que cierre la sesion)' estén SIEMPRE en todas las pantallas.
 🟨🟨- Agregar a navbar o header un drowdown con 'accesos directos' a los interfaces importantes, como por ejemplo;
     - Ver Encuestas
     - Banco de Preguntas
     - Reportes (no sé)
+🟨🟨- Asegurarse de que el navbar se vea bien en todos los dispositivos (desktop y moviles).
 
 🟨🟨- Arreglar la Vista Previa al crear preguntas para que funcione perfectamente con todos los tipos de preguntas.
 🟨🟨- La vista previa de preguntas se mostrará en la creacion de preguntas.
