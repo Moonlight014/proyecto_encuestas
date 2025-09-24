@@ -2,6 +2,7 @@
 ✅❌: Falta pulir.
 🟨: No implementado AÚN.
 
+
 🟨🟨- El super_admin será como un 'sudo', mientras que el administrador_departamental será el 'usuario' que se registra, pero tendrá menos 
 privilegios que el super admin, como por ejemplo, el administrador_departamental solo podra visualizar y modificar encuestas creadas por 
 si mismo, osea, cada usuario registrado con el rol de administrador_departamental SOLAMENTE PODRÁ VER Y EDITAR LAS ENCUESTAS CREADAS POR 
@@ -27,9 +28,13 @@ pregunta NUEVA.
 
 ✅✅- Agregar un boton 'Exportar A Excel' para exportar las respuestas de esa encuesta.
 🟨🟨- Ajustar el formato de los Excel exportados para que sea lo más amigable a la vista, con esto me refiero a que, si en una pregunta de
-selección multiple trae varias respuestas, estan deben ser entendibles en el Excel sin importar cuantas sean (ojala que sea casilla por
+selección multiple trae varias respuestas, estas deben ser entendibles en el Excel sin importar cúantas sean (ojala que sea casilla por
 opcion elegida)
 🟨🟨- MUY IMPORTANTE QUE AL EXPORTAR A EXCEL LAS RESPUESTAS ESTEN EN FORMATO ENTENDIBLE, COSA DE QUE HASTA UN NIÑO DE 5 AÑOS PUEDA ENTENDER.
+🟨🟨- Probar como se vería exportando tambien el contenido de las respuestas para que sea más entendible, se podría, por ejemplo, en la 
+parte superior del excel poner 'Encuesta Respondida', 'Pregunta' 'Contenido de Respuestas' (o algo así) y luego 'Respuestas' para que quien
+vaya a leer ese excel pueda entenderlo perfectamente sin mucho esfuerzo.
+
 
 ✅✅- En las preguntas de selección multiple, poner la opcion de establecer un limite maximo de opciones seleccionadas(y por ende un mensaje 
 de aviso si el encuestado intenta seleccionar más del limite). Y que este limite sea establecido por el creador de la encuesta al momento de 
@@ -113,8 +118,6 @@ Cerrar Sesión(boton que cierre la sesion)' estén SIEMPRE en todas las pantalla
 
 🟨🟨- Arreglar la Vista Previa al crear preguntas para que funcione con todos los tipos de preguntas.
 🟨🟨- La vista previa de preguntas se mostrará en la creacion de encuestas 
-
-🟨🟨- Para el formato de los excel, probar como se veria exportando tambien el contenido de las respuestas.
 
 🟨🟨- Pulir la funcion de 'limite de selecciones en preguntas de selección multiple' ya que actualmente el codigo por default 
 ( Máximo actual: 2 (número de opciones) Deja en 0 para selecciones ilimitadas(Máximo recomendado: 5).) al borrar todas las opciones y agregar
