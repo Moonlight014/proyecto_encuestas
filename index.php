@@ -262,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
                             alert.parentNode.removeChild(alert);
                         }
                     }, 500);
-                }, 5000); // 5 segundos
+                }, 3000); // 3 segundos
             });
         });
     </script>

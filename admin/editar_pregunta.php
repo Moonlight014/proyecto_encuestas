@@ -32,9 +32,29 @@ try {
         
         // Procesar opciones según el tipo de pregunta
         $opciones = null;
-        if (in_array($tipo_pregunta_id, [3, 4, 10, 11, 12])) { // Tipos que requieren opciones
+        if (in_array($tipo_pregunta_id, [1, 2, 3, 4, 10, 11, 12, 14])) { // Tipos que requieren opciones
             $opciones = [];
             switch ($tipo_pregunta_id) {
+                case 1: // texto_corto
+                    if (isset($_POST['limite_caracteres']) && $_POST['limite_caracteres'] > 0) {
+                        $limite_caracteres = (int)$_POST['limite_caracteres'];
+                        // Validar límite máximo para texto corto
+                        if ($limite_caracteres > 500) {
+                            throw new Exception("El límite de caracteres para texto corto no puede exceder 500 caracteres.");
+                        }
+                        $opciones['limite_caracteres'] = $limite_caracteres;
+                    }
+                    break;
+                case 2: // texto_largo
+                    if (isset($_POST['limite_caracteres']) && $_POST['limite_caracteres'] > 0) {
+                        $limite_caracteres = (int)$_POST['limite_caracteres'];
+                        // Validar límite máximo para texto largo
+                        if ($limite_caracteres > 5000) {
+                            throw new Exception("El límite de caracteres para texto largo no puede exceder 5000 caracteres.");
+                        }
+                        $opciones['limite_caracteres'] = $limite_caracteres;
+                    }
+                    break;
                 case 3: // opcion_multiple
                 case 4: // seleccion_multiple
                     if (!empty($_POST['opciones_lista'])) {
@@ -83,6 +103,17 @@ try {
                     $opciones = [
                         'filas' => array_filter($_POST['filas'] ?? []),
                         'escala' => array_filter($_POST['escala'] ?? [])
+                    ];
+                    break;
+                case 14: // selector_fecha_pasada
+                    // Mantiene la fecha máxima existente o usa la fecha actual si no existe
+                    $fecha_maxima_actual = null;
+                    if (isset($pregunta['opciones'])) {
+                        $opciones_actuales = json_decode($pregunta['opciones'], true);
+                        $fecha_maxima_actual = $opciones_actuales['fecha_maxima'] ?? null;
+                    }
+                    $opciones = [
+                        'fecha_maxima' => $fecha_maxima_actual ?? date('Y-m-d')
                     ];
                     break;
             }
@@ -449,6 +480,12 @@ try {
             container.innerHTML = '';
             
             switch (tipoId) {
+                case '1': // texto_corto
+                    mostrarOpcionesTextoCorto();
+                    break;
+                case '2': // texto_largo
+                    mostrarOpcionesTextoLargo();
+                    break;
                 case '3': // opcion_multiple
                 case '4': // seleccion_multiple
                     mostrarOpcionesLista(tipoId);
@@ -466,7 +503,71 @@ try {
                 case '12': // matriz_escala
                     mostrarOpcionesMatrizEscala();
                     break;
+                case '14': // selector_fecha_pasada
+                    mostrarOpcionesFechaPasada();
+                    break;
             }
+        }
+        
+        function mostrarOpcionesTextoCorto() {
+            const limite_actual = (opcionesActuales && opcionesActuales.limite_caracteres) ? opcionesActuales.limite_caracteres : 255;
+            const html = `
+                <div class="form-group">
+                    <label class="form-label">Configuración de Texto Corto</label>
+                    <div class="opciones-container">
+                        <div class="form-group">
+                            <label class="form-label">Límite de Caracteres</label>
+                            <input type="number" name="limite_caracteres" class="form-control" 
+                                   placeholder="255" min="1" max="500" value="${limite_actual}" 
+                                   style="width: 200px;">
+                            <small style="color: #6c757d;">Máximo permitido: 500 caracteres. Por defecto: 255</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('opcionesContainer').innerHTML = html;
+        }
+        
+        function mostrarOpcionesTextoLargo() {
+            const limite_actual = (opcionesActuales && opcionesActuales.limite_caracteres) ? opcionesActuales.limite_caracteres : 1000;
+            const html = `
+                <div class="form-group">
+                    <label class="form-label">Configuración de Texto Largo</label>
+                    <div class="opciones-container">
+                        <div class="form-group">
+                            <label class="form-label">Límite de Caracteres</label>
+                            <input type="number" name="limite_caracteres" class="form-control" 
+                                   placeholder="1000" min="1" max="5000" value="${limite_actual}" 
+                                   style="width: 200px;">
+                            <small style="color: #6c757d;">Máximo permitido: 5000 caracteres. Por defecto: 1000</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('opcionesContainer').innerHTML = html;
+        }
+        
+        function mostrarOpcionesFechaPasada() {
+            const fecha_maxima = (opcionesActuales && opcionesActuales.fecha_maxima) ? 
+                                  opcionesActuales.fecha_maxima : 
+                                  new Date().toISOString().split('T')[0];
+            const html = `
+                <div class="form-group">
+                    <label class="form-label">Configuración de Selector de Fecha Pasada</label>
+                    <div class="opciones-container">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Información:</strong> Este selector solo permitirá a los usuarios seleccionar fechas anteriores o iguales a la fecha máxima configurada.
+                        </div>
+                        <p><strong>Fecha máxima permitida:</strong> ${fecha_maxima}</p>
+                        <small style="color: #6c757d;">
+                            Los usuarios no podrán seleccionar fechas posteriores a esta fecha. 
+                            Esta configuración se estableció al crear la pregunta y no se puede modificar.
+                        </small>
+                    </div>
+                </div>
+            `;
+            document.getElementById('opcionesContainer').innerHTML = html;
         }
         
         function mostrarOpcionesLista(tipoId) {
@@ -732,7 +833,7 @@ try {
                             alert.parentNode.removeChild(alert);
                         }
                     }, 500);
-                }, 5000); // 5 segundos
+                }, 3000); // 3 segundos
             });
         });
     </script>

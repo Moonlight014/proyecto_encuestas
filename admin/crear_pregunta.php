@@ -30,9 +30,21 @@ try {
         
         // Procesar opciones según el tipo de pregunta
         $opciones = null;
-        if (in_array($tipo_pregunta_id, [3, 4, 6, 10, 11, 12, 13])) { // Tipos que requieren opciones
+        if (in_array($tipo_pregunta_id, [1, 2, 3, 4, 6, 10, 11, 12, 13, 14])) { // Tipos que requieren opciones o configuración
             $opciones = [];
             switch ($tipo_pregunta_id) {
+                case 1: // texto_corto
+                case 2: // texto_largo
+                    if (isset($_POST['limite_caracteres']) && $_POST['limite_caracteres'] > 0) {
+                        $limite = (int)$_POST['limite_caracteres'];
+                        // Validar límites razonables
+                        $max_limite = ($tipo_pregunta_id == 1) ? 500 : 5000; // texto_corto: 500, texto_largo: 5000
+                        if ($limite > $max_limite) {
+                            throw new Exception("El límite de caracteres no puede ser mayor a {$max_limite} para este tipo de pregunta.");
+                        }
+                        $opciones['limite_caracteres'] = $limite;
+                    }
+                    break;
                 case 3: // opcion_multiple
                 case 4: // seleccion_multiple
                     if (!empty($_POST['opciones_lista'])) {
@@ -81,6 +93,12 @@ try {
                     $opciones = [
                         'filas' => array_filter($_POST['filas'] ?? []),
                         'escala' => array_filter($_POST['escala'] ?? [])
+                    ];
+                    break;
+                case 14: // selector_fecha_pasada
+                    // Guarda la fecha de creación de la pregunta como límite máximo
+                    $opciones = [
+                        'fecha_maxima' => date('Y-m-d') // Fecha actual como límite máximo
                     ];
                     break;
             }
@@ -444,7 +462,7 @@ try {
             '11': 'Tabla con filas y columnas para selecciones múltiples',
             '12': 'Tabla con filas y escala de evaluación (matriz Likert)',
             '13': 'Control deslizante para seleccionar valores en un rango',
-            '14': 'Calificación con estrellas (1 a 5 estrellas)',
+            '14': 'Selector de fecha pasada (solo fechas anteriores a la creación)',
             '18': 'Escala NPS de 0 a 10 para medir lealtad',
             '19': 'Formulario de contacto (nombre, email, teléfono)'
         };
@@ -464,6 +482,12 @@ try {
             container.innerHTML = '';
             
             switch (tipoId) {
+                case '1': // texto_corto
+                    mostrarOpcionesTextoCorto();
+                    break;
+                case '2': // texto_largo
+                    mostrarOpcionesTextoLargo();
+                    break;
                 case '3': // opcion_multiple
                 case '4': // seleccion_multiple
                     mostrarOpcionesLista(tipoId);
@@ -481,9 +505,69 @@ try {
                 case '12': // matriz_escala
                     mostrarOpcionesMatrizEscala();
                     break;
+                case '14': // selector_fecha_pasada
+                    mostrarOpcionesFechaPasada();
+                    break;
             }
             
             actualizarPreview();
+        }
+        
+        function mostrarOpcionesTextoCorto() {
+            const html = `
+                <div class="form-group">
+                    <label class="form-label">Configuración de Texto Corto</label>
+                    <div class="opciones-container">
+                        <div class="form-group">
+                            <label class="form-label">Límite de Caracteres</label>
+                            <input type="number" name="limite_caracteres" class="form-control" 
+                                   placeholder="255" min="1" max="500" value="255" 
+                                   style="width: 200px;">
+                            <small style="color: #6c757d;">Máximo permitido: 500 caracteres. Por defecto: 255</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('opcionesContainer').innerHTML = html;
+        }
+        
+        function mostrarOpcionesTextoLargo() {
+            const html = `
+                <div class="form-group">
+                    <label class="form-label">Configuración de Texto Largo</label>
+                    <div class="opciones-container">
+                        <div class="form-group">
+                            <label class="form-label">Límite de Caracteres</label>
+                            <input type="number" name="limite_caracteres" class="form-control" 
+                                   placeholder="1000" min="1" max="5000" value="1000" 
+                                   style="width: 200px;">
+                            <small style="color: #6c757d;">Máximo permitido: 5000 caracteres. Por defecto: 1000</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('opcionesContainer').innerHTML = html;
+        }
+        
+        function mostrarOpcionesFechaPasada() {
+            const fechaActual = new Date().toISOString().split('T')[0];
+            const html = `
+                <div class="form-group">
+                    <label class="form-label">Configuración de Selector de Fecha Pasada</label>
+                    <div class="opciones-container">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Información:</strong> Este selector solo permitirá a los usuarios seleccionar fechas anteriores o iguales a la fecha de creación de la pregunta (${fechaActual}).
+                        </div>
+                        <p><strong>Fecha máxima permitida:</strong> ${fechaActual}</p>
+                        <small style="color: #6c757d;">
+                            Los usuarios no podrán seleccionar fechas posteriores a esta fecha. 
+                            Esta configuración se establece automáticamente al crear la pregunta.
+                        </small>
+                    </div>
+                </div>
+            `;
+            document.getElementById('opcionesContainer').innerHTML = html;
         }
         
         function mostrarOpcionesLista(tipoId) {
@@ -842,7 +926,7 @@ try {
                             alert.parentNode.removeChild(alert);
                         }
                     }, 500);
-                }, 5000); // 5 segundos
+                }, 3000); // 3 segundos
             });
         });
     </script>

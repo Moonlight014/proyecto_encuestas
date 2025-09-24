@@ -19,10 +19,12 @@ function renderizarCampoPregunta($pregunta, $valor_actual = null) {
     
     switch ($tipo) {
         case 'texto_corto':
-            return renderizarTextoCorto($name, $valor_actual, $required);
+            $limite_caracteres = isset($opciones['limite_caracteres']) ? $opciones['limite_caracteres'] : 255;
+            return renderizarTextoCorto($name, $valor_actual, $required, $limite_caracteres);
             
         case 'texto_largo':
-            return renderizarTextoLargo($name, $valor_actual, $required);
+            $limite_caracteres = isset($opciones['limite_caracteres']) ? $opciones['limite_caracteres'] : 1000;
+            return renderizarTextoLargo($name, $valor_actual, $required, $limite_caracteres);
             
         case 'opcion_multiple':
             return renderizarOpcionMultiple($name, $opciones, $valor_actual, $required);
@@ -41,6 +43,10 @@ function renderizarCampoPregunta($pregunta, $valor_actual = null) {
             
         case 'fecha':
             return renderizarFecha($name, $valor_actual, $required);
+            
+        case 'selector_fecha_pasada':
+            $fecha_maxima = isset($opciones['fecha_maxima']) ? $opciones['fecha_maxima'] : date('Y-m-d');
+            return renderizarSelectorFechaPasada($name, $valor_actual, $required, $fecha_maxima);
             
         case 'email':
             return renderizarEmail($name, $valor_actual, $required);
@@ -67,39 +73,43 @@ function renderizarCampoPregunta($pregunta, $valor_actual = null) {
             return renderizarContacto($name, $valor_actual, $required);
             
         default:
-            return renderizarTextoCorto($name, $valor_actual, $required);
+            $limite_caracteres = isset($opciones['limite_caracteres']) ? $opciones['limite_caracteres'] : 255;
+            return renderizarTextoCorto($name, $valor_actual, $required, $limite_caracteres);
     }
 }
 
 /**
  * Campo de texto corto
  */
-function renderizarTextoCorto($name, $valor = null, $required = '') {
+function renderizarTextoCorto($name, $valor = null, $required = '', $limite_caracteres = 255) {
     $valor = htmlspecialchars($valor ?? '');
+    $limite = is_numeric($limite_caracteres) && $limite_caracteres > 0 ? (int)$limite_caracteres : 255;
     return "
         <input type='text' 
                name='{$name}' 
                value='{$valor}' 
                class='form-control' 
-               maxlength='255'
+               maxlength='{$limite}'
                {$required}
                placeholder='Escriba su respuesta aquí...'>
+        <small class='form-text text-muted'>Máximo {$limite} caracteres</small>
     ";
 }
 
 /**
  * Área de texto largo
  */
-function renderizarTextoLargo($name, $valor = null, $required = '') {
+function renderizarTextoLargo($name, $valor = null, $required = '', $limite_caracteres = 1000) {
     $valor = htmlspecialchars($valor ?? '');
+    $limite = is_numeric($limite_caracteres) && $limite_caracteres > 0 ? (int)$limite_caracteres : 1000;
     return "
         <textarea name='{$name}' 
                   class='form-control' 
                   rows='4' 
-                  maxlength='1000'
+                  maxlength='{$limite}'
                   {$required}
                   placeholder='Escriba su respuesta detallada aquí...'>{$valor}</textarea>
-        <small class='form-text text-muted'>Máximo 1000 caracteres</small>
+        <small class='form-text text-muted'>Máximo {$limite} caracteres</small>
     ";
 }
 
@@ -432,6 +442,24 @@ function renderizarFecha($name, $valor = null, $required = '') {
                value='{$valor}' 
                class='form-control' 
                {$required}>
+    ";
+}
+
+/**
+ * Selector de fecha pasada (solo permite fechas anteriores a la fecha de creación)
+ */
+function renderizarSelectorFechaPasada($name, $valor = null, $required = '', $fecha_maxima = null) {
+    $valor = htmlspecialchars($valor ?? '');
+    $fecha_maxima = $fecha_maxima ?? date('Y-m-d');
+    
+    return "
+        <input type='date' 
+               name='{$name}' 
+               value='{$valor}' 
+               class='form-control' 
+               max='{$fecha_maxima}'
+               {$required}>
+        <small class='form-text text-muted'>Solo se permiten fechas hasta el {$fecha_maxima}</small>
     ";
 }
 

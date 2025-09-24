@@ -295,7 +295,7 @@ try {
                             alert.parentNode.removeChild(alert);
                         }
                     }, 500);
-                }, 5000); // 5 segundos
+                }, 3000); // 3 segundos
             });
         });
     </script>

@@ -1,3 +1,6 @@
+✔✔: Terminado.
+✔: Falta pulir.
+
 - El super_admin será como un 'sudo', mientras que el administrador_departamental será el 'usuario' que se registra, pero tendrá menos 
 privilegios que el super admin, como por ejemplo, el administrador_departamental solo podra visualizar y modificar encuestas creadas por 
 si mismo, osea, cada usuario registrado con el rol de administrador_departamental SOLAMENTE PODRÁ VER Y EDITAR LAS ENCUESTAS CREADAS POR 
@@ -17,29 +20,27 @@ pregunta NUEVA.
 (debe modificarse eso en la vista del administrador_departamental)
 
 ✔✔- Agregar un boton 'Exportar A Excel' para exportar las respuestas de esa encuesta.
-
 - Ajustar el formato de los Excel exportados para que sea lo más amigable a la vista, con esto me refiero a que, si en una pregunta de
 selección multiple trae varias respuestas, estan deben ser entendibles en el Excel sin importar cuantas sean (ojala que sea casilla por
 opcion elegida)
-
 - MUY IMPORTANTE QUE AL EXPORTAR A EXCEL LAS RESPUESTAS ESTEN EN FORMATO ENTENDIBLE, COSA DE QUE HASTA UN NIÑO DE 5 AÑOS PUEDA ENTENDER.
 
-✔✔- En las preguntas de selección multiple, poner la opcion de establecer un limite maximo de opciones seleccionadas(y por ende un mensaje de aviso si el encuestado intenta 
-seleccionar más del limite). Y que este limite sea establecido por el creador de la encuesta al momento de ingresar/crear la pregunta. Igualmente pueden haber preguntas 
-SIN LIMITE, pero no deben ser tantas las opciones, de ser posible maximo 5 opciones. Asi evitaremos problemas al momento de exportarlas a Excel. (El limite de selecciones no
-puede ser superior que las opciones actuales.✔)
+✔✔- En las preguntas de selección multiple, poner la opcion de establecer un limite maximo de opciones seleccionadas(y por ende un mensaje 
+de aviso si el encuestado intenta seleccionar más del limite). Y que este limite sea establecido por el creador de la encuesta al momento de 
+ingresar/crear la pregunta. Igualmente pueden haber preguntas SIN LIMITE, pero no deben ser tantas las opciones, de ser posible maximo 5 
+opciones. Asi evitaremos problemas al momento de exportarlas a Excel. (El limite de selecciones no puede ser superior que las opciones 
+actuales.✔)
 
-- Hacer que, en los links públicos, no se vean las cosas como ' Categoría: Satisfacción | Tipo: texto_corto ' en cada pregunta. Que esta vista sea exclusiva para el 
+- Hacer que, en los links públicos, no se vean las cosas como ' Categoría: Satisfacción | Tipo: texto_corto ' en cada pregunta. Que esta vista 
+sea exclusiva para el 
 administrador_departamental y super_admin. 
-
-- Hacer que cuando se dé el link público de una encuesta, sea un href que abra una nueva pestaña con la encuesta y que a la vez copie en el portapapeles el  link.
-
+- Hacer que cuando se genere el link público de una encuesta, sea un href que abra una nueva pestaña con la encuesta y que a la vez copie en 
+el portapapeles el  link.
 - Hacer que, a parte de generarse un link público de las encuestas, tambien se genere un código qr.
 
-- Establecer un maximo de caracteres en los espacios de respuesta de texto.
+✔✔- Establecer un maximo de caracteres personalizable por el creador de la pregunta en los espacios de respuesta de texto.
 
 - Hacer que se puedan registrar solo administrador_departamental, NO super_admin.
-
 - Para reestablecer contraseña se enviará codigo al correo con el que se registraron.
 
 - Validaciones con las fechas de creaciones, la fecha de inicio debe auto asignarse al momento de crearse, y la fecha de fin no puede ser
@@ -51,7 +52,7 @@ y que sea personalizable.
 ✔✔- En el interfaz de 'Crear Pregunta', si es accedido desde el interfaz de 'Agregar Preguntas' a una encuesta, entonces el boton de 
 'Volver al Banco' debe ser un boton que devuelva a el interfaz en el que estaba anteriormente, osea el de 'Agregar Preguntas'.
 
-- En Banco Preguntas debe haber un boton que sea de 'Crear Pregunta' que lleve a un interfaz para la creacion de preguntas y otro de boton 
+✔- En Banco Preguntas debe haber un boton que sea de 'Crear Pregunta' que lleve a un interfaz para la creacion de preguntas y otro de boton 
 de 'Editar Pregunta' que me lleve a otro interfaz para editar la pregunta, en donde debe dejar BUSCAR una pregunta del Banco de Preguntas por
 su id unico, y en el interfaz me deje 'editar' ESA pregunta, pero realmente no será editar, ya que al momento de modificarse deberá guardarse
 en la base de datos (y en el Banco de preguntas) como UNA PREGUNTA NUEVA. A menos que sea un usuario super_admin, quien SI PUEDE EDITAR como
@@ -68,7 +69,6 @@ tal las preguntas.
     ✔Tipo: clasificacion (borrar)✔
     ✔Tipo: slider (borrar)✔
     ✔Tipo: calificacion_estrellas (borrar)✔ 
-
 ✔✔- Borrar Categorías de preguntas y sus preguntas:
     - Atención Primaria  ✔
     - Atención Secundaria ✔
@@ -76,14 +76,13 @@ tal las preguntas.
     - Postas Rurales ✔
     - SAPU (?)
 
-✔✔- Que los mensajes de aviso (creación, eliminar o modificar) sean temporales. Que de alguna forma se dejen de mostrar luego de unos segundos
+✔✔- Que los mensajes de aviso (creación, eliminar, modificar) sean temporales. Que de alguna forma se dejen de mostrar luego de 3 segundos.
 
-- Limpiar caché de paginas, cada vez que se termine un 'proceso importante' (Crear, editar, modificar, eliminar, tambien al responder las encuestas)
-eliminar el caché, de modo que si se recarga la página NO SE DUPLIQUEN procesos, o si se retrocede en el navegador y se vuelve a una página no se queden
-los datos guardados.
+- Limpiar caché de paginas, cada vez que se termine un 'proceso importante' (Crear, editar, modificar, eliminar, tambien al responder las 
+encuestas) eliminar el caché, de modo que si se recarga la página NO SE DUPLIQUEN procesos, o si se retrocede en el navegador y se vuelve a 
+una página no se queden los datos guardados.
 
 - En Banco de Preguntas agregar una función de 'Lupa' para buscar preguntas en especifico (Debe definirse si por Categoría o en general)
-
 - Implementar sistema de busqueda que FILTRE POR TIPO DE PREGUNTA tanto para super_admin como para administrador_departamental.
 
 ✔✔- Hacer que las categorias sean 'desplegables' (similar a un Dropdowns en Bootstrap) y que al desplegar muestre las preguntas de esa, 
@@ -103,3 +102,10 @@ Cerrar Sesión' estén SIEMPRE.
 - Arreglar la Vista Previa al crear preguntas para que funcione con todos los tipos de preguntas.
 
 - Para el formato de los excel, probar como se veria exportando tambien el contenido de las respuestas.
+
+- Pulir la funcion de 'limite de selecciones en preguntas de selección multiple' ya que actualmente el codigo por default 
+( Máximo actual: 2 (número de opciones) Deja en 0 para selecciones ilimitadas(Máximo recomendado: 5).) al borrar todas las opciones y agregar
+una nuevamente se vuelve así (Deja en 0 para selecciones ilimitadas (Máximo recomendado: 5). Máximo actual: 1 (número de opciones) Deja en 
+0 para selecciones ilimitadas(Máximo recomendado: 5).). Ademas hay redundancia, esa parte se repite mucho en el codigo de la funcion. 
+
+- Ajustar las vistas para que sean dinamicas y adaptables a interfaz movil/tablet.
