@@ -79,6 +79,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestionar Encuestas - DAS Hualpén</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -384,7 +386,7 @@ try {
                                                 class="btn btn-secondary btn-sm qr-btn" 
                                                 onclick="toggleQR('qr-<?= $encuesta['id'] ?>', '<?= $url_publica ?>')"
                                                 style="white-space: nowrap;">
-                                            📱 QR
+                                            <i class="fa-solid fa-qrcode"></i> QR
                                         </button>
                                     </div>
                                     <div class="url-display" style="font-size: 0.9em; margin-top: 5px; word-break: break-all;">
@@ -394,7 +396,7 @@ try {
                                               onmouseover="this.style.color='#0056b3'; this.style.backgroundColor='#e6f3ff'; this.style.padding='2px 4px'; this.style.borderRadius='3px';"
                                               onmouseout="this.style.color='#007bff'; this.style.backgroundColor='transparent'; this.style.padding='0';"
                                               title="Haz clic para copiar solo el enlace (sin abrir)">
-                                            📋 <?= $url_publica ?>
+                                            <i class="fa-solid fa-copy"></i> <?= $url_publica ?>
                                         </span>
                                     </div>
                                     <div id="qr-<?= $encuesta['id'] ?>" class="qr-container" style="display: none; margin-top: 10px; text-align: center;">
@@ -463,7 +465,7 @@ try {
                     
                     // Feedback visual
                     const textoOriginal = elemento.innerHTML;
-                    elemento.innerHTML = '✅ ¡Copiado!';
+                    elemento.innerHTML = '<i class="fa-solid fa-check"></i> ¡Copiado!';
                     elemento.style.background = '#28a745';
                     
                     setTimeout(() => {
@@ -482,7 +484,7 @@ try {
                     try {
                         document.execCommand('copy');
                         const textoOriginal = elemento.innerHTML;
-                        elemento.innerHTML = '✅ ¡Copiado!';
+                        elemento.innerHTML = '<i class="fa-solid fa-check"></i> ¡Copiado!';
                         elemento.style.background = '#28a745';
                         
                         setTimeout(() => {
@@ -508,7 +510,7 @@ try {
             navigator.clipboard.writeText(url).then(() => {
                 // Feedback visual mejorado para URL
                 const textoOriginal = elemento.innerHTML;
-                elemento.innerHTML = '✅ ¡Enlace copiado!';
+                elemento.innerHTML = '<i class="fa-solid fa-check"></i> ¡Enlace copiado!';
                 elemento.style.color = '#28a745';
                 elemento.style.backgroundColor = '#d4edda';
                 elemento.style.padding = '4px 8px';
@@ -539,7 +541,7 @@ try {
                     
                     // Feedback visual
                     const textoOriginal = elemento.innerHTML;
-                    elemento.innerHTML = '✅ ¡Enlace copiado!';
+                    elemento.innerHTML = '<i class="fa-solid fa-check"></i> ¡Enlace copiado!';
                     elemento.style.color = '#28a745';
                     elemento.style.backgroundColor = '#d4edda';
                     elemento.style.padding = '4px 8px';
@@ -558,7 +560,7 @@ try {
                     console.error('No se pudo copiar el enlace:', err);
                     // Mostrar mensaje de error
                     const textoOriginal = elemento.innerHTML;
-                    elemento.innerHTML = '❌ Error al copiar';
+                    elemento.innerHTML = '<i class="fa-solid fa-times"></i> Error al copiar';
                     elemento.style.color = '#dc3545';
                     
                     setTimeout(() => {
@@ -656,7 +658,7 @@ try {
                     box-shadow: 0 2px 4px rgba(0,123,255,0.2);
                 }
                 .url-clickable::before {
-                    content: "👆 Clic para copiar";
+                    content: "Clic para copiar";
                     position: absolute;
                     top: -25px;
                     left: 50%;
@@ -674,6 +676,35 @@ try {
                 }
                 .url-clickable:hover::before {
                     opacity: 1;
+                }
+                /* Estilos para iconos de Font Awesome */
+                .fa-solid {
+                    margin-right: 6px;
+                }
+                .url-clickable .fa-copy {
+                    color: #007bff;
+                    margin-right: 8px;
+                }
+                .fa-qrcode {
+                    margin-right: 4px;
+                }
+                .fa-check {
+                    margin-right: 6px;
+                    animation: checkBounce 0.6s ease-in-out;
+                }
+                .fa-times {
+                    margin-right: 6px;
+                    animation: shake 0.5s ease-in-out;
+                }
+                @keyframes checkBounce {
+                    0% { transform: scale(0.8); }
+                    50% { transform: scale(1.2); }
+                    100% { transform: scale(1); }
+                }
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-5px); }
+                    75% { transform: translateX(5px); }
                 }
             `;
             document.head.appendChild(style);

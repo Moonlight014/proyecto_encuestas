@@ -36,10 +36,10 @@ ingresar/crear la pregunta. Igualmente pueden haber preguntas SIN LIMITE, pero n
 opciones. Asi evitaremos problemas al momento de exportarlas a Excel. (El limite de selecciones no puede ser superior que las opciones 
 actuales.✔)
 
-- Hacer que, en los links públicos, NO se vean las cosas como ' Categoría: Satisfacción | Tipo: texto_corto ' en cada pregunta. Que esta vista 
-sea exclusiva para el administrador_departamental y super_admin, NO PARA EL ENCUESTADO. 
-✔✔- Hacer que cuando se genere el link público de una encuesta, sea un href que abra una nueva pestaña con la encuesta y que a la vez copie en 
-el portapapeles el  link.
+- Hacer que, en los links públicos, NO se vean las cosas como ' Categoría: Satisfacción | Tipo: texto_corto ' en cada pregunta. Que esta 
+vista sea exclusiva para el administrador_departamental y super_admin, NO PARA EL ENCUESTADO. 
+✔✔- Hacer que cuando se genere el link público de una encuesta, sea un href que abra una nueva pestaña con la encuesta y que a la vez copie 
+en el portapapeles el  link.
 - En la parte inferior al boton 'Abrir Encuesta' sale el url de la encuesta publica, añadir una forma de que presionandolo se copie (solo se 
 copie) en caso de que el administrador quiera solo copiar el enlace y no abrirlo.
 ✔✔- Hacer que, a parte de generarse un link público de las encuestas, tambien se genere un código qr.
