@@ -371,7 +371,7 @@ try {
                                         <a href="<?= $url_publica ?>" 
                                            target="_blank" 
                                            class="enlace-publico-btn btn btn-info btn-sm"
-                                           onclick="copiarAlPortapapeles('<?= $url_publica ?>', this)"
+                                           onclick="copiarAlPortapapeles('<?= $url_publica ?>', this); return true;"
                                            style="text-decoration: none; flex: 1; min-width: 200px;">
                                             🔗 Abrir Encuesta
                                         </a>
@@ -442,31 +442,14 @@ try {
     <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
     
     <script>
-        // Función para copiar al portapapeles
-        async function copiarAlPortapapeles(url, elemento) {
-            try {
-                await navigator.clipboard.writeText(url);
-                
-                // Feedback visual
-                const textoOriginal = elemento.innerHTML;
-                elemento.innerHTML = '✅ ¡Copiado!';
-                elemento.style.background = '#28a745';
-                
-                setTimeout(() => {
-                    elemento.innerHTML = textoOriginal;
-                    elemento.style.background = '';
-                }, 2000);
-                
-            } catch (err) {
-                // Fallback para navegadores que no soportan clipboard API
-                const textArea = document.createElement('textarea');
-                textArea.value = url;
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                
+        // Función para copiar al portapapeles (no bloquea la navegación)
+        function copiarAlPortapapeles(url, elemento) {
+            // Ejecutar la copia de forma asíncrona sin bloquear
+            setTimeout(async () => {
                 try {
-                    document.execCommand('copy');
+                    await navigator.clipboard.writeText(url);
+                    
+                    // Feedback visual
                     const textoOriginal = elemento.innerHTML;
                     elemento.innerHTML = '✅ ¡Copiado!';
                     elemento.style.background = '#28a745';
@@ -475,12 +458,32 @@ try {
                         elemento.innerHTML = textoOriginal;
                         elemento.style.background = '';
                     }, 2000);
+                    
                 } catch (err) {
-                    alert('No se pudo copiar automáticamente. URL: ' + url);
+                    // Fallback para navegadores que no soportan clipboard API
+                    const textArea = document.createElement('textarea');
+                    textArea.value = url;
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    
+                    try {
+                        document.execCommand('copy');
+                        const textoOriginal = elemento.innerHTML;
+                        elemento.innerHTML = '✅ ¡Copiado!';
+                        elemento.style.background = '#28a745';
+                        
+                        setTimeout(() => {
+                            elemento.innerHTML = textoOriginal;
+                            elemento.style.background = '';
+                        }, 2000);
+                    } catch (err) {
+                        console.error('No se pudo copiar:', err);
+                    }
+                    
+                    document.body.removeChild(textArea);
                 }
-                
-                document.body.removeChild(textArea);
-            }
+            }, 100); // Pequeño delay para permitir que la navegación ocurra primero
         }
 
         // Función para mostrar/ocultar código QR

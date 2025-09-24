@@ -1,7 +1,7 @@
 <?php
 /**
  * Helper para generar URLs dinámicas
- * Detecta automáticamente si el proyecto está en localhost:8000 o localhost/php/proyecto_encuestas
+ * Detecta automáticamente si el proyecto está en servidor PHP de desarrollo (puertos 8000-8999) o en XAMPP
  */
 
 /**
@@ -22,14 +22,14 @@ function obtenerUrlBase() {
     // Construir la URL base
     $base_url = $protocol . '://' . $host;
     
-    // Agregar puerto solo si no es el estándar
-    if (($protocol === 'http' && $port != 80) || ($protocol === 'https' && $port != 443)) {
+    // Solo agregar puerto si HTTP_HOST no lo incluye ya y no es puerto estándar
+    if (!strpos($host, ':') && (($protocol === 'http' && $port != 80) || ($protocol === 'https' && $port != 443))) {
         $base_url .= ':' . $port;
     }
     
-    // Detectar si estamos en el servidor de desarrollo (puerto 8000) o en XAMPP
-    if ($port == 8000) {
-        // Servidor de desarrollo - el responder.php está en la raíz
+    // Detectar si estamos en el servidor de desarrollo PHP (puertos 8000-8999) o en XAMPP
+    if ($port >= 8000 && $port <= 8999) {
+        // Servidor de desarrollo PHP - el responder.php está en la raíz del proyecto
         return $base_url;
     } else {
         // XAMPP - incluir la ruta completa del proyecto
