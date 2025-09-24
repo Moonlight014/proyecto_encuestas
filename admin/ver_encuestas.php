@@ -409,6 +409,7 @@ try {
                         <div class="encuesta-actions">
                             <a href="editar_encuesta.php?id=<?= $encuesta['id'] ?>" class="btn btn-primary">Editar</a>
                             <a href="agregar_preguntas.php?id=<?= $encuesta['id'] ?>" class="btn btn-secondary">+ Preguntas</a>
+                            <a href="vista_previa_admin.php?id=<?= $encuesta['id'] ?>" class="btn btn-primary" style="background: #17a2b8;"><i class="fa-solid fa-eye"></i> Vista Previa</a>
                             
                             <!-- Botón de exportar disponible para todas las encuestas -->
                             <form method="POST" style="display: inline;">

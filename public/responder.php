@@ -248,11 +248,7 @@ if (empty($enlace_publico)) {
             color: #dc3545;
             font-weight: bold;
         }
-        .pregunta-meta {
-            font-size: 0.8rem;
-            color: #6c757d;
-            margin-bottom: 1rem;
-        }
+        /* .pregunta-meta removido - información técnica no se muestra en vista pública */
         .form-control {
             width: 100%;
             padding: 12px;
@@ -463,10 +459,7 @@ if (empty($enlace_publico)) {
                                     </div>
                                 </div>
                                 
-                                <div class="pregunta-meta">
-                                    Categoría: <?= htmlspecialchars($pregunta['categoria_nombre']) ?> | 
-                                    Tipo: <?= htmlspecialchars($pregunta['tipo_nombre']) ?>
-                                </div>
+                                <!-- Información técnica removida para vista pública -->
                                 
                                 <div class="pregunta-respuesta">
                                     <?= renderizarCampoPregunta($pregunta) ?>

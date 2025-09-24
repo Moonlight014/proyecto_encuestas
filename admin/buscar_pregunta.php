@@ -59,7 +59,7 @@ try {
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #F8F9FA;
             min-height: 100vh;
             color: #333;
         }
