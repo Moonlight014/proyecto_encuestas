@@ -1,16 +1,8 @@
 <?php
-session_start();
+// Protección de sesión - DEBE ser lo primero
+require_once '../includes/session_guard.php';
+
 require_once '../config/conexion.php';
-
-// Headers anti-caché para prevenir duplicación de procesos
-header("Cache-Control: no-cache, no-store, must-revalidate");
-header("Pragma: no-cache");
-header("Expires: 0");
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
 
 $mensaje = '';
 $error = '';

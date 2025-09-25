@@ -74,7 +74,7 @@ Preguntas por su id unico, y en el interfaz me deje 'editar' ESA pregunta, pero 
 deberá guardarse en la base de datos (y en el Banco de preguntas) como UNA PREGUNTA NUEVA. A menos que sea un usuario super_admin, quien SI 
 PUEDE EDITAR como tal las preguntas.
 
-🟨🟨- Pulir la función de buscar por ID.
+🟨🟨- Pulir la función de buscar por ID. Actualmente deja ingresar letras cuando solo debe dejar ingresar NUMEROS.
 
 ✅- Modificar los tipos de preguntas:  
     ✅Tipo: contacto (borrar)✅
@@ -90,7 +90,7 @@ PUEDE EDITAR como tal las preguntas.
     - Atención Secundaria ✅
     - Atención Terciaria ✅
     - Postas Rurales ✅
-    - SAPU (?)
+    🟨- SAPU (?)
 
 ✅✅- Que los mensajes de aviso (creación, eliminar, modificar) sean temporales. Que de alguna forma se dejen de mostrar luego de 3 segundos.
 
@@ -109,9 +109,9 @@ categoria. Algo como una lista desplegable que sea dinamica.
 este para obtenerlo y usarlo. Al hacer esto evitar cambios visuales de como se veia con los estilos en cada archivo.
 
 
-🟨🟨- Añadir un navbar basandose en el archivo 'navbar_example.php' y en este 'navbar' o 'header' hacer que el mensaje ' Bienvenido, (usuario)
+✅✅- Añadir un navbar basandose en el archivo 'navbar_example.php' y en este 'navbar' o 'header' hacer que el mensaje ' Bienvenido, (usuario)
 Cerrar Sesión(boton que cierre la sesion)' estén SIEMPRE en el navbar.
-🟨🟨- Al lado derecho del navbar debe ir el 'usuario' y al izquierdo el logo de la pagina (archivo 'webicon.png') y a la derecha de ese logo
+✅❌- Al lado derecho del navbar debe ir el 'usuario' y al izquierdo el logo de la pagina (archivo 'webicon.png') y a la derecha de ese logo
 deben ir los 'accesos directos'.
 🟨🟨- Agregar a navbar o header un drowdown con 'accesos directos' a los interfaces importantes, como por ejemplo;
     - Ver Encuestas
@@ -141,6 +141,15 @@ evitarlos.
 pregunta de la encuesta' y que sea intuitivo para el usuario.
 
 🟨🟨- Solucionar lo de que el navbar en movil se ve unicamente el drowdown de el usuario, y no el de accesos directos.
+🟨🟨- En desktop, navbar si tiene los dos Dropdowns pero el de Menú (accesos directos) se ve centrado, cuando debe estar al lado del logo.
+
 🟨🟨- Cosas como '<span class="estado-badge estado-activa">Activa</span>' no se ven en el interfaz como deberían verse. Lo mismo con 
 'Encuestas Creadas' 'Preguntas en el Banco' 'Respuestas Recibidas' en dashboard.php y en 'ver_encuestas.php' tambien hay conflictos visuales. 
 (los botones de gestion de cada encuesta no se ven) Ademas de que muestra solo una encuesta cuando en la base de datos hay varias.
+
+✅✅- Al cerrar sesion (desde el boton de navbar de cerrar sesion) debe cerrar completamente la sesion, de modo que, si retrocedo en el 
+navegador no me deje volver a la pagina anterior (que deberia estar protegida por login) y me redirija a login.php.
+✅❌- Al cerrar sesion redirige a index.php con un mensaje de 'sesion cerrada correctamente', pero al recargar la pagina me muestra nuevamente el
+mensaje, eso debe evitarse. Osea la url debe quedar como 'index.php' y no 'index.php?mensaje=sesion_cerrada' y al cerrar sesion el mensaje debe
+mostrarse una sola vez, no cada vez que recargue la pagina, por 3 segundos. La forma actual de hacerlo (redireccionando en el url) no es la 
+correcta.

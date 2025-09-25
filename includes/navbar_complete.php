@@ -120,7 +120,7 @@ $relative_base = $is_admin_folder ? '../' : '';
                         <span>Configuración</span>
                     </a>
                     <div class="user-dropdown-divider"></div>
-                    <a href="<?= $base_url ?>/logout.php" class="user-dropdown-item logout-item">
+                    <a href="<?= $base_url ?>/logout.php" class="user-dropdown-item logout-item" onclick="return confirmarLogout()">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Cerrar Sesión</span>
                     </a>
@@ -485,5 +485,24 @@ document.addEventListener('DOMContentLoaded', function() {
             e.stopPropagation();
         });
     });
+});
+
+// Función para confirmar logout
+function confirmarLogout() {
+    return confirm('¿Está seguro que desea cerrar su sesión?\n\nSe perderá cualquier trabajo no guardado.');
+}
+
+// Limpiar historia del navegador después del logout para mayor seguridad
+window.addEventListener('beforeunload', function() {
+    // Solo limpiar si estamos en proceso de logout
+    if (document.activeElement && document.activeElement.classList.contains('logout-item')) {
+        if (window.history && window.history.pushState) {
+            window.history.pushState(null, null, window.location.href);
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function() {
+                window.history.go(1);
+            };
+        }
+    }
 });
 </script>

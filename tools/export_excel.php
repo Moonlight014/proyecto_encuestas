@@ -17,7 +17,7 @@ foreach ($autoloadCandidates as $path) {
 // Si NO hay autoload, exportaremos CSV como alternativa sin dependencias
 // Cuando autoload esté disponible, exportaremos XLSX con PhpSpreadsheet
 
-require_once __DIR__ . '/config/conexion.php';
+require_once __DIR__ . '/../config/conexion.php';
 
 // Helper: aplanar un valor JSON a texto legible
 function aplanarValor($jsonValue) {

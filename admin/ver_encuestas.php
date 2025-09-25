@@ -1,13 +1,6 @@
 <?php
-session_start();
-
-// Para testing temporal - comentar cuando tengas login funcionando
-$_SESSION['user_id'] = $_SESSION['user_id'] ?? 1;
-$_SESSION['nombre'] = $_SESSION['nombre'] ?? 'Administrador';
-$_SESSION['rol'] = $_SESSION['rol'] ?? 'super_admin';
-
-// Headers anti-caché para prevenir duplicación de procesos
-header("Cache-Control: no-cache, no-store, must-revalidate");
+// Protección de sesión - DEBE ser lo primero
+require_once '../includes/session_guard.php';
 header("Pragma: no-cache");
 header("Expires: 0");
 

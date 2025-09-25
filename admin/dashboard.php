@@ -1,19 +1,9 @@
 <?php
-session_start();
-
-// Para testing temporal - comentar estas líneas cuando tengas login funcionando
-$_SESSION['user_id'] = $_SESSION['user_id'] ?? 1;
-$_SESSION['nombre'] = $_SESSION['nombre'] ?? 'Administrador';
-$_SESSION['rol'] = $_SESSION['rol'] ?? 'super_admin';
+// Protección de sesión - DEBE ser lo primero
+require_once '../includes/session_guard.php';
 
 require_once '../config/conexion.php';
 require_once '../config/path_helper.php';
-
-// Comentar temporalmente la verificación de login para testing
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location: login.php");
-//     exit();
-// }
 
 // Usar la función helper para detección automática de rutas
 $base_url = detectar_base_url();
