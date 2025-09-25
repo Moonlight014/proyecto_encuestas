@@ -119,6 +119,90 @@
     flex: 1;
 }
 
+/* Enlaces públicos */
+.enlace-publico {
+    background: #f8f9ff;
+    border: 1px solid #e3e8ff;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.enlace-publico strong {
+    color: var(--color-primary);
+    font-size: 0.9rem;
+}
+
+.enlace-container {
+    margin: 10px 0;
+}
+
+.enlace-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.enlace-publico-btn {
+    text-decoration: none;
+    flex: 1;
+    min-width: 200px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #17a2b8;
+    color: white;
+    border-radius: var(--border-radius-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.enlace-publico-btn:hover {
+    background: #138496;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.qr-btn {
+    white-space: nowrap;
+    background: var(--color-secondary);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.qr-btn:hover {
+    background: var(--color-secondary-hover);
+    transform: translateY(-1px);
+}
+
+.url-display {
+    font-size: 0.9em;
+    margin-top: 5px;
+    word-break: break-all;
+}
+
+.url-clickable {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: all 0.3s ease;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.url-clickable:hover {
+    color: #0056b3;
+    background-color: #e6f3ff;
+}
+
 .stat-number {
     font-size: 1.1rem;
     font-weight: 600;
@@ -134,17 +218,37 @@
 /* Acciones de encuesta */
 .encuesta-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
-    justify-content: flex-end;
-    margin-top: 1rem;
+    justify-content: flex-start;
+    margin-top: 1.5rem;
     padding-top: 1rem;
     border-top: 1px solid var(--border-light);
 }
 
 .encuesta-actions .btn {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.8rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    min-height: 36px;
+    white-space: nowrap;
+}
+
+.encuesta-actions .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    text-decoration: none;
+}
+
+.encuesta-actions .btn i {
+    font-size: 0.9rem;
 }
 
 /* Grid de preguntas */

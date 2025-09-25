@@ -133,7 +133,7 @@ una nuevamente se vuelve así (Deja en 0 para selecciones ilimitadas (Máximo re
 🟨🟨- En export_excel.php, modificar codigo para que, en caso de que no se encuentre el 'autoload.php' ejecutar un codigo de composer que lo
 vuelva a generar, para que así siemre esté autoload y por ende siempre se exporte el archivo en el formato adecuado (XLSX).
 
-🟨🟨- Evitar que salgan errores como 'Documento expirado. Este documento ya no está disponible.' al momento de retroceder con el navegador 
+✅❌- Evitar que salgan errores como 'Documento expirado. Este documento ya no está disponible.' al momento de retroceder con el navegador 
 (y no con los botones de 'volver' de la pagina), ya que yo a veces al retroceder con el BackButton de mi mouse me da esos errores, y quiero 
 evitarlos.
 
@@ -143,9 +143,14 @@ pregunta de la encuesta' y que sea intuitivo para el usuario.
 🟨🟨- Solucionar lo de que el navbar en movil se ve unicamente el drowdown de el usuario, y no el de accesos directos.
 🟨🟨- En desktop, navbar si tiene los dos Dropdowns pero el de Menú (accesos directos) se ve centrado, cuando debe estar al lado del logo.
 
-🟨🟨- Cosas como '<span class="estado-badge estado-activa">Activa</span>' no se ven en el interfaz como deberían verse. Lo mismo con 
+✅❌- Cosas como '<span class="estado-badge estado-activa">Activa</span>' no se ven en el interfaz como deberían verse. Lo mismo con 
 'Encuestas Creadas' 'Preguntas en el Banco' 'Respuestas Recibidas' en dashboard.php y en 'ver_encuestas.php' tambien hay conflictos visuales. 
 (los botones de gestion de cada encuesta no se ven) Ademas de que muestra solo una encuesta cuando en la base de datos hay varias.
+    - En localhost:8000/ se ve bien, pero en localhost/php/proyecto_encuestas/ no se solucionó. y el error de 'Enlace público:
+Fatal error: Uncaught Error: Call to undefined function generarUrlResponder() in 
+C:\Users\monse\Desktop\U\XAMPP\htdocs\php\proyecto_encuestas\admin\ver_encuestas.php:186 Stack trace: #0 {main} thrown in 
+C:\Users\monse\Desktop\U\XAMPP\htdocs\php\proyecto_encuestas\admin\ver_encuestas.php on line 186' sigue saliendo tanto en 
+localhost:8000/admin/ver_encuestas.php como en localhost/php/proyecto_encuestas/admin/ver_encuestas.php.
 
 ✅✅- Al cerrar sesion (desde el boton de navbar de cerrar sesion) debe cerrar completamente la sesion, de modo que, si retrocedo en el 
 navegador no me deje volver a la pagina anterior (que deberia estar protegida por login) y me redirija a login.php.
@@ -166,5 +171,5 @@ la correcta.
 ✅✅- Ver opciones para que el mensaje de '¿Está seguro que desea cerrar su sesión? Se perderá cualquier trabajo no guardado.' se muestre en 
 un modal bonito y no en un alert feo.
 
-🟨🟨- En teoria, si el usuario NO cierra sesion pero cierra el navegador o la pestaña, al volver a abrir 'http://localhost:8000/' o 
+✅❌- En teoria, si el usuario NO cierra sesion pero cierra el navegador o la pestaña, al volver a abrir 'http://localhost:8000/' o 
 'https://localhost/php/proyecto_encuestas/', deberia llevarlo al login o al interfaz de su usuario logeado?
