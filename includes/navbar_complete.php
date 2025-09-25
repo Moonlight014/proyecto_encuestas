@@ -97,7 +97,7 @@ $relative_base = $is_admin_folder ? '../' : '';
                         <span class="user-name"><?= htmlspecialchars($usuario_nombre) ?></span>
                         <span class="user-role">
                             <?php if ($es_super_admin): ?>
-                                <i class="fas fa-crown" style="color: #ffd700;"></i> Super Admin
+                                <i class="fa-solid fa-crown"></i> Super Admin
                             <?php else: ?>
                                 <i class="fas fa-user"></i> Administrador
                             <?php endif; ?>
@@ -120,7 +120,7 @@ $relative_base = $is_admin_folder ? '../' : '';
                         <span>Configuración</span>
                     </a>
                     <div class="user-dropdown-divider"></div>
-                    <a href="<?= $base_url ?>/logout.php" class="user-dropdown-item logout-item" onclick="return confirmarLogout()">
+                    <a href="#" class="user-dropdown-item logout-item" onclick="confirmarLogout(); return false;">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Cerrar Sesión</span>
                     </a>
@@ -129,6 +129,36 @@ $relative_base = $is_admin_folder ? '../' : '';
         </div>
     </div>
 </nav>
+
+<!-- Modal de Confirmación de Logout -->
+<div id="logoutModal" class="logout-modal">
+    <div class="logout-modal-content">
+        <div class="logout-modal-header">
+            <div class="logout-modal-icon">
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <button class="logout-modal-close" onclick="cerrarModalLogout()">&times;</button>
+        </div>
+        <div class="logout-modal-body">
+            <h3>¿Cerrar sesión?</h3>
+            <p>¿Está seguro que desea cerrar su sesión?</p>
+            <p class="logout-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                Se perderá cualquier trabajo no guardado.
+            </p>
+        </div>
+        <div class="logout-modal-footer">
+            <button class="logout-modal-btn logout-modal-cancel" onclick="cerrarModalLogout()">
+                <i class="fas fa-times"></i>
+                Cancelar
+            </button>
+            <button class="logout-modal-btn logout-modal-confirm" onclick="confirmarYCerrarSesion()">
+                <i class="fas fa-sign-out-alt"></i>
+                Cerrar Sesión
+            </button>
+        </div>
+    </div>
+</div>
 
 <style>
 /* ========================================
@@ -417,6 +447,176 @@ $relative_base = $is_admin_folder ? '../' : '';
         justify-content: space-between;
     }
 }
+
+/* ========================================
+   MODAL DE CONFIRMACIÓN DE LOGOUT
+   ======================================== */
+.logout-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.logout-modal-content {
+    position: relative;
+    background-color: #ffffff;
+    margin: 10% auto;
+    border: none;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease-out;
+    overflow: hidden;
+}
+
+.logout-modal-header {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    padding: 20px;
+    position: relative;
+    text-align: center;
+}
+
+.logout-modal-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.logout-modal-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.logout-modal-close:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.logout-modal-body {
+    padding: 30px 25px 20px;
+    text-align: center;
+}
+
+.logout-modal-body h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.logout-modal-body p {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.logout-warning {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 12px;
+    color: #856404 !important;
+    font-size: 0.9rem !important;
+}
+
+.logout-warning i {
+    color: #f39c12;
+    margin-right: 8px;
+}
+
+.logout-modal-footer {
+    padding: 20px 25px 25px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.logout-modal-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.logout-modal-cancel {
+    background-color: #6c757d;
+    color: white;
+}
+
+.logout-modal-cancel:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}
+
+.logout-modal-confirm {
+    background-color: #dc3545;
+    color: white;
+}
+
+.logout-modal-confirm:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .logout-modal-content {
+        margin: 20% auto;
+        width: 95%;
+    }
+    
+    .logout-modal-footer {
+        flex-direction: column;
+    }
+    
+    .logout-modal-btn {
+        flex: none;
+    }
+}
 </style>
 
 <script>
@@ -487,10 +687,53 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Función para confirmar logout
+// Funciones para el modal de logout
 function confirmarLogout() {
-    return confirm('¿Está seguro que desea cerrar su sesión?\n\nSe perderá cualquier trabajo no guardado.');
+    mostrarModalLogout();
+    return false; // Prevenir navegación inmediata
 }
+
+function mostrarModalLogout() {
+    const modal = document.getElementById('logoutModal');
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevenir scroll del fondo
+    
+    // Enfocar el modal para accesibilidad
+    const cancelBtn = modal.querySelector('.logout-modal-cancel');
+    if (cancelBtn) {
+        cancelBtn.focus();
+    }
+}
+
+function cerrarModalLogout() {
+    const modal = document.getElementById('logoutModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restaurar scroll
+}
+
+function confirmarYCerrarSesion() {
+    cerrarModalLogout();
+    // Redirigir a logout después de cerrar el modal
+    window.location.href = '<?= $base_url ?>/logout.php';
+}
+
+// Cerrar modal al hacer clic fuera de él
+document.addEventListener('click', function(event) {
+    const modal = document.getElementById('logoutModal');
+    if (event.target === modal) {
+        cerrarModalLogout();
+    }
+});
+
+// Cerrar modal con tecla Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('logoutModal');
+        if (modal.style.display === 'block') {
+            cerrarModalLogout();
+        }
+    }
+});
 
 // Limpiar historia del navegador después del logout para mayor seguridad
 window.addEventListener('beforeunload', function() {

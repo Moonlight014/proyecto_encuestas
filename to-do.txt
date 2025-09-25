@@ -163,7 +163,7 @@ la correcta.
     ✅✅- Arreglar el mensaje '⚠ Tu sesión ha expirado. Por favor, ingresa nuevamente.' que aparece al intentar acceder a una pagina protegida 
     sin estar logeado, se ve feo y en vez de emoji hay que usar fontawesome o bootstrap icons.
 
-🟨🟨- Ver opciones para que el mensaje de '¿Está seguro que desea cerrar su sesión? Se perderá cualquier trabajo no guardado.' se muestre en 
+✅✅- Ver opciones para que el mensaje de '¿Está seguro que desea cerrar su sesión? Se perderá cualquier trabajo no guardado.' se muestre en 
 un modal bonito y no en un alert feo.
 
 🟨🟨- En teoria, si el usuario NO cierra sesion pero cierra el navegador o la pestaña, al volver a abrir 'http://localhost:8000/' o 

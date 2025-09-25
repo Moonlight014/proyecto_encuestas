@@ -4,7 +4,7 @@
  * Limpia completamente la sesión y redirige al login
  */
 
-// Iniciar la sesión para poder destruirla
+// Iniciar la sesión para poder destruirla luego
 session_start();
 
 // Headers de seguridad adicionales
