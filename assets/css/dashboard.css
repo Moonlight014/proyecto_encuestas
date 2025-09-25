@@ -286,3 +286,77 @@
         font-size: 1.1rem;
     }
 }
+
+/* ========================================
+   SECCIÓN DE ACCIONES
+   ======================================== */
+
+.actions-section {
+    background: var(--bg-white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    margin-top: 2rem;
+}
+
+.section-title {
+    color: var(--text-dark);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--bg-light);
+    padding-bottom: 0.5rem;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.action-btn {
+    display: block;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+    box-shadow: var(--shadow-md);
+}
+
+.action-btn.btn-primary {
+    background: var(--color-primary);
+    color: var(--text-white);
+}
+
+.action-btn.btn-primary:hover {
+    background: var(--color-primary-hover);
+    color: var(--text-white);
+}
+
+.action-btn.btn-secondary {
+    background: var(--color-secondary);
+    color: var(--text-white);
+}
+
+.action-btn.btn-secondary:hover {
+    background: var(--color-secondary-hover);
+    color: var(--text-white);
+}
+
+.action-btn.btn-info {
+    background: var(--color-success);
+    color: var(--text-white);
+}
+
+.action-btn.btn-info:hover {
+    background: var(--color-success-hover);
+    color: var(--text-white);
+}

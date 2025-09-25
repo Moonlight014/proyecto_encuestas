@@ -110,12 +110,15 @@ este para obtenerlo y usarlo. Al hacer esto evitar cambios visuales de como se v
 
 
 🟨🟨- Añadir un navbar basandose en el archivo 'navbar_example.php' y en este 'navbar' o 'header' hacer que el mensaje ' Bienvenido, (usuario)
-Cerrar Sesión(boton que cierre la sesion)' estén SIEMPRE en todas las pantallas.
+Cerrar Sesión(boton que cierre la sesion)' estén SIEMPRE en el navbar.
+🟨🟨- Al lado derecho del navbar debe ir el 'usuario' y al izquierdo el logo de la pagina (archivo 'webicon.png') y a la derecha de ese logo
+deben ir los 'accesos directos'.
 🟨🟨- Agregar a navbar o header un drowdown con 'accesos directos' a los interfaces importantes, como por ejemplo;
     - Ver Encuestas
     - Banco de Preguntas
     - Reportes (no sé)
-🟨🟨- Asegurarse de que el navbar se vea bien en todos los dispositivos (desktop y moviles).
+🟨🟨- Asegurarse de que no genere problemas y se vea perfectamente en las 'localhost:8xxx' y 'localhost/php/proyecto_encuestas.
+✅✅- Asegurarse de que el navbar se vea bien en todos los dispositivos (desktop y moviles).
 
 🟨🟨- Arreglar la Vista Previa al crear preguntas para que funcione perfectamente con todos los tipos de preguntas.
 🟨🟨- La vista previa de preguntas se mostrará en la creacion de preguntas.
@@ -136,3 +139,6 @@ evitarlos.
 
 🟨🟨- En vista_previa_admin.php permitir eliminar una pregunta de la encuesta, o buscar una forma de poner la opcion de 'eliminar esta 
 pregunta de la encuesta' y que sea intuitivo para el usuario.
+
+🟨🟨- Solucionar lo de que el navbar en movil se ve unicamente el drowdown de el usuario, y no el de accesos directos.
+- Cosas como '<span class="estado-badge estado-activa">Activa</span>' no se ven en el interfaz como deberían verse

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test CSS - DAS Hualpén</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos del sistema -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    
+    <style>
+        .test-section {
+            background: #f0f8ff;
+            border: 2px solid #0066cc;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        .error { color: red; font-weight: bold; }
+        .success { color: green; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="test-section">
+        <h1>🧪 Test de Carga de CSS</h1>
+        <p>Este archivo verifica que los CSS se cargan correctamente</p>
+    </div>
+
+    <!-- Test básico de navbar -->
+    <nav style="background: #0d47a1; color: white; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <img src="webicon.png" alt="Logo" style="height: 35px;">
+            <span style="font-weight: 600;">DAS Hualpén (Static Test)</span>
+        </div>
+        <div>
+            <span>Usuario Test</span>
+        </div>
+    </nav>
+    
+    <div class="main-container">
+        <div class="content-wrapper">
+            <div class="container">
+                <div class="test-section">
+                    <h2>Test de Estilos CSS</h2>
+                    <p>Si ves este contenido correctamente estilizado, los CSS se están cargando:</p>
+                </div>
+
+                <div class="welcome-section">
+                    <h2>Panel de Administración (CSS Test)</h2>
+                    <p>Esta sección debería tener fondo blanco y borde verde a la izquierda</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Encuestas Creadas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">105</div>
+                        <div class="stat-label">Preguntas en el Banco</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Respuestas Recibidas</div>
+                    </div>
+                </div>
+
+                <div class="actions-section">
+                    <h3 class="section-title">Acciones Principales</h3>
+                    <div class="action-buttons">
+                        <a href="#" class="action-btn btn-primary">
+                            + Nueva Encuesta
+                        </a>
+                        <a href="#" class="action-btn btn-secondary">
+                            Banco de Preguntas
+                        </a>
+                        <a href="#" class="action-btn btn-info">
+                            Ver Encuestas
+                        </a>
+                        <a href="#" class="action-btn btn-secondary">
+                            Reportes
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="test-section">
+                    <h3>Resultados Esperados:</h3>
+                    <ul>
+                        <li class="success">✅ Cards de estadísticas con sombra y hover effect</li>
+                        <li class="success">✅ Botones coloridos: azul, gris, verde</li>
+                        <li class="success">✅ Sección de bienvenida con borde verde</li>
+                        <li class="success">✅ Layout responsive y centrado</li>
+                        <li class="success">✅ Iconos de Font Awesome cargando</li>
+                    </ul>
+                    
+                    <p><strong>Si algo no se ve bien:</strong></p>
+                    <ul>
+                        <li class="error">❌ Verifica que XAMPP esté ejecutándose</li>
+                        <li class="error">❌ Verifica que assets/css/styles.css exista</li>
+                        <li class="error">❌ Verifica que assets/css/dashboard.css exista</li>
+                        <li class="error">❌ Abre la consola del navegador para ver errores 404</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Test básico de JavaScript
+        console.log('✅ JavaScript funcionando');
+        
+        // Verificar si Font Awesome carga
+        window.addEventListener('load', function() {
+            const testIcon = document.createElement('i');
+            testIcon.className = 'fas fa-home';
+            document.body.appendChild(testIcon);
+            
+            const computed = window.getComputedStyle(testIcon);
+            if (computed.fontFamily.includes('Font Awesome')) {
+                console.log('✅ Font Awesome cargado correctamente');
+            } else {
+                console.log('❌ Font Awesome no se cargó');
+            }
+            
+            document.body.removeChild(testIcon);
+        });
+    </script>
+</body>
+</html>

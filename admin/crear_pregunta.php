@@ -12,6 +12,27 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// Detectar la ruta base dinámicamente para ambos entornos
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+$host = $_SERVER['HTTP_HOST'];
+$script_name = $_SERVER['SCRIPT_NAME'];
+
+// Detectar el contexto del servidor
+if (strpos($host, ':') !== false && !strpos($host, ':80') && !strpos($host, ':443')) {
+    // Servidor con puerto específico (ej: localhost:8002)
+    $base_url = $protocol . $host;
+} else {
+    // Servidor estándar (ej: localhost/php/proyecto_encuestas)
+    $path_parts = explode('/', trim($script_name, '/'));
+    array_pop($path_parts); // Remover 'crear_pregunta.php'
+    
+    if (in_array('php', $path_parts) && in_array('proyecto_encuestas', $path_parts)) {
+        $base_url = $protocol . $host . '/php/proyecto_encuestas';
+    } else {
+        $base_url = $protocol . $host;
+    }
+}
+
 $mensaje = '';
 $error = '';
 $es_super_admin = ($_SESSION['rol'] ?? 'admin_departamental') === 'super_admin';
@@ -167,21 +188,11 @@ try {
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Estilos del sistema -->
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/forms.css">
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/styles.css">
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/forms.css">
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <div>
-                <h1>Crear Nueva Pregunta</h1>
-                <small style="opacity: 0.8; font-size: 0.8rem;">
-                    <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
-                </small>
-            </div>
-            <button onclick="history.back()" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-        </div>
-    </div>
+    <?php include '../includes/navbar_complete.php'; ?>
     
     <div class="container">
         <?php if ($mensaje): ?>

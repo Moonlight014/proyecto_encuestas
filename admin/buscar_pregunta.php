@@ -92,14 +92,7 @@ try {
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <div class="logo"><i class="fa-solid fa-database"></i> Buscar y Editar Pregunta</div>
-            <button onclick="document.referrer && document.referrer.includes('dashboard') ? history.back() : window.location.href='dashboard.php'" class="back-btn">
-                <i class="fa-solid fa-arrow-left"></i> Volver
-            </button>
-        </div>
-    </div>
+    <?php include '../includes/navbar_complete.php'; ?>
     
     <div class="container">
         <?php if ($mensaje): ?>
