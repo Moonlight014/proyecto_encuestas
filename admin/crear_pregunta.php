@@ -12,26 +12,11 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// Detectar la ruta base dinámicamente para ambos entornos
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-$host = $_SERVER['HTTP_HOST'];
-$script_name = $_SERVER['SCRIPT_NAME'];
+// Incluir helper para detección automática de rutas  
+require_once '../config/path_helper.php';
 
-// Detectar el contexto del servidor
-if (strpos($host, ':') !== false && !strpos($host, ':80') && !strpos($host, ':443')) {
-    // Servidor con puerto específico (ej: localhost:8002)
-    $base_url = $protocol . $host;
-} else {
-    // Servidor estándar (ej: localhost/php/proyecto_encuestas)
-    $path_parts = explode('/', trim($script_name, '/'));
-    array_pop($path_parts); // Remover 'crear_pregunta.php'
-    
-    if (in_array('php', $path_parts) && in_array('proyecto_encuestas', $path_parts)) {
-        $base_url = $protocol . $host . '/php/proyecto_encuestas';
-    } else {
-        $base_url = $protocol . $host;
-    }
-}
+// Usar la función helper para detección automática de rutas
+$base_url = detectar_base_url();
 
 $mensaje = '';
 $error = '';

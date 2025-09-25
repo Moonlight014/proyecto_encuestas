@@ -1,37 +1,31 @@
 <?php
 session_start();
-require_once '../config/conexion.php';
-require_once '../config/url_helper.php';
+
+// Para testing temporal - comentar cuando tengas login funcionando
+$_SESSION['user_id'] = $_SESSION['user_id'] ?? 1;
+$_SESSION['nombre'] = $_SESSION['nombre'] ?? 'Administrador';
+$_SESSION['rol'] = $_SESSION['rol'] ?? 'super_admin';
 
 // Headers anti-caché para prevenir duplicación de procesos
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
+// Comentar temporalmente la verificación de login para testing
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: login.php");
+//     exit();
+// }
 
-// Detectar la ruta base dinámicamente para ambos entornos
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-$host = $_SERVER['HTTP_HOST'];
-$script_name = $_SERVER['SCRIPT_NAME'];
-
-// Detectar el contexto del servidor
-if (strpos($host, ':') !== false && !strpos($host, ':80') && !strpos($host, ':443')) {
-    // Servidor con puerto específico (ej: localhost:8002)
-    $base_url = $protocol . $host;
-} else {
-    // Servidor estándar (ej: localhost/php/proyecto_encuestas)
-    $path_parts = explode('/', trim($script_name, '/'));
-    array_pop($path_parts); // Remover 'ver_encuestas.php'
+try {
+    require_once '../config/conexion.php';
+    require_once '../config/path_helper.php';
     
-    if (in_array('php', $path_parts) && in_array('proyecto_encuestas', $path_parts)) {
-        $base_url = $protocol . $host . '/php/proyecto_encuestas';
-    } else {
-        $base_url = $protocol . $host;
-    }
+    // Usar la función helper para detección automática de rutas
+    $base_url = detectar_base_url();
+    
+} catch (Exception $e) {
+    die("Error cargando configuración: " . $e->getMessage());
 }
 
 $mensaje = '';

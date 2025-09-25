@@ -9,27 +9,26 @@ $usuario_nombre = $_SESSION['nombre'] ?? 'Usuario';
 $usuario_rol = $_SESSION['rol'] ?? 'admin_departamental';
 $es_super_admin = ($usuario_rol === 'super_admin');
 
-// Detectar la ruta base dinámicamente para ambos entornos
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-$host = $_SERVER['HTTP_HOST'];
-$script_name = $_SERVER['SCRIPT_NAME'];
-$request_uri = $_SERVER['REQUEST_URI'];
+// Cargar helper de rutas si no está cargado
+if (!function_exists('detectar_base_url')) {
+    $is_admin_folder = strpos($_SERVER['PHP_SELF'], '/admin/') !== false;
+    $helper_path = $is_admin_folder ? '../config/path_helper.php' : 'config/path_helper.php';
+    if (file_exists($helper_path)) {
+        require_once $helper_path;
+    }
+}
 
-// Detectar el contexto del servidor
-if (strpos($host, ':') !== false && !strpos($host, ':80') && !strpos($host, ':443')) {
-    // Servidor con puerto específico (ej: localhost:8002)
-    $base_url = $protocol . $host;
-    $base_path = '';
+// Usar función helper o fallback
+if (function_exists('detectar_base_url')) {
+    $base_url = detectar_base_url();
 } else {
-    // Servidor estándar (ej: localhost/php/proyecto_encuestas)
-    $path_parts = explode('/', trim($script_name, '/'));
-    
-    if (in_array('php', $path_parts) && in_array('proyecto_encuestas', $path_parts)) {
-        $base_url = $protocol . $host . '/php/proyecto_encuestas';
-        $base_path = '/php/proyecto_encuestas/';
-    } else {
+    // Fallback básico si no se puede cargar el helper
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+    $host = $_SERVER['HTTP_HOST'];
+    if (strpos($host, ':') !== false && !strpos($host, ':80') && !strpos($host, ':443')) {
         $base_url = $protocol . $host;
-        $base_path = '/';
+    } else {
+        $base_url = $protocol . $host . '/php/proyecto_encuestas';
     }
 }
 

@@ -141,4 +141,4 @@ evitarlos.
 pregunta de la encuesta' y que sea intuitivo para el usuario.
 
 🟨🟨- Solucionar lo de que el navbar en movil se ve unicamente el drowdown de el usuario, y no el de accesos directos.
-- Cosas como '<span class="estado-badge estado-activa">Activa</span>' no se ven en el interfaz como deberían verse
+🟨🟨- Cosas como '<span class="estado-badge estado-activa">Activa</span>' no se ven en el interfaz como deberían verse.
