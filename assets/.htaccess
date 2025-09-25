@@ -1,0 +1,12 @@
+# Configuración para servir archivos CSS correctamente
+<Files "*.css">
+    Header set Content-Type "text/css"
+</Files>
+
+# Permitir acceso a archivos CSS
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg)$">
+    Allow from all
+</FilesMatch>
+
+# Configuración de caracteres
+AddDefaultCharset UTF-8

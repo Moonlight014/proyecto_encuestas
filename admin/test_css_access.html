@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test CSS Direct Access</title>
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .status-box {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .success { background: #d4edda; color: #155724; border-color: #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border-color: #f5c6cb; }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🔍 Test de Acceso Directo a CSS</h1>
+        
+        <div class="test-section">
+            <h2>1. Enlaces Directos a CSS:</h2>
+            <p><a href="http://localhost/php/proyecto_encuestas/assets/css/styles.css" target="_blank">
+                http://localhost/php/proyecto_encuestas/assets/css/styles.css
+            </a></p>
+            <p><a href="http://localhost/php/proyecto_encuestas/assets/css/dashboard.css" target="_blank">
+                http://localhost/php/proyecto_encuestas/assets/css/dashboard.css
+            </a></p>
+            <p><strong>Instrucción:</strong> Haz clic en estos enlaces. Si abren y muestran código CSS, están accesibles.</p>
+        </div>
+
+        <div class="test-section">
+            <h2>2. Test con iframe (simulando carga):</h2>
+            <iframe src="http://localhost/php/proyecto_encuestas/assets/css/styles.css" 
+                    width="100%" height="100" style="border: 1px solid #ccc;"></iframe>
+        </div>
+
+        <div class="test-section">
+            <h2>3. Test JavaScript de carga CSS:</h2>
+            <div id="css-test-result">Probando...</div>
+        </div>
+
+        <div class="test-section">
+            <h2>4. Verificación con fetch:</h2>
+            <div id="fetch-result">Probando...</div>
+        </div>
+    </div>
+
+    <script>
+        // Test 1: CSS Link Load Test
+        function testCSSLoad() {
+            const testResult = document.getElementById('css-test-result');
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'http://localhost/php/proyecto_encuestas/assets/css/dashboard.css';
+            
+            link.onload = function() {
+                testResult.innerHTML = '<div class="status-box success">✅ dashboard.css se cargó correctamente como &lt;link&gt;</div>';
+            };
+            
+            link.onerror = function() {
+                testResult.innerHTML = '<div class="status-box error">❌ Error al cargar dashboard.css como &lt;link&gt;</div>';
+            };
+            
+            document.head.appendChild(link);
+        }
+
+        // Test 2: Fetch API Test
+        async function testFetch() {
+            const fetchResult = document.getElementById('fetch-result');
+            
+            try {
+                const response = await fetch('http://localhost/php/proyecto_encuestas/assets/css/dashboard.css');
+                
+                if (response.ok) {
+                    const content = await response.text();
+                    fetchResult.innerHTML = `
+                        <div class="status-box success">
+                            ✅ dashboard.css accesible via fetch<br>
+                            Tamaño: ${content.length} caracteres<br>
+                            Content-Type: ${response.headers.get('content-type')}
+                        </div>
+                    `;
+                } else {
+                    fetchResult.innerHTML = `<div class="status-box error">❌ Error HTTP: ${response.status} ${response.statusText}</div>`;
+                }
+            } catch (error) {
+                fetchResult.innerHTML = `<div class="status-box error">❌ Error de red: ${error.message}</div>`;
+            }
+        }
+
+        // Ejecutar tests
+        testCSSLoad();
+        testFetch();
+        
+        // Log para debug
+        console.log('Tests de CSS iniciados');
+        console.log('Base URL esperada:', 'http://localhost/php/proyecto_encuestas');
+    </script>
+</body>
+</html>
