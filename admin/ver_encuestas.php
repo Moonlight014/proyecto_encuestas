@@ -13,6 +13,7 @@ header("Expires: 0");
 try {
     require_once '../config/conexion.php';
     require_once '../config/path_helper.php';
+    require_once '../config/url_helper.php';
     
     // Usar la función helper para detección automática de rutas
     $base_url = detectar_base_url();
@@ -100,8 +101,8 @@ try {
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Estilos del sistema -->
-    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/styles.css">
-    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/lists.css">
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/styles.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/lists.css?v=<?= time() ?>">
 
 </head>
 <body>

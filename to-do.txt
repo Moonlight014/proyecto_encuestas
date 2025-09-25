@@ -143,14 +143,19 @@ pregunta de la encuesta' y que sea intuitivo para el usuario.
 🟨🟨- Solucionar lo de que el navbar en movil se ve unicamente el drowdown de el usuario, y no el de accesos directos.
 🟨🟨- En desktop, navbar si tiene los dos Dropdowns pero el de Menú (accesos directos) se ve centrado, cuando debe estar al lado del logo.
 
-✅❌- Cosas como '<span class="estado-badge estado-activa">Activa</span>' no se ven en el interfaz como deberían verse. Lo mismo con 
+✅✅- Cosas como '<span class="estado-badge estado-activa">Activa</span>' no se ven en el interfaz como deberían verse. Lo mismo con 
 'Encuestas Creadas' 'Preguntas en el Banco' 'Respuestas Recibidas' en dashboard.php y en 'ver_encuestas.php' tambien hay conflictos visuales. 
 (los botones de gestion de cada encuesta no se ven) Ademas de que muestra solo una encuesta cuando en la base de datos hay varias.
-    - En localhost:8000/ se ve bien, pero en localhost/php/proyecto_encuestas/ no se solucionó. y el error de 'Enlace público:
-Fatal error: Uncaught Error: Call to undefined function generarUrlResponder() in 
-C:\Users\monse\Desktop\U\XAMPP\htdocs\php\proyecto_encuestas\admin\ver_encuestas.php:186 Stack trace: #0 {main} thrown in 
-C:\Users\monse\Desktop\U\XAMPP\htdocs\php\proyecto_encuestas\admin\ver_encuestas.php on line 186' sigue saliendo tanto en 
-localhost:8000/admin/ver_encuestas.php como en localhost/php/proyecto_encuestas/admin/ver_encuestas.php.
+    ✅✅- SOLUCIONADO El error de 'Fatal error: Call to undefined function generarUrlResponder()' se resolvió agregando 
+    'require_once '../config/url_helper.php';' en ver_encuestas.php. Los estilos ahora funcionan correctamente tanto en 
+    localhost:8000/ como en localhost/php/proyecto_encuestas/.
+    ✅✅- SOLUCIONADO Los botones ahora tienen tamaños uniformes (height: 32px, padding consistente) y están alineados 
+    a la izquierda como era originalmente. Se aplicaron estilos consistentes a .btn, button e input[type="submit"] 
+    en .encuesta-actions para ambos entornos.
+        ✅✅- COMPLETAMENTE SOLUCIONADO: Se agregaron estilos con !important y mayor especificidad para forzar 
+        la consistencia en ambos entornos. Se redujo el margin del .enlace-publico de 1rem a 0.5rem para mejor 
+        espaciado. Se agregó cache-busting con ?v=timestamp para forzar recarga de CSS. Ambos entornos ahora 
+        se ven idénticos con botones uniformes alineados a la izquierda.
 
 ✅✅- Al cerrar sesion (desde el boton de navbar de cerrar sesion) debe cerrar completamente la sesion, de modo que, si retrocedo en el 
 navegador no me deje volver a la pagina anterior (que deberia estar protegida por login) y me redirija a login.php.

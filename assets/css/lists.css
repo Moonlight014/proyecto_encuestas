@@ -125,7 +125,7 @@
     border: 1px solid #e3e8ff;
     border-radius: var(--border-radius);
     padding: 1rem;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
 }
 
 .enlace-publico strong {
@@ -215,40 +215,56 @@
     margin-top: 0.25rem;
 }
 
-/* Acciones de encuesta */
+/* Acciones de encuesta - Estilos forzados para ambos entornos */
 .encuesta-actions {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-light);
+    display: flex !important;
+    gap: 0.5rem !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    margin-top: 0.5rem !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid var(--border-light) !important;
 }
 
-.encuesta-actions .btn {
-    padding: 0.6rem 1rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    border-radius: var(--border-radius-sm);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-    min-height: 36px;
-    white-space: nowrap;
+/* Estilos específicos para todos los botones dentro de encuesta-actions */
+.encuesta-card .encuesta-actions .btn,
+.encuesta-card .encuesta-actions button,
+.encuesta-card .encuesta-actions input[type="submit"],
+.encuesta-card .encuesta-actions a.btn {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.8rem !important;
+    font-weight: 500 !important;
+    border-radius: 4px !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.4rem !important;
+    transition: all 0.2s ease !important;
+    border: 1px solid transparent !important;
+    height: 32px !important;
+    min-width: 80px !important;
+    max-width: none !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    line-height: 1 !important;
 }
 
-.encuesta-actions .btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    text-decoration: none;
+.encuesta-card .encuesta-actions .btn:hover,
+.encuesta-card .encuesta-actions button:hover,
+.encuesta-card .encuesta-actions input[type="submit"]:hover,
+.encuesta-card .encuesta-actions a.btn:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+    text-decoration: none !important;
 }
 
-.encuesta-actions .btn i {
-    font-size: 0.9rem;
+.encuesta-card .encuesta-actions .btn i,
+.encuesta-card .encuesta-actions button i,
+.encuesta-card .encuesta-actions input[type="submit"] i,
+.encuesta-card .encuesta-actions a.btn i {
+    font-size: 0.8rem !important;
 }
 
 /* Grid de preguntas */
