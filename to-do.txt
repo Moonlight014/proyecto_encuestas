@@ -142,3 +142,6 @@ pregunta de la encuesta' y que sea intuitivo para el usuario.
 
 🟨🟨- Solucionar lo de que el navbar en movil se ve unicamente el drowdown de el usuario, y no el de accesos directos.
 🟨🟨- Cosas como '<span class="estado-badge estado-activa">Activa</span>' no se ven en el interfaz como deberían verse.
+🟨🟨- Solucionar error en 'ver_encuestas' con enlace publico (error 'Fatal error: Uncaught Error: Call to undefined function generarUrlResponder() 
+in C:\Users\monse\Desktop\U\XAMPP\htdocs\php\proyecto_encuestas\admin\ver_encuestas.php:193 Stack trace: #0 {main} thrown in 
+C:\Users\monse\Desktop\U\XAMPP\htdocs\php\proyecto_encuestas\admin\ver_encuestas.php on line 193')
