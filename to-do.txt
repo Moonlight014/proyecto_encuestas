@@ -149,7 +149,22 @@ pregunta de la encuesta' y que sea intuitivo para el usuario.
 
 ✅✅- Al cerrar sesion (desde el boton de navbar de cerrar sesion) debe cerrar completamente la sesion, de modo que, si retrocedo en el 
 navegador no me deje volver a la pagina anterior (que deberia estar protegida por login) y me redirija a login.php.
-✅❌- Al cerrar sesion redirige a index.php con un mensaje de 'sesion cerrada correctamente', pero al recargar la pagina me muestra nuevamente el
-mensaje, eso debe evitarse. Osea la url debe quedar como 'index.php' y no 'index.php?mensaje=sesion_cerrada' y al cerrar sesion el mensaje debe
-mostrarse una sola vez, no cada vez que recargue la pagina, por 3 segundos. La forma actual de hacerlo (redireccionando en el url) no es la 
-correcta.
+✅✅- Al cerrar sesion redirige a index.php con un mensaje de 'sesion cerrada correctamente', pero al recargar la pagina me muestra nuevamente
+el mensaje, eso debe evitarse. Osea la url debe quedar como 'index.php' y no 'index.php?mensaje=sesion_cerrada' y al cerrar sesion el mensaje 
+debe mostrarse una sola vez, no cada vez que recargue la pagina, por 3 segundos. La forma actual de hacerlo (redireccionando en el url) no es 
+la correcta.
+    ✅✅- Solucionado, al cerrar sesion me redirige a 'https://localhost/php/proyecto_encuestas/index.php' y cuando intento retroceder en el 
+    navegador me muestra el error 'Error: Tu sesión ha expirado. Por favor, ingresa nuevamente. 'y me redirige a 
+    'https://localhost/php/proyecto_encuestas/index.php?error=sesion_expirada', pero ahora pasa lo mismo con lo de 'Error: Tu sesión ha 
+    expirado. Por favor, ingresa nuevamente. ' y el url 'https://localhost/php/proyecto_encuestas/index.php?error=sesion_expirada', al recargar
+    la pagina me vuelve a salir el mensaje de error y me vuelve a redirigir al 
+    'https://localhost/php/proyecto_encuestas/index.php?error=sesion_expirada', eso debe evitarse.
+
+    ✅✅- Arreglar el mensaje '⚠ Tu sesión ha expirado. Por favor, ingresa nuevamente.' que aparece al intentar acceder a una pagina protegida 
+    sin estar logeado, se ve feo y en vez de emoji hay que usar fontawesome o bootstrap icons.
+
+🟨🟨- Ver opciones para que el mensaje de '¿Está seguro que desea cerrar su sesión? Se perderá cualquier trabajo no guardado.' se muestre en 
+un modal bonito y no en un alert feo.
+
+🟨🟨- En teoria, si el usuario NO cierra sesion pero cierra el navegador o la pestaña, al volver a abrir 'http://localhost:8000/' o 
+'https://localhost/php/proyecto_encuestas/', deberia llevarlo al login o al interfaz de su usuario logeado?

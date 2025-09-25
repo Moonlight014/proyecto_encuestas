@@ -9,20 +9,40 @@ header("Expires: 0");
 
 $error = '';
 $mensaje = '';
+$mensaje_tipo = '';
 
-// Verificar si hay mensaje de logout
-if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'sesion_cerrada') {
-    $mensaje = 'Tu sesión ha sido cerrada correctamente.';
+// Verificar si hay mensajes temporales en la sesión
+if (isset($_SESSION['mensaje_temporal'])) {
+    $tiempo_actual = time();
+    
+    // Solo mostrar el mensaje si no han pasado más de 30 segundos (evita mensajes antiguos)
+    if (isset($_SESSION['mensaje_timestamp']) && 
+        ($tiempo_actual - $_SESSION['mensaje_timestamp']) < 30) {
+        
+        $mensaje = $_SESSION['mensaje_temporal'];
+        $mensaje_tipo = $_SESSION['mensaje_tipo'] ?? 'info';
+    }
+    
+    // Limpiar mensaje temporal después de mostrarlo
+    unset($_SESSION['mensaje_temporal']);
+    unset($_SESSION['mensaje_tipo']);
+    unset($_SESSION['mensaje_timestamp']);
 }
 
 // Verificar si hay mensajes en la sesión (PRG)
 if (isset($_SESSION['mensaje_login'])) {
     $mensaje = $_SESSION['mensaje_login'];
+    $mensaje_tipo = 'success';
     unset($_SESSION['mensaje_login']);
 }
 if (isset($_SESSION['error_login'])) {
     $error = $_SESSION['error_login'];
     unset($_SESSION['error_login']);
+}
+
+// Verificar si hay error de sesión expirada
+if (isset($_GET['error']) && $_GET['error'] === 'sesion_expirada') {
+    $error = 'Tu sesión ha expirado. Por favor, ingresa nuevamente.';
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_POST['password'])) {
@@ -70,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Encuestas - DAS Hualpén</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -204,6 +225,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
             margin-bottom: 1.5rem;
             border: 1px solid #c3e6cb;
         }
+        .alert-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #bee5eb;
+        }
+        .alert-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #ffeaa7;
+        }
+        /* Estilos para iconos Font Awesome en alertas */
+        .alert-success i, .alert-info i, .alert-warning i, .alert-danger i {
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
         .credenciales-demo {
             background-color: #e7f3ff;
             border: 1px solid #b3d9ff;
@@ -233,14 +275,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
             </div>
 
             <?php if ($mensaje): ?>
-                <div class="alert-success auto-hide-alert">
-                    <strong>✓</strong> <?= htmlspecialchars($mensaje) ?>
+                <?php 
+                $alert_class = 'alert-success';
+                $icon_class = 'fas fa-check-circle';
+                
+                if ($mensaje_tipo === 'success') {
+                    $alert_class = 'alert-success';
+                    $icon_class = 'fas fa-check-circle';
+                } else if ($mensaje_tipo === 'info') {
+                    $alert_class = 'alert-info';
+                    $icon_class = 'fas fa-info-circle';
+                } else if ($mensaje_tipo === 'warning') {
+                    $alert_class = 'alert-warning'; 
+                    $icon_class = 'fas fa-exclamation-triangle';
+                }
+                ?>
+                <div class="<?= $alert_class ?> auto-hide-alert" id="mensaje-temporal">
+                    <i class="<?= $icon_class ?>"></i> <?= htmlspecialchars($mensaje) ?>
                 </div>
             <?php endif; ?>
 
             <?php if ($error): ?>
                 <div class="alert-danger auto-hide-alert">
-                    <strong>Error:</strong> <?= htmlspecialchars($error) ?>
+                    <i class="fas fa-times-circle"></i> <?= htmlspecialchars($error) ?>
                 </div>
             <?php endif; ?>
 
@@ -267,7 +324,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
     </div>
 
     <script>
-        // Auto-ocultar mensajes de alerta después de 5 segundos
+        // Auto-ocultar mensajes de alerta después de 3 segundos
         document.addEventListener('DOMContentLoaded', function() {
             const alerts = document.querySelectorAll('.auto-hide-alert');
             alerts.forEach(function(alert) {
@@ -283,8 +340,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
                             alert.parentNode.removeChild(alert);
                         }
                     }, 500);
-                }, 3000); // 3 segundos
+                }, 3000); // 3 segundos exactos como solicitado
             });
+            
+            // Para mensajes temporales, limpiar URL si contiene parámetros antiguos
+            if (window.location.search.includes('mensaje=') || window.location.search.includes('error=')) {
+                // Solo si el mensaje temporal ya se está mostrando
+                const mensajeTemporal = document.getElementById('mensaje-temporal');
+                if (mensajeTemporal) {
+                    // Cambiar URL sin recargar la página
+                    const urlSinParametros = window.location.protocol + "//" + 
+                                           window.location.host + 
+                                           window.location.pathname;
+                    window.history.replaceState({}, document.title, urlSinParametros);
+                }
+            }
         });
     </script>
 </body>

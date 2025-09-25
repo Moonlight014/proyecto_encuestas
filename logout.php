@@ -24,13 +24,17 @@ if (ini_get("session.use_cookies")) {
     );
 }
 
-// Destruir la sesión completamente
+// Antes de destruir la sesión, crear una nueva para el mensaje temporal
 session_destroy();
 
-// Regenerar ID de sesión por seguridad
+// Iniciar nueva sesión para mensaje temporal
 session_start();
 session_regenerate_id(true);
-session_destroy();
+
+// Establecer mensaje temporal de logout
+$_SESSION['mensaje_temporal'] = 'Tu sesión ha sido cerrada correctamente.';
+$_SESSION['mensaje_tipo'] = 'success';
+$_SESSION['mensaje_timestamp'] = time();
 
 // Limpiar caché del navegador agresivamente
 header("Cache-Control: no-cache, no-store, must-revalidate, post-check=0, pre-check=0"); // HTTP 1.1
@@ -95,7 +99,7 @@ error_log("Usuario deslogueado - IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'desconocid
             window.history.pushState(null, null, window.location.href);
             window.addEventListener('popstate', function(event) {
                 window.history.pushState(null, null, window.location.href);
-                window.location.replace('index.php?mensaje=sesion_cerrada');
+                window.location.replace('index.php');
             });
             
             // Limpiar localStorage y sessionStorage
@@ -120,17 +124,17 @@ error_log("Usuario deslogueado - IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'desconocid
             
             // Redirigir después de 2 segundos
             setTimeout(function() {
-                window.location.replace('index.php?mensaje=sesion_cerrada');
+                window.location.replace('index.php');
             }, 2000);
             
             // Prevenir que esta página se guarde en caché
             window.addEventListener('beforeunload', function() {
-                window.location.replace('index.php?mensaje=sesion_cerrada');
+                window.location.replace('index.php');
             });
             
             // Si el usuario intenta recargar esta página, redirigir inmediatamente
             if (performance.navigation.type === 1) {
-                window.location.replace('index.php?mensaje=sesion_cerrada');
+                window.location.replace('index.php');
             }
         })();
     </script>

@@ -37,8 +37,15 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     // Log de intento de acceso no autorizado
     error_log("Intento de acceso no autorizado - IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'desconocida') . " - Página: " . ($_SERVER['REQUEST_URI'] ?? 'desconocida') . " - Timestamp: " . date('Y-m-d H:i:s'));
     
-    // Redirigir al login
-    header("Location: " . (strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../index.php' : 'index.php') . "?error=sesion_expirada");
+    // Crear nueva sesión para mensaje temporal
+    session_start();
+    session_regenerate_id(true);
+    $_SESSION['mensaje_temporal'] = 'Tu sesión ha expirado. Por favor, ingresa nuevamente.';
+    $_SESSION['mensaje_tipo'] = 'warning';
+    $_SESSION['mensaje_timestamp'] = time();
+    
+    // Redirigir al login sin parámetros URL
+    header("Location: " . (strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../index.php' : 'index.php'));
     exit();
 }
 
@@ -47,12 +54,20 @@ $session_timeout = 3600; // 1 hora en segundos
 if (isset($_SESSION['ultimo_acceso'])) {
     if (time() - $_SESSION['ultimo_acceso'] > $session_timeout) {
         // Sesión expirada
+        $username = $_SESSION['username'] ?? 'desconocido';
         $_SESSION = array();
         session_destroy();
         
-        error_log("Sesión expirada por timeout - Usuario: " . ($_SESSION['username'] ?? 'desconocido') . " - IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'desconocida') . " - Timestamp: " . date('Y-m-d H:i:s'));
+        error_log("Sesión expirada por timeout - Usuario: " . $username . " - IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'desconocida') . " - Timestamp: " . date('Y-m-d H:i:s'));
         
-        header("Location: " . (strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../index.php' : 'index.php') . "?error=sesion_expirada");
+        // Crear nueva sesión para mensaje temporal
+        session_start();
+        session_regenerate_id(true);
+        $_SESSION['mensaje_temporal'] = 'Tu sesión ha expirado por inactividad. Por favor, ingresa nuevamente.';
+        $_SESSION['mensaje_tipo'] = 'warning';
+        $_SESSION['mensaje_timestamp'] = time();
+        
+        header("Location: " . (strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../index.php' : 'index.php'));
         exit();
     }
 }
@@ -72,7 +87,7 @@ if (!isset($_SESSION['regeneracion_sesion']) || (time() - $_SESSION['regeneracio
 (function() {
     // Detectar si venimos de una página de logout
     if (document.referrer && document.referrer.includes('logout.php')) {
-        window.location.replace('<?= strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../index.php' : 'index.php' ?>?mensaje=sesion_cerrada');
+        window.location.replace('<?= strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../index.php' : 'index.php' ?>');
         return;
     }
     
@@ -84,12 +99,12 @@ if (!isset($_SESSION['regeneracion_sesion']) || (time() - $_SESSION['regeneracio
                 .then(response => response.json())
                 .then(data => {
                     if (!data.active) {
-                        window.location.replace('<?= strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../index.php' : 'index.php' ?>?error=sesion_expirada');
+                        window.location.replace('<?= strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../index.php' : 'index.php' ?>');
                     }
                 })
                 .catch(() => {
                     // En caso de error, redirigir por seguridad
-                    window.location.replace('<?= strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../index.php' : 'index.php' ?>?error=sesion_expirada');
+                    window.location.replace('<?= strpos($_SERVER['PHP_SELF'], '/admin/') !== false ? '../index.php' : 'index.php' ?>');  
                 });
         }
     });
