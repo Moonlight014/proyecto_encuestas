@@ -178,3 +178,19 @@ un modal bonito y no en un alert feo.
 
 ✅❌- En teoria, si el usuario NO cierra sesion pero cierra el navegador o la pestaña, al volver a abrir 'http://localhost:8000/' o 
 'https://localhost/php/proyecto_encuestas/', deberia llevarlo al login o al interfaz de su usuario logeado?
+
+- Intentar que los estilos de TODOS los archivos esten en un archivo de estilos css separado, sin que esto rompa todo el interfaz (QUE NO 
+LO CAMBIE).
+
+✅❌- En la parte visual de MOVIL 'gestionar_preguntas.php'(o banco de preguntas) la 'Gestión de Preguntas' se muestra a la derecha de Preguntas por categoria y 
+esto hace que se vea cortado, no alcanza todo en la pantalla.
+✅❌- Ajustar tambien para que en movil 'crear_encuesta.php' no se vea mucho 'texto acoplado/junto/acumulado', actualmente Fecha de Apertura y 
+Fecha de Cierre se ven muy juntos y no se entiende bien.
+✅❌- 'agregar_preguntas' en movil se ve horriblemente mal, es como si tuviera un 40% de zoom. Parece ser que ese archivo no tiene el meta 
+viewport para movil o no es dinamica como las demas.
+✅❌- el 'responder.php' igual hay que ajustarlo para movil, ya que se ve todo muy junto y no se entiende bien.
+✅❌- En movil el navbar de 'gestionar_preguntas.php' al deslizar hacia abajo desaparece se queda en la parte superior, no como en las demas
+paginas que se queda en la parte superior pero se ve el logo y el boton de usuario no importa que tanto se deslice hacia abajo.
+- Ajustar las preguntas tipo 'Matriz Opciones Múltiples' o las que sea que ocupan más espacio en la pantalla de lo normal para que se vean
+bien en movil y no se salga de la pantalla o no requiera que se deslice a la derecha o izquierda para verlas completas.
+- En movil las preguntas tipo 'Matriz Opciones Múltiples' se salen de la pantalla, hay que ajustarlas para que se vean bien.

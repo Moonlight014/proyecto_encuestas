@@ -210,6 +210,45 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
             grid-template-columns: 1fr 1fr;
             gap: 1rem;
         }
+        
+        /* Media queries para responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .form-card {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+            
+            .welcome-section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .form-title {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 0.5rem;
+            }
+            
+            .container {
+                padding: 0 0.25rem;
+            }
+            
+            .form-card {
+                padding: 0.75rem;
+            }
+        }
     </style>
 </head>
 <body>

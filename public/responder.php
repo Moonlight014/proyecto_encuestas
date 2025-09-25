@@ -397,6 +397,117 @@ if (empty($enlace_publico)) {
             padding: 2rem;
             margin-top: 3rem;
         }
+        
+        /* Media queries para responsive */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem auto;
+                padding: 0 0.5rem;
+            }
+            
+            .header {
+                padding: 1.5rem 0;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header .subtitle {
+                font-size: 1rem;
+            }
+            
+            .encuesta-header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .encuesta-title {
+                font-size: 1.4rem;
+            }
+            
+            .encuesta-meta {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .form-content {
+                padding: 1rem;
+            }
+            
+            .pregunta {
+                margin-bottom: 1.5rem;
+            }
+            
+            .likert-scale {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .likert-option {
+                padding: 0.75rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .radio-group, .checkbox-group {
+                gap: 0.5rem;
+            }
+            
+            .radio-item, .checkbox-item {
+                padding: 0.5rem;
+                flex-wrap: wrap;
+            }
+            
+            .btn-primary, .btn-secondary {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.25rem;
+            }
+            
+            .encuesta-card {
+                margin-bottom: 1rem;
+            }
+            
+            .encuesta-header {
+                padding: 1rem 0.75rem;
+            }
+            
+            .encuesta-title {
+                font-size: 1.2rem;
+            }
+            
+            .form-content {
+                padding: 0.75rem;
+            }
+            
+            .pregunta-titulo {
+                font-size: 1rem;
+            }
+            
+            .form-control {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .radio-item, .checkbox-item {
+                padding: 0.4rem;
+                font-size: 0.9rem;
+            }
+            
+            .radio-item input, .checkbox-item input {
+                margin-right: 0.5rem;
+            }
+            
+            .footer {
+                padding: 1.5rem 1rem;
+            }
+        }
     </style>
     
     <?= generarEstilosEscalas() ?>

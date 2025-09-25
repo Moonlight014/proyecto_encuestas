@@ -1,11 +1,11 @@
 <?php
-session_start();
-require_once '../config/conexion.php';
+// Protección de sesión - DEBE ser lo primero
+require_once '../includes/session_guard.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
+require_once '../config/conexion.php';
+require_once '../config/path_helper.php';
+
+$base_url = detectar_base_url();
 
 $encuesta_id = $_GET['id'] ?? 0;
 $mensaje = '';
@@ -64,6 +64,7 @@ try {
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Preguntas - DAS Hualpén</title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -191,6 +192,70 @@ try {
         .back-btn:hover {
             background: #228B22;
             color: white;
+        }
+        
+        /* Media queries para responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            
+            .pregunta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .pregunta-content {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .pregunta-actions {
+                align-self: flex-start;
+            }
+            
+            .botones-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn, .btn-secondary {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+                text-align: center;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 0.5rem 0.25rem;
+            }
+            
+            .categoria {
+                margin: 0.5rem 0;
+            }
+            
+            .categoria-header {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            
+            .categoria-content {
+                padding: 0.75rem;
+            }
+            
+            .pregunta {
+                padding: 0.5rem;
+            }
+            
+            .btn-edit {
+                padding: 0.2rem 0.4rem;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>

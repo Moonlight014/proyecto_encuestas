@@ -214,7 +214,8 @@ $relative_base = $is_admin_folder ? '../' : '';
 .navbar-center {
     flex: 1;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-left: 1rem;
 }
 
 .nav-dropdown-container {
@@ -436,15 +437,36 @@ $relative_base = $is_admin_folder ? '../' : '';
     .brand-text {
         font-size: 1rem;
     }
-}
-
-@media (max-width: 576px) {
-    .navbar-center {
+    
+    /* Ajustar dropdown de navegación para móvil */
+    .nav-dropdown-toggle span {
         display: none;
     }
     
+    .nav-dropdown-toggle {
+        padding: 0.5rem;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 576px) {
     .navbar-container {
         justify-content: space-between;
+    }
+    
+    /* Mantener navbar-center visible pero compacto */
+    .navbar-center {
+        display: flex;
+        margin-left: 0.5rem;
+    }
+    
+    .nav-dropdown-toggle {
+        padding: 0.4rem;
+        font-size: 0.9rem;
+    }
+    
+    .nav-dropdown-toggle .dropdown-arrow {
+        display: none;
     }
 }
 
