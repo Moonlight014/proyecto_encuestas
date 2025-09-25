@@ -211,6 +211,9 @@ try {
     <title>Editar Pregunta - DAS Hualpén</title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS del sistema -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -379,19 +382,17 @@ try {
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <div>
-                <h1><?= $es_super_admin ? 'Editar Pregunta' : 'Crear Pregunta Basada en Existente' ?></h1>
-                <small style="opacity: 0.8; font-size: 0.8rem;">
-                    <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
-                </small>
-            </div>
-            <button onclick="history.back()" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-        </div>
-    </div>
+    <?php include '../includes/navbar_complete.php'; ?>
     
-    <div class="container">
+    <div class="main-content">
+        <div class="container">
+            <div class="welcome-section">
+                <h2><?= $es_super_admin ? 'Editar Pregunta' : 'Crear Pregunta Basada en Existente' ?></h2>
+                <p>
+                    <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
+                    - <?= $es_super_admin ? 'Modifica cualquier pregunta del banco' : 'Crea nuevas preguntas basadas en existentes' ?>
+                </p>
+            </div>
         <?php if ($error): ?>
             <div class="alert alert-danger auto-hide-alert"><?= htmlspecialchars($error) ?></div>
         <?php elseif ($pregunta): ?>
@@ -905,5 +906,6 @@ try {
             }
         });
     </script>
+    </div> <!-- /main-content -->
 </body>
 </html>

@@ -66,6 +66,9 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
     <title>Vista Previa Administrativa - <?= $encuesta ? htmlspecialchars($encuesta['titulo']) : 'Encuesta' ?></title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS del sistema -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -217,24 +220,24 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header-admin">
-            <h1><i class="fa-solid fa-eye"></i> Vista Previa Administrativa</h1>
-        </div>
-        
-        <div class="admin-notice">
-            <i class="fa-solid fa-info-circle"></i> <strong>Vista Administrativa:</strong> Esta vista incluye información técnica (categorías, tipos, etc.) que NO será visible para los encuestados en el enlace público.
-        </div>
-        
-        <div class="back-controls">
-            <a href="ver_encuestas.php" class="btn"><i class="fa-solid fa-arrow-left"></i> Volver a Encuestas</a>
-            <?php if ($encuesta && $encuesta['estado'] === 'activa'): ?>
-                <a href="../public/responder.php?id=<?= htmlspecialchars($encuesta['enlace_publico']) ?>" 
-                   class="btn btn-secondary" target="_blank">
-                   <i class="fa-solid fa-external-link-alt"></i> Ver Versión Pública
-                </a>
-            <?php endif; ?>
-        </div>
+    <?php include '../includes/navbar_complete.php'; ?>
+    
+    <div class="main-content">
+        <div class="container">
+            <div class="welcome-section">
+                <h2><i class="fa-solid fa-eye"></i> Vista Previa Administrativa</h2>
+                <p>Esta vista incluye información técnica que NO será visible para los encuestados en el enlace público.</p>
+            </div>
+            
+            <div class="back-controls">
+                <a href="ver_encuestas.php" class="btn"><i class="fa-solid fa-arrow-left"></i> Volver a Encuestas</a>
+                <?php if ($encuesta && $encuesta['estado'] === 'activa'): ?>
+                    <a href="../public/responder.php?id=<?= htmlspecialchars($encuesta['enlace_publico']) ?>" 
+                       class="btn btn-secondary" target="_blank">
+                       <i class="fa-solid fa-external-link-alt"></i> Ver Versión Pública
+                    </a>
+                <?php endif; ?>
+            </div>
         
         <?php if ($error): ?>
             <div class="error-message">
@@ -295,5 +298,6 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
             </div>
         <?php endif; ?>
     </div>
+    </div> <!-- /main-content -->
 </body>
 </html>

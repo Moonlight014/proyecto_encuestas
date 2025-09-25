@@ -67,6 +67,9 @@ try {
     <title>Agregar Preguntas - DAS Hualpén</title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS del sistema -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <style>
         body { font-family: Arial, sans-serif; padding: 2rem; background: #f8f9fa; }
         h1 { color: #0d47a1; }
@@ -192,13 +195,17 @@ try {
     </style>
 </head>
 <body>
-    <h1>Agregar Preguntas: <?= htmlspecialchars($encuesta['titulo']) ?></h1>
-    <div style="margin-bottom: 1rem;">
-        <small style="color: #6c757d; font-size: 0.9rem;">
-            <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
-        </small>
-    </div>
-    <a class="back-btn" href="ver_encuestas.php"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+    <?php include '../includes/navbar_complete.php'; ?>
+    
+    <div class="main-content">
+        <div class="container">
+            <div class="welcome-section">
+                <h2>Agregar Preguntas</h2>
+                <p>Selecciona preguntas para agregar a: <strong><?= htmlspecialchars($encuesta['titulo']) ?></strong></p>
+                <small style="color: #6c757d;">
+                    <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
+                </small>
+            </div>
     
     <?php if ($mensaje): ?>
         <div class="alert alert-success auto-hide-alert"><?= htmlspecialchars($mensaje) ?></div>
@@ -301,5 +308,7 @@ try {
             });
         });
     </script>
+        </div> <!-- /container -->
+    </div> <!-- /main-content -->
 </body>
 </html>

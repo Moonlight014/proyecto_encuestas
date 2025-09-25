@@ -100,6 +100,9 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
     <meta charset="UTF-8">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS del sistema -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Encuesta - DAS Hualpén</title>
     <style>
@@ -218,16 +221,17 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <h1>Crear Nueva Encuesta</h1>
-            <a href="#" onclick="volverAtras(); return false;" class="back-btn"><i class="fa-solid fa-arrow-left"></i> <?= htmlspecialchars($texto_volver) ?></a>
-        </div>
-    </div>
+    <?php include '../includes/navbar_complete.php'; ?>
     
-    <div class="container">
-        <div class="form-card">
-            <h2 class="form-title">Información Básica de la Encuesta</h2>
+    <div class="main-content">
+        <div class="container">
+            <div class="welcome-section">
+                <h2>Crear Nueva Encuesta</h2>
+                <p>Complete la información básica para crear una nueva encuesta</p>
+            </div>
+            
+            <div class="form-card">
+                <h3 class="form-title">Información Básica de la Encuesta</h3>
             
             <?php if ($mensaje): ?>
                 <div class="alert alert-success"><?= htmlspecialchars($mensaje) ?></div>
@@ -385,5 +389,6 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
             window.history.replaceState(null, null, window.location.href);
         }
     </script>
+    </div> <!-- /main-content -->
 </body>
 </html>

@@ -1,6 +1,9 @@
-<?php
+ <?php
 session_start();
 require_once '../config/conexion.php';
+require_once '../config/path_helper.php';
+
+$base_url = detectar_base_url();
 
 // Headers anti-caché para prevenir duplicación de procesos
 header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -71,6 +74,8 @@ try {
     <title>Gestionar Preguntas - DAS Hualpén</title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos del sistema -->
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/styles.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -78,35 +83,19 @@ try {
             margin: 0;
             padding: 0;
         }
-        .header {
-            background: #0d47a1;
-            color: white;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .back-btn {
-            background: #32CD32;
-            color: white;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-        .back-btn:hover {
-            background: #228B22;
-        }
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
+        }
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        .page-title {
+            color: #0d47a1;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
         }
         .stats-grid {
             display: grid;
@@ -296,19 +285,16 @@ try {
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <div>
-                <h1>Gestionar Banco de Preguntas</h1>
-                <small style="opacity: 0.8; font-size: 0.8rem;">
-                    <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
-                </small>
-            </div>
-            <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver al Panel</a>
-        </div>
-    </div>
-    
+    <?php include '../includes/navbar_complete.php'; ?>
+
     <div class="container">
+        <div class="page-header">
+            <h2 class="page-title">Gestionar Banco de Preguntas</h2>
+            <p style="color: #6c757d; margin-bottom: 1rem;">
+                <?= $es_super_admin ? '<i class="fa-solid fa-crown"></i> Super Administrador' : '<i class="fa-solid fa-user"></i> Administrador Departamental' ?>
+            </p>
+        </div>
+
         <?php if ($mensaje): ?>
             <div class="alert alert-success auto-hide-alert"><?= htmlspecialchars($mensaje) ?></div>
         <?php endif; ?>

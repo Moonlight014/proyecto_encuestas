@@ -46,6 +46,9 @@ try {
     <title>Reportes - DAS Hualpén</title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS del sistema -->
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -162,14 +165,14 @@ try {
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-content">
-            <h1>Reportes del Sistema</h1>
-            <a href="dashboard.php" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver al Panel</a>
-        </div>
-    </div>
+    <?php include '../includes/navbar_complete.php'; ?>
     
-    <div class="container">
+    <div class="main-content">
+        <div class="container">
+            <div class="welcome-section">
+                <h2>Reportes del Sistema</h2>
+                <p>Visualiza estadísticas y métricas del sistema de encuestas DAS Hualpén</p>
+            </div>
         <!-- Estadísticas principales -->
         <div class="stats-grid">
             <div class="stat-card">
@@ -238,5 +241,6 @@ try {
             </div>
         </div>
     </div>
+    </div> <!-- /main-content -->
 </body>
 </html>
