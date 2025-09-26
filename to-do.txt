@@ -218,8 +218,38 @@ confuso, ponerle otro color que se mantenga en la paleta de colores del sistema.
 
 - En 'crear_encuesta.php' poner el boton de volver, ya que no se ve ninguno, ojala que este esté justo arriba de el div 'form-card'.
 
-- PALETA DE COLORES SERÁ:
-    - Verde Oscuro (Color Principal, representativo de la pagina): 
+✅✅- Actualizar TODOS los colores del sistema para que usen únicamente la paleta oficial definida. Se corrigieron:
+    - Variables CSS en assets/css/styles.css actualizadas a la paleta oficial
+    - Botón "Crear Nueva Pregunta" cambiado de marrón (#8B4513) a verde oficial (#179101)
+    - Badges de estado usando verde 600 (#21bd00) en lugar de #28a745
+    - Hover de botones usando colores oficiales de la paleta
+
+- PALETA DE COLORES SERÁ ESTA, OTROS COLORES QUE NO ESTEN EN ESTA PALETA NO DEBEN USARSE:
+    - Azul Principal (Tambien un color Principal y representativo de la pagina, al ser una pagina del ambito de salud debe ser mayormente
+    conformada por este color): #0D47A1
+        - Paleta en torno a Azul Principal:
+            - '50': '#e3f2fd'
+            - '100': '#bbdefb'
+            - '200': '#90caf9'
+            - '300': '#64b5f6'
+            - '400': '#42a5f5'
+            - '500': '#2196f3'
+            - '600': '#1e88e5'
+            - '700': '#1976d2'
+            - '800': '#1565c0'
+            - '900': '#0d47a1'
+            - '950': '#002171'
+        - Otra paleta en torno a Azul Principal:
+            - #4A77BD
+            - #285EB3
+            - #093780
+            - #062A64
+    - Azul Hover: #0B3D91
+    - Azul Claro: #1976D2
+    - Gris Claro: #F5F5F5 (para fondos de tarjetas y secciones)
+    - Gris Oscuro: #A9A9A9 (para textos secundarios y deshabilitados)
+    - Blanco: #FFFFFF (para textos principales y fondos)
+    - Verde Oscuro: 
         - Paleta en torno a Verde Oscuro:
             - '50': '#f2ffee'
             - '100': '#ddffd6'
@@ -233,22 +263,8 @@ confuso, ponerle otro color que se mantenga en la paleta de colores del sistema.
             - '900': '#135f08'
             - '950': '#073600'
     - Verde Oscuro Hover: #148200
-    - Verde Claro: #32CD32 (Para botones y acentos)
-    - Azul Principal (Tambien un color Principal y representativo): #0D47A1
-        - Paleta en torno a Azul Principal:
-            - '50': '#e3f2fd'
-            - '100': '#bbdefb'
-            - '200': '#90caf9'
-            - '300': '#64b5f6'
-            - '400': '#42a5f5'
-            - '500': '#2196f3'
-            - '600': '#1e88e5'
-            - '700': '#1976d2'
-            - '800': '#1565c0'
-            - '900': '#0d47a1'
-            - '950': '#002171'
-    - Azul Hover: #0B3D91
-    - Azul Claro: #1976D2
-    - Gris Claro: #F5F5F5 (para fondos de tarjetas y secciones)
-    - Gris Oscuro: #A9A9A9 (para textos secundarios y deshabilitados)
-    - Blanco: #FFFFFF (para textos principales y fondos)
+    - Verde Claro: #32CD32
+    - Rojo: cualquiera que combine con la paleta de colores, para errores, alertas y botones de 'Finalizar' o 'Eliminar'.
+    - Naranja o Amarillo: cualquiera que combine con la paleta de colores, para alertas y botones de 'Pausar'.
+    - Para botones de 'Reactivar' (al reactivar una encuesta pausada) usar el color que sea mas correcto para el contexto 
+    y que combine con la paleta de colores.

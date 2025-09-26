@@ -151,9 +151,9 @@ try {
             align-items: center;
             justify-content: center;
         }
-        .btn:hover { background: #228B22; }
+        .btn:hover { background: #21bd00; } /* Verde claro hover de la paleta oficial */
         .btn-secondary { 
-            background: #8B4513; /* Marrón para diferenciarlo de los toggles azules */
+            background: #179101; /* Verde oscuro de la paleta oficial para diferenciarlo de los toggles azules */
             color: white; 
             padding: 1rem 2rem; 
             border: none; 
@@ -171,7 +171,7 @@ try {
             justify-content: center;
         }
         .btn-secondary:hover { 
-            background: #A0522D; 
+            background: #135f08; /* Verde más oscuro para hover según paleta oficial */
             color: white;
         }
         .botones-container {

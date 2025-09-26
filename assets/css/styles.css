@@ -8,26 +8,26 @@
    VARIABLES CSS - PALETA DE COLORES
    ======================================== */
 :root {
-    /* Colores principales del sistema */
-    --color-primary: #0d47a1;
-    --color-primary-hover: #1565c0;
-    --color-success: #32CD32;
-    --color-success-hover: #228B22;
-    --color-danger: #dc3545;
-    --color-warning: #ffc107;
-    --color-secondary: #6c757d;
-    --color-secondary-hover: #5a6268;
+    /* Colores principales del sistema - PALETA OFICIAL */
+    --color-primary: #0d47a1;           /* Azul Principal */
+    --color-primary-hover: #1565c0;     /* Azul 800 */
+    --color-success: #32CD32;           /* Verde Claro - se mantiene */
+    --color-success-hover: #21bd00;     /* Verde 600 de la paleta oficial */
+    --color-danger: #dc3545;            /* Rojo para errores - compatible con la paleta */
+    --color-warning: #ffc107;           /* Amarillo para alertas - compatible con la paleta */
+    --color-secondary: #A9A9A9;         /* Gris Oscuro de la paleta oficial */
+    --color-secondary-hover: #6c757d;   /* Gris más oscuro para hover */
     
-    /* Colores de fondo */
-    --bg-body: #f8f9fa;
-    --bg-white: #ffffff;
-    --bg-light: #f8f9fa;
+    /* Colores de fondo - PALETA OFICIAL */
+    --bg-body: #F5F5F5;              /* Gris Claro de la paleta oficial */
+    --bg-white: #FFFFFF;             /* Blanco oficial */
+    --bg-light: #F5F5F5;             /* Gris Claro para fondos de tarjetas */
     
-    /* Colores de texto */
-    --text-primary: #495057;
-    --text-dark: #212529;
-    --text-muted: #6c757d;
-    --text-white: #ffffff;
+    /* Colores de texto - PALETA OFICIAL */
+    --text-primary: #212529;         /* Texto principal más oscuro */
+    --text-dark: #212529;            /* Texto oscuro */
+    --text-muted: #A9A9A9;           /* Gris Oscuro de la paleta para textos secundarios */
+    --text-white: #FFFFFF;           /* Blanco oficial */
     
     /* Bordes y sombras */
     --border-color: #ced4da;
@@ -346,7 +346,7 @@ body {
 }
 
 .alert-success i {
-    color: #28a745;
+    color: #21bd00; /* Verde 600 de la paleta oficial */
 }
 
 .alert-danger i {
@@ -535,10 +535,10 @@ select.form-control {
 }
 
 .estado-badge.activa {
-    background-color: #28a745 !important;
+    background-color: #21bd00 !important; /* Verde 600 de la paleta oficial */
     color: white !important;
-    border: 1px solid rgba(40, 167, 69, 0.3);
-    box-shadow: 0 2px 6px rgba(40, 167, 69, 0.25);
+    border: 1px solid rgba(33, 189, 0, 0.3) !important;
+    box-shadow: 0 2px 6px rgba(33, 189, 0, 0.25) !important;
 }
 
 .estado-badge.pausada {
@@ -559,10 +559,10 @@ select.form-control {
 /* Selectores más específicos para badges de estado */
 .encuesta-header span.estado-badge.estado-activa,
 span.estado-activa.estado-badge {
-    background-color: #28a745 !important;
+    background-color: #21bd00 !important; /* Verde 600 de la paleta oficial */
     color: white !important;
-    border: 1px solid rgba(40, 167, 69, 0.3) !important;
-    box-shadow: 0 2px 6px rgba(40, 167, 69, 0.25) !important;
+    border: 1px solid rgba(33, 189, 0, 0.3) !important;
+    box-shadow: 0 2px 6px rgba(33, 189, 0, 0.25) !important;
 }
 
 .encuesta-header span.estado-badge.estado-pausada,
