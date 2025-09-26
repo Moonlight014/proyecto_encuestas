@@ -202,13 +202,18 @@ sucede tanto en movil como en desktop, hay que ajustarlo para que se vean bien e
 - tambien las opciones de 'Excelente	Bueno	Regular	Malo' en las preguntas tipo 'matriz_seleccion' se ven muy juntas en desktop y movil, hay 
 que ajustarlas para que se vean bien en ambos dispositivos.
 
-- La vista_previa_admin.php debe ser estrictamente igual a la vista que verá el encuestado, solo que con la diferencia de que en la 
+✅- La vista_previa_admin.php debe ser estrictamente igual a la vista que verá el encuestado, con la única diferencia de que en la 
 vista_previa_admin.php deben verse las categorias, tipos de preguntas y su ID, mientras que en la vista del encuestado NO.
 - En vista_previa_admin.php en movil se ve todo muy junto y no se entiende, debe verse bien, entenderse y ser intuitivo.
 - En interfaz de desktop, el navbar en agregar_preguntas.php se ve raro (hay espacio blanco a la izquierda del logo y a la derecha del usuario,
 osea a los dos extremos del navbar) y en movil igual hay un espacio en blanco al rededor del navbar. En vista_previa_admin.php pasa algo 
 similar, solo que el espacio en blanco (en desktop y movil) es en la parte superior del navbar, no a los lados como en agregar_preguntas.php. 
 Hay que ajustarlo para que se vea bien en ambos archivos.
+✅✅- las preguntas tipo 'escala_numerica' debe verse de forma horizontal, no vertical como actualmente se ve en vista_previa_admin.php 
+(en responder.php si se ve como debe ser, horizontalmente)
+
+- Al retroceder en el navegador desde 'vista_previa_admin.php' a me manda al login/index, no a 'agregar_preguntas.php' como deberia ser.
+
 
 - Replantear como dejar lo de 'Departamentos' ya que es muy similar a 'Categorías' y puede generar confusión. Quizás dejar solo 'Categorías'
 y eliminar 'Departamentos'. Hay que consultar con Ale.
@@ -235,6 +240,20 @@ confuso, ponerle otro color que se mantenga en la paleta de colores del sistema.
     - Botón "Crear Nueva Pregunta" cambiado de marrón (#8B4513) a verde oficial (#179101)
     - Badges de estado usando verde 600 (#21bd00) en lugar de #28a745
     - Hover de botones usando colores oficiales de la paleta
+
+- Quitar en todos los archivos los estilos inline (dentro de etiquetas <style>) y moverlos a un el archivo CSS externo que corresponda.
+
+
+
+
+
+
+
+
+
+
+
+
 
 - PALETA DE COLORES SERÁ ESTA, OTROS COLORES QUE NO ESTEN EN ESTA PALETA NO DEBEN USARSE:
     - Azul Principal (Tambien un color Principal y representativo de la pagina, al ser una pagina del ambito de salud debe ser mayormente
@@ -280,3 +299,5 @@ confuso, ponerle otro color que se mantenga en la paleta de colores del sistema.
     - Naranja o Amarillo: cualquiera que combine con la paleta de colores, para alertas y botones de 'Pausar'.
     - Para botones de 'Reactivar' (al reactivar una encuesta pausada) usar el color que sea mas correcto para el contexto 
     y que combine con la paleta de colores.
+
+    

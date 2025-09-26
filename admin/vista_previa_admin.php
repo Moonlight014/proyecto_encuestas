@@ -75,8 +75,14 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
             background: #F8F9FA;
             min-height: 100vh;
             margin: 0;
-            padding: 2rem 0;
+            padding: 0;
         }
+        
+        .main-content {
+            padding: 2rem 0;
+            min-height: calc(100vh - 65px);
+        }
+        
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -107,7 +113,7 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
             margin-bottom: 2rem;
         }
         .encuesta-header {
-            background: #32CD32;
+            background: #21bd00;
             color: white;
             padding: 2rem;
             text-align: center;
@@ -136,7 +142,7 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
             border-radius: 8px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
-            border-left: 4px solid #32CD32;
+            border-left: 4px solid #21bd00;
         }
         .pregunta-header {
             display: flex;
@@ -145,7 +151,7 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
             margin-bottom: 1rem;
         }
         .pregunta-numero {
-            background: #32CD32;
+            background: #21bd00;
             color: white;
             width: 30px;
             height: 30px;
@@ -217,7 +223,394 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
         .btn-secondary:hover {
             background: #5a6268;
         }
+        
+        /* Estilos responsive para móvil */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem 0;
+            }
+            
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .welcome-section {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .welcome-section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .welcome-section p {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            
+            .back-controls {
+                margin-bottom: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .btn {
+                padding: 0.875rem 1rem;
+                font-size: 0.95rem;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .encuesta-header {
+                padding: 1.5rem 1rem;
+            }
+            
+            .encuesta-title {
+                font-size: 1.5rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .encuesta-descripcion {
+                font-size: 1rem;
+            }
+            
+            .encuesta-meta {
+                padding: 1rem;
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+            
+            .preguntas-container {
+                padding: 1rem;
+            }
+            
+            .pregunta-item {
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border-radius: 6px;
+            }
+            
+            .pregunta-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .pregunta-numero {
+                align-self: flex-start;
+                margin-bottom: 0.5rem;
+            }
+            
+            .pregunta-contenido {
+                margin-left: 0;
+                width: 100%;
+            }
+            
+            .pregunta-texto {
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
+                line-height: 1.4;
+            }
+            
+            .pregunta-meta {
+                font-size: 0.8rem;
+                padding: 0.5rem 0.75rem;
+                margin-bottom: 0.75rem;
+                line-height: 1.3;
+                word-break: break-word;
+            }
+            
+            .pregunta-respuesta {
+                margin-top: 0.75rem;
+            }
+            
+            /* Ajustes específicos para campos de formulario en móvil */
+            .pregunta-respuesta input,
+            .pregunta-respuesta textarea,
+            .pregunta-respuesta select {
+                width: 100% !important;
+                font-size: 16px; /* Previene zoom en iOS */
+                padding: 0.75rem;
+                border-radius: 6px;
+                border: 1px solid #ddd;
+                margin-bottom: 0.5rem;
+            }
+            
+            .pregunta-respuesta textarea {
+                min-height: 100px;
+                resize: vertical;
+            }
+            
+            /* Mejoras para preguntas tipo matriz en móvil */
+            .pregunta-respuesta table {
+                width: 100%;
+                font-size: 0.85rem;
+                border-collapse: collapse;
+            }
+            
+            .pregunta-respuesta th,
+            .pregunta-respuesta td {
+                padding: 0.5rem 0.25rem;
+                text-align: center;
+                border: 1px solid #ddd;
+            }
+            
+            .pregunta-respuesta th {
+                background: #f8f9fa;
+                font-weight: 600;
+                font-size: 0.8rem;
+            }
+            
+            /* Mejoras para checkboxes y radios en móvil */
+            .pregunta-respuesta input[type="checkbox"],
+            .pregunta-respuesta input[type="radio"] {
+                width: auto !important;
+                margin-right: 0.5rem;
+                transform: scale(1.2);
+            }
+            
+            .pregunta-respuesta label {
+                display: flex;
+                align-items: center;
+                margin-bottom: 0.75rem;
+                padding: 0.5rem;
+                background: #f8f9fa;
+                border-radius: 6px;
+                cursor: pointer;
+                line-height: 1.3;
+            }
+            
+            .error-message {
+                margin: 1rem 0.5rem;
+                padding: 1rem;
+                font-size: 0.95rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .encuesta-meta {
+                font-size: 0.8rem;
+            }
+            
+            .pregunta-meta {
+                font-size: 0.75rem;
+            }
+            
+            .pregunta-respuesta th,
+            .pregunta-respuesta td {
+                padding: 0.4rem 0.2rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        /* Estilos para matrices */
+        .matriz-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .matriz-table,
+        .matriz-escala-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .matriz-table th,
+        .matriz-table td,
+        .matriz-escala-table th,
+        .matriz-escala-table td {
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            vertical-align: middle;
+        }
+        
+        .matriz-table th,
+        .matriz-escala-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.85rem;
+        }
+        
+        .matriz-label {
+            text-align: left !important;
+            font-weight: 500;
+            background: #f8f9fa !important;
+            color: #333;
+            padding-left: 1rem !important;
+        }
+        
+        .matriz-cell {
+            background: white;
+            position: relative;
+        }
+        
+        .matriz-cell input[type="radio"] {
+            width: 18px !important;
+            height: 18px !important;
+            margin: 0 !important;
+            cursor: pointer;
+            accent-color: #21bd00;
+        }
+        
+        .matriz-escala-wrapper {
+            margin: 1rem 0;
+        }
+        
+        .matriz-escala-container {
+            overflow-x: auto;
+        }
+        
+        /* Responsive para matrices */
+        @media (max-width: 768px) {
+            .matriz-container,
+            .matriz-escala-container {
+                font-size: 0.8rem;
+            }
+            
+            .matriz-table th,
+            .matriz-table td,
+            .matriz-escala-table th,
+            .matriz-escala-table td {
+                padding: 0.5rem 0.25rem;
+                font-size: 0.75rem;
+            }
+            
+            .matriz-label {
+                padding-left: 0.5rem !important;
+                font-size: 0.8rem;
+            }
+            
+            .matriz-cell input[type="radio"] {
+                width: 16px !important;
+                height: 16px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .matriz-table,
+            .matriz-escala-table {
+                font-size: 0.7rem;
+            }
+            
+            .matriz-table th,
+            .matriz-table td,
+            .matriz-escala-table th,
+            .matriz-escala-table td {
+                padding: 0.4rem 0.2rem;
+                font-size: 0.7rem;
+            }
+            
+            .matriz-cell input[type="radio"] {
+                width: 14px !important;
+                height: 14px !important;
+            }
+        }
+        
+        /* Estilos específicos para escala numérica - forzar vista horizontal */
+        .escala-numerica {
+            margin: 15px 0 !important;
+        }
+        
+        .escala-valores {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: flex-start !important;
+            gap: 15px !important;
+            flex-wrap: nowrap !important;
+            margin: 15px 0 !important;
+            flex-direction: row !important;
+        }
+        
+        .escala-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            flex: 1 !important;
+            min-width: 60px !important;
+            max-width: 80px !important;
+            padding: 10px 5px !important;
+        }
+        
+        .escala-radio {
+            margin-bottom: 8px !important;
+            width: 18px !important;
+            height: 18px !important;
+        }
+        
+        .escala-numero-label {
+            text-align: center !important;
+            cursor: pointer !important;
+            font-weight: bold !important;
+            font-size: 1.1rem !important;
+            color: #0d47a1 !important;
+            transition: color 0.2s !important;
+        }
+        
+        .escala-numero-label:hover {
+            color: #1565c0 !important;
+        }
+        
+        .escala-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            margin-bottom: 10px !important;
+            font-size: 0.9rem !important;
+            color: #666 !important;
+        }
+        
+        /* Responsive para escalas en móvil */
+        @media (max-width: 768px) {
+            .escala-valores {
+                gap: 10px !important;
+            }
+            
+            .escala-item {
+                min-width: 50px !important;
+                max-width: 70px !important;
+                padding: 8px 3px !important;
+            }
+            
+            .escala-numero-label {
+                font-size: 1rem !important;
+            }
+            
+            .escala-header {
+                font-size: 0.85rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .escala-valores {
+                gap: 8px !important;
+            }
+            
+            .escala-item {
+                min-width: 45px !important;
+                max-width: 60px !important;
+                padding: 6px 2px !important;
+            }
+            
+            .escala-numero-label {
+                font-size: 0.9rem !important;
+            }
+            
+            .escala-header {
+                font-size: 0.8rem !important;
+            }
+        }
     </style>
+    
+    <?= generarEstilosEscalas() ?>
 </head>
 <body>
     <?php include '../includes/navbar_complete.php'; ?>

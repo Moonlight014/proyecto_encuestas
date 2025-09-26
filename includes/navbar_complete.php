@@ -181,6 +181,8 @@ $relative_base = $is_admin_folder ? '../' : '';
     align-items: center;
     padding: 0 1rem;
     height: 65px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Logo */
@@ -215,7 +217,8 @@ $relative_base = $is_admin_folder ? '../' : '';
     flex: 1;
     display: flex;
     justify-content: flex-start;
-    margin-left: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
 
 .nav-dropdown-container {
@@ -423,7 +426,13 @@ $relative_base = $is_admin_folder ? '../' : '';
 /* Responsive */
 @media (max-width: 768px) {
     .navbar-container {
-        padding: 0 0.75rem;
+        padding: 0 1rem;
+        justify-content: space-between;
+    }
+    
+    .navbar-center {
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
     
     .user-info {
@@ -452,12 +461,14 @@ $relative_base = $is_admin_folder ? '../' : '';
 @media (max-width: 576px) {
     .navbar-container {
         justify-content: space-between;
+        padding: 0 0.75rem;
     }
     
     /* Mantener navbar-center visible pero compacto */
     .navbar-center {
         display: flex;
-        margin-left: 0.5rem;
+        margin-left: 0.75rem;
+        margin-right: 0.75rem;
     }
     
     .nav-dropdown-toggle {
@@ -467,6 +478,14 @@ $relative_base = $is_admin_folder ? '../' : '';
     
     .nav-dropdown-toggle .dropdown-arrow {
         display: none;
+    }
+    
+    .brand-logo {
+        height: 35px;
+    }
+    
+    .brand-text {
+        font-size: 0.9rem;
     }
 }
 

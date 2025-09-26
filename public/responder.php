@@ -187,7 +187,7 @@ if (empty($enlace_publico)) {
             margin-bottom: 2rem;
         }
         .encuesta-header {
-            background: #32CD32;
+            background: #21bd00;
             color: white;
             padding: 2rem;
             text-align: center;
@@ -316,7 +316,7 @@ if (empty($enlace_publico)) {
             color: #6c757d;
         }
         .btn-enviar {
-            background: #32CD32;
+            background: #21bd00;
             color: white;
             padding: 15px 30px;
             border: none;
@@ -342,7 +342,7 @@ if (empty($enlace_publico)) {
         .alert-success {
             background: #d4edda;
             color: #155724;
-            border-left: 4px solid #32CD32;
+            border-left: 4px solid #21bd00;
         }
         .alert-danger {
             background: #f8d7da;
@@ -385,7 +385,7 @@ if (empty($enlace_publico)) {
             overflow: hidden;
         }
         .progreso-fill {
-            background: #32CD32;
+            background: #21bd00;
             height: 100%;
             width: 0%;
             transition: width 0.3s;
@@ -506,6 +506,211 @@ if (empty($enlace_publico)) {
             
             .footer {
                 padding: 1.5rem 1rem;
+            }
+        }
+        
+        /* Estilos específicos para escala numérica - forzar vista horizontal */
+        .escala-numerica {
+            margin: 15px 0 !important;
+        }
+        
+        .escala-valores {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: flex-start !important;
+            gap: 15px !important;
+            flex-wrap: nowrap !important;
+            margin: 15px 0 !important;
+            flex-direction: row !important;
+        }
+        
+        .escala-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            flex: 1 !important;
+            min-width: 60px !important;
+            max-width: 80px !important;
+            padding: 10px 5px !important;
+        }
+        
+        .escala-radio {
+            margin-bottom: 8px !important;
+            width: 18px !important;
+            height: 18px !important;
+            accent-color: #21bd00 !important;
+        }
+        
+        .escala-numero-label {
+            text-align: center !important;
+            cursor: pointer !important;
+            font-weight: bold !important;
+            font-size: 1.1rem !important;
+            color: #0d47a1 !important;
+            transition: color 0.2s !important;
+        }
+        
+        .escala-numero-label:hover {
+            color: #1565c0 !important;
+        }
+        
+        .escala-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            margin-bottom: 10px !important;
+            font-size: 0.9rem !important;
+            color: #666 !important;
+        }
+        
+        /* Responsive para escalas en móvil */
+        @media (max-width: 768px) {
+            .escala-valores {
+                gap: 10px !important;
+            }
+            
+            .escala-item {
+                min-width: 50px !important;
+                max-width: 70px !important;
+                padding: 8px 3px !important;
+            }
+            
+            .escala-numero-label {
+                font-size: 1rem !important;
+            }
+            
+            .escala-header {
+                font-size: 0.85rem !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .escala-valores {
+                gap: 8px !important;
+            }
+            
+            .escala-item {
+                min-width: 45px !important;
+                max-width: 60px !important;
+                padding: 6px 2px !important;
+            }
+            
+            .escala-numero-label {
+                font-size: 0.9rem !important;
+            }
+            
+            .escala-header {
+                font-size: 0.8rem !important;
+            }
+        }
+        
+        /* Estilos para matrices */
+        .matriz-container {
+            width: 100%;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .matriz-table,
+        .matriz-escala-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .matriz-table th,
+        .matriz-table td,
+        .matriz-escala-table th,
+        .matriz-escala-table td {
+            padding: 0.75rem 0.5rem;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            vertical-align: middle;
+        }
+        
+        .matriz-table th,
+        .matriz-escala-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.85rem;
+        }
+        
+        .matriz-label {
+            text-align: left !important;
+            font-weight: 500;
+            background: #f8f9fa !important;
+            color: #333;
+            padding-left: 1rem !important;
+        }
+        
+        .matriz-cell {
+            background: white;
+            position: relative;
+        }
+        
+        .matriz-cell input[type="radio"] {
+            width: 18px !important;
+            height: 18px !important;
+            margin: 0 !important;
+            cursor: pointer;
+            accent-color: #21bd00;
+        }
+        
+        .matriz-escala-wrapper {
+            margin: 1rem 0;
+        }
+        
+        .matriz-escala-container {
+            overflow-x: auto;
+        }
+        
+        /* Responsive para matrices */
+        @media (max-width: 768px) {
+            .matriz-container,
+            .matriz-escala-container {
+                font-size: 0.8rem;
+            }
+            
+            .matriz-table th,
+            .matriz-table td,
+            .matriz-escala-table th,
+            .matriz-escala-table td {
+                padding: 0.5rem 0.25rem;
+                font-size: 0.75rem;
+            }
+            
+            .matriz-label {
+                padding-left: 0.5rem !important;
+                font-size: 0.8rem;
+            }
+            
+            .matriz-cell input[type="radio"] {
+                width: 16px !important;
+                height: 16px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .matriz-table,
+            .matriz-escala-table {
+                font-size: 0.7rem;
+            }
+            
+            .matriz-table th,
+            .matriz-table td,
+            .matriz-escala-table th,
+            .matriz-escala-table td {
+                padding: 0.4rem 0.2rem;
+                font-size: 0.7rem;
+            }
+            
+            .matriz-cell input[type="radio"] {
+                width: 14px !important;
+                height: 14px !important;
             }
         }
     </style>
