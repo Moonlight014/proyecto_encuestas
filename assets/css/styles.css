@@ -1121,6 +1121,7 @@ span.estado-pausada.estado-badge {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
+    min-width: fit-content;
 }
 
 .matriz-table th,
@@ -1131,6 +1132,8 @@ span.estado-pausada.estado-badge {
     text-align: center;
     border: 1px solid var(--border-light);
     vertical-align: middle;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .matriz-table th,
@@ -1139,6 +1142,10 @@ span.estado-pausada.estado-badge {
     font-weight: 600;
     color: var(--text-dark);
     font-size: 0.85rem;
+    line-height: 1.3;
+    min-width: 80px;
+    max-width: 120px;
+    width: auto;
 }
 
 .matriz-label {
@@ -1147,11 +1154,15 @@ span.estado-pausada.estado-badge {
     background: var(--bg-light) !important;
     color: var(--text-dark);
     padding-left: 1rem !important;
+    min-width: 150px;
+    white-space: nowrap;
 }
 
 .matriz-cell {
     background: var(--bg-white);
     position: relative;
+    min-width: 60px;
+    width: auto;
 }
 
 .matriz-cell input[type="radio"] {
@@ -1175,19 +1186,41 @@ span.estado-pausada.estado-badge {
     .matriz-container,
     .matriz-escala-container {
         font-size: 0.8rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .matriz-table,
+    .matriz-escala-table {
+        min-width: 600px;
     }
     
     .matriz-table th,
     .matriz-table td,
     .matriz-escala-table th,
     .matriz-escala-table td {
-        padding: 0.5rem 0.25rem;
+        padding: 0.6rem 0.3rem;
         font-size: 0.75rem;
+        line-height: 1.2;
+    }
+    
+    .matriz-table th,
+    .matriz-escala-table th {
+        min-width: 70px;
+        max-width: 100px;
+        font-size: 0.7rem;
+        padding: 0.6rem 0.2rem;
     }
     
     .matriz-label {
         padding-left: 0.5rem !important;
         font-size: 0.8rem;
+        min-width: 120px;
+        max-width: 150px;
+    }
+    
+    .matriz-cell {
+        min-width: 50px;
     }
     
     .matriz-cell input[type="radio"] {
@@ -1197,17 +1230,45 @@ span.estado-pausada.estado-badge {
 }
 
 @media (max-width: 480px) {
+    .matriz-container,
+    .matriz-escala-container {
+        margin: 0.5rem -0.5rem;
+        padding: 0 0.5rem;
+    }
+    
     .matriz-table,
     .matriz-escala-table {
         font-size: 0.7rem;
+        min-width: 500px;
     }
     
     .matriz-table th,
     .matriz-table td,
     .matriz-escala-table th,
     .matriz-escala-table td {
-        padding: 0.4rem 0.2rem;
+        padding: 0.4rem 0.15rem;
+        font-size: 0.65rem;
+        line-height: 1.1;
+    }
+    
+    .matriz-table th,
+    .matriz-escala-table th {
+        min-width: 60px;
+        max-width: 80px;
+        font-size: 0.6rem;
+        font-weight: 700;
+        padding: 0.5rem 0.1rem;
+    }
+    
+    .matriz-label {
+        padding-left: 0.3rem !important;
         font-size: 0.7rem;
+        min-width: 100px;
+        max-width: 120px;
+    }
+    
+    .matriz-cell {
+        min-width: 45px;
     }
     
     .matriz-cell input[type="radio"] {

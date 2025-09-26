@@ -1299,14 +1299,15 @@ function renderizarClasificacion($name, $opciones, $valor_actual = null, $requir
  */
 function renderizarMatrizSeleccion($name, $opciones, $valor_actual = null, $required = '') {
     $filas = $opciones['filas'] ?? ['Fila 1', 'Fila 2', 'Fila 3'];
-    $columnas = $opciones['columnas'] ?? ['Columna 1', 'Columna 2', 'Columna 3'];
+    // Usar 'escala' en lugar de 'columnas' para matriz_seleccion
+    $escala = $opciones['escala'] ?? $opciones['columnas'] ?? ['Columna 1', 'Columna 2', 'Columna 3'];
     
     $html = "<div class='matriz-container'>";
     $html .= "<table class='matriz-table'>";
     
     // Encabezados
     $html .= "<thead><tr><th></th>";
-    foreach ($columnas as $col) {
+    foreach ($escala as $col) {
         $html .= "<th>{$col}</th>";
     }
     $html .= "</tr></thead>";
@@ -1316,7 +1317,7 @@ function renderizarMatrizSeleccion($name, $opciones, $valor_actual = null, $requ
     foreach ($filas as $fila_idx => $fila) {
         $html .= "<tr>";
         $html .= "<td class='matriz-label'>{$fila}</td>";
-        foreach ($columnas as $col_idx => $col) {
+        foreach ($escala as $col_idx => $col) {
             $value = "{$fila_idx}_{$col_idx}";
             $checked = ($valor_actual === $value) ? 'checked' : '';
             $html .= "<td class='matriz-cell'>";

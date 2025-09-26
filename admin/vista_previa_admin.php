@@ -421,6 +421,7 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-width: fit-content;
         }
         
         .matriz-table th,
@@ -431,6 +432,8 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
             text-align: center;
             border: 1px solid #e0e0e0;
             vertical-align: middle;
+            word-wrap: break-word;
+            hyphens: auto;
         }
         
         .matriz-table th,
@@ -439,6 +442,10 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
             font-weight: 600;
             color: #333;
             font-size: 0.85rem;
+            line-height: 1.3;
+            min-width: 80px;
+            max-width: 120px;
+            width: auto;
         }
         
         .matriz-label {
@@ -447,11 +454,15 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
             background: #f8f9fa !important;
             color: #333;
             padding-left: 1rem !important;
+            min-width: 150px;
+            white-space: nowrap;
         }
         
         .matriz-cell {
             background: white;
             position: relative;
+            min-width: 60px;
+            width: auto;
         }
         
         .matriz-cell input[type="radio"] {
@@ -475,19 +486,41 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
             .matriz-container,
             .matriz-escala-container {
                 font-size: 0.8rem;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .matriz-table,
+            .matriz-escala-table {
+                min-width: 600px;
             }
             
             .matriz-table th,
             .matriz-table td,
             .matriz-escala-table th,
             .matriz-escala-table td {
-                padding: 0.5rem 0.25rem;
+                padding: 0.6rem 0.3rem;
                 font-size: 0.75rem;
+                line-height: 1.2;
+            }
+            
+            .matriz-table th,
+            .matriz-escala-table th {
+                min-width: 70px;
+                max-width: 100px;
+                font-size: 0.7rem;
+                padding: 0.6rem 0.2rem;
             }
             
             .matriz-label {
                 padding-left: 0.5rem !important;
                 font-size: 0.8rem;
+                min-width: 120px;
+                max-width: 150px;
+            }
+            
+            .matriz-cell {
+                min-width: 50px;
             }
             
             .matriz-cell input[type="radio"] {
@@ -497,17 +530,45 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
         }
         
         @media (max-width: 480px) {
+            .matriz-container,
+            .matriz-escala-container {
+                margin: 0.5rem -0.5rem;
+                padding: 0 0.5rem;
+            }
+            
             .matriz-table,
             .matriz-escala-table {
                 font-size: 0.7rem;
+                min-width: 500px;
             }
             
             .matriz-table th,
             .matriz-table td,
             .matriz-escala-table th,
             .matriz-escala-table td {
-                padding: 0.4rem 0.2rem;
+                padding: 0.4rem 0.15rem;
+                font-size: 0.65rem;
+                line-height: 1.1;
+            }
+            
+            .matriz-table th,
+            .matriz-escala-table th {
+                min-width: 60px;
+                max-width: 80px;
+                font-size: 0.6rem;
+                font-weight: 700;
+                padding: 0.5rem 0.1rem;
+            }
+            
+            .matriz-label {
+                padding-left: 0.3rem !important;
                 font-size: 0.7rem;
+                min-width: 100px;
+                max-width: 120px;
+            }
+            
+            .matriz-cell {
+                min-width: 45px;
             }
             
             .matriz-cell input[type="radio"] {

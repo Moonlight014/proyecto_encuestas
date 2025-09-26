@@ -194,13 +194,12 @@ viewport para movil o no es dinamica como las demas.
 ✅✅- En movil el navbar de 'gestionar_preguntas.php' al deslizar hacia abajo desaparece se queda en la parte superior, no como en las demas
 paginas que se queda en la parte superior pero se ve el logo y el boton de usuario no importa que tanto se deslice hacia abajo.
 
-- Ajustar las preguntas tipo 'matriz_seleccion ' o las que sea que ocupan más espacio en la pantalla de lo normal para que se vean
-bien en movil y no se salga de la pantalla o no requiera que se deslice a la derecha o izquierda para verlas completas.
-- En movil las preguntas tipo 'matriz_seleccion ' y 'matriz_escala' se salen de la pantalla, hay que ajustarlas para que se vean bien. Tambien 
-los textos de 'Muy insatisfecho' 'Insatisfecho' 'Neutral' 'Satisfecho' 'Muy satisfecho' se ven a veces muy juntos, y otras veces separados, esto 
-sucede tanto en movil como en desktop, hay que ajustarlo para que se vean bien en ambos dispositivos.
-- tambien las opciones de 'Excelente	Bueno	Regular	Malo' en las preguntas tipo 'matriz_seleccion' se ven muy juntas en desktop y movil, hay 
-que ajustarlas para que se vean bien en ambos dispositivos.
+✅✅- En movil las preguntas tipo 'matriz_seleccion ' los textos de 'Muy insatisfecho' 'Insatisfecho' 'Neutral' 'Satisfecho' 'Muy satisfecho' se ven 
+a veces muy juntos, y otras veces separados, esto sucede tanto en movil como en desktop y vista_previa_admin y responder.php. Hay que ajustarlo 
+para que se vean bien en ambos dispositivos.
+    - Lo mismo pasa en las preguntas tipo 'matriz_escala' con los textos 'Muy insatisfecho	Insatisfecho	Neutral	Satisfecho	Muy satisfecho' y 
+    las opciones (la columna de la izquierda) se ven a veces muy juntos y otras separados, hay que ajustarlo para que se vean bien.
+
 
 ✅- La vista_previa_admin.php debe ser estrictamente igual a la vista que verá el encuestado, con la única diferencia de que en la 
 vista_previa_admin.php deben verse las categorias, tipos de preguntas y su ID, mientras que en la vista del encuestado NO.
