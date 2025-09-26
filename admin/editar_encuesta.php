@@ -231,6 +231,103 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
             margin-bottom: 1.5rem;
             border-left: 3px solid #0d47a1;
         }
+        
+        /* Estilos responsive para móvil */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+            
+            /* Reducir espacio específicamente para fechas en móvil */
+            .form-row .form-group {
+                margin-bottom: 1rem;
+            }
+            
+            .form-label {
+                font-size: 1rem;
+                font-weight: 600;
+                margin-bottom: 0.75rem;
+                display: block;
+                color: #333;
+            }
+            
+            .form-control {
+                margin-bottom: 0.5rem;
+            }
+            
+            .form-group small {
+                display: block;
+                margin-top: 0.5rem;
+                margin-bottom: 1rem;
+                line-height: 1.4;
+                font-size: 0.9rem;
+            }
+            
+            .welcome-section {
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .welcome-section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .welcome-section p {
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            
+            .form-card {
+                padding: 1.5rem 1rem;
+                margin: 0 0.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+            
+            .form-group {
+                margin-bottom: 2.5rem;
+            }
+            
+            .form-label {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .form-control {
+                padding: 0.75rem;
+                font-size: 1rem;
+            }
+            
+            .form-group small {
+                margin-top: 0.75rem;
+                margin-bottom: 1.5rem;
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+            
+            .welcome-section {
+                padding: 1rem 0.5rem;
+            }
+            
+            .form-card {
+                padding: 1rem 0.75rem;
+                margin: 0 0.25rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -244,21 +341,6 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
             </div>
             
             <div class="form-card">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Fecha de Apertura</label>
-                        <input type="text" class="form-control" value="<?= date('d/m/Y H:i') . ' (al guardar cambios)' ?>" readonly disabled>
-                        <small style="color:#6c757d;">La encuesta estará disponible desde hoy cuando guardes los cambios.</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="fecha_fin" class="form-label">Fecha de Cierre</label>
-                        <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control"
-                               min="<?= date('Y-m-d\TH:i', strtotime('+5 minutes')) ?>"
-                               value="<?= $encuesta['fecha_fin'] ? date('Y-m-d\TH:i', strtotime($encuesta['fecha_fin'])) : '' ?>">
-                        <small style="color:#6c757d;">Selecciona cuándo quieres que termine la encuesta. Debe ser una fecha futura.</small>
-                    </div>
-                </div>
             <?php if ($error): ?>
                 <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
@@ -286,7 +368,21 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
                     </select>
                 </div>
                 
-
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Fecha de Apertura</label>
+                        <input type="text" class="form-control" value="<?= date('d/m/Y H:i') . ' (al guardar cambios)' ?>" readonly disabled>
+                        <small style="color:#6c757d;">La encuesta estará disponible desde hoy cuando guardes los cambios.</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fecha_fin" class="form-label">Fecha de Cierre</label>
+                        <input type="datetime-local" id="fecha_fin" name="fecha_fin" class="form-control"
+                               min="<?= date('Y-m-d\TH:i', strtotime('+5 minutes')) ?>"
+                               value="<?= $encuesta['fecha_fin'] ? date('Y-m-d\TH:i', strtotime($encuesta['fecha_fin'])) : '' ?>">
+                        <small style="color:#6c757d;">Selecciona cuándo quieres que termine la encuesta. Debe ser una fecha futura.</small>
+                    </div>
+                </div>
                 
                 <div class="form-group">
                     <button type="submit" name="actualizar" class="btn-primary">Actualizar Encuesta</button>

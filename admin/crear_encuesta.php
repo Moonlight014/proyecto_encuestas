@@ -221,7 +221,12 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
             
             .form-row {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 0.75rem;
+            }
+            
+            /* Reducir espacio específicamente para fechas en móvil */
+            .form-row .form-group {
+                margin-bottom: 1rem;
             }
             
             .form-card {
