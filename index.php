@@ -1,6 +1,9 @@
-<?php
+﻿<?php
 session_start();
 require_once 'config/conexion.php';
+require_once 'config/path_helper.php';
+
+$base_url = detectar_base_url();
 
 // Headers anti-caché para prevenir duplicación de procesos de login
 header("Cache-Control: no-cache, no-store, must-revalidate");
@@ -64,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
             
             $stmt = $pdo->prepare("UPDATE usuarios SET ultimo_acceso = NOW() WHERE id = ?");
             if (!$stmt->execute([$user['id']])) {
-                $_SESSION['error_login'] = "No se pudo actualizar el último acceso. Intente nuevamente.";
+                $_SESSION['error_login'] = "No se pudo actualizar el Ãºltimo acceso. Intente nuevamente.";
                 header("Location: " . $_SERVER['PHP_SELF']);
                 exit();
             } else {
@@ -91,173 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Encuestas - DAS Hualpén</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-        }
-        .login-wrapper {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            width: 100%;
-            max-width: 480px;
-            border: 1px solid #e9ecef;
-        }
-        .header-section {
-            background: #ffffff;
-            padding: 2rem 2rem 1.5rem;
-            text-align: center;
-            border-bottom: 3px solid #198754;
-        }
-        .logo-institucional {
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(135deg, #198754 0%, #20c997 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        .institucion-title {
-            color: #212529;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-        .sistema-subtitle {
-            color: #495057;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-        .departamento {
-            color: #198754;
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-transform: uppercase;
-        }
-        .login-form {
-            padding: 2rem;
-        }
-        .form-title {
-            color: #212529;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            border-bottom: 1px solid #dee2e6;
-            padding-bottom: 1rem;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #495057;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        .form-control {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1.5px solid #ced4da;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            box-sizing: border-box;
-        }
-        .form-control:focus {
-            outline: none;
-            border-color: #198754;
-        }
-        .btn-login {
-            width: 100%;
-            background-color: #198754;
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .btn-login:hover {
-            background-color: #157347;
-        }
-        .footer-institucional {
-            background-color: #f8f9fa;
-            padding: 1.5rem 2rem;
-            text-align: center;
-            border-top: 1px solid #dee2e6;
-        }
-        .footer-text {
-            color: #6c757d;
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-        }
-        .footer-municipio {
-            color: #495057;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-            border: 1px solid #f5c6cb;
-        }
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-            border: 1px solid #c3e6cb;
-        }
-        .alert-info {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-            border: 1px solid #bee5eb;
-        }
-        .alert-warning {
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-            border: 1px solid #ffeaa7;
-        }
-        /* Estilos para iconos Font Awesome en alertas */
-        .alert-success i, .alert-info i, .alert-warning i, .alert-danger i {
-            margin-right: 8px;
-            font-size: 1.1em;
-        }
-        .credenciales-demo {
-            background-color: #e7f3ff;
-            border: 1px solid #b3d9ff;
-            border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 1.5rem;
-            font-size: 0.85rem;
-            color: #0c5aa0;
-        }
-    </style>
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/auth.css">
 </head>
-<body>
+<body class="login-body">
     <div class="login-wrapper">
         <div class="header-section">
             <div class="logo-institucional">DAS</div>
@@ -324,23 +163,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email']) && isset($_P
     </div>
 
     <script>
-        // Auto-ocultar mensajes de alerta después de 3 segundos
+        // Auto-ocultar mensajes de alerta despues de 3 segundos
         document.addEventListener('DOMContentLoaded', function() {
             const alerts = document.querySelectorAll('.auto-hide-alert');
             alerts.forEach(function(alert) {
-                // Agregar animación de fade-out
+                // Agregar animacion de fade-out
                 setTimeout(function() {
                     alert.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
                     alert.style.opacity = '0';
                     alert.style.transform = 'translateY(-10px)';
                     
-                    // Remover completamente después de la animación
+                    // Remover completamente despues de la animacion
                     setTimeout(function() {
                         if (alert.parentNode) {
                             alert.parentNode.removeChild(alert);
                         }
                     }, 500);
-                }, 3000); // 3 segundos exactos como solicitado
+                }, 3000); // 3 segundos exactos, modificables
             });
             
             // Para mensajes temporales, limpiar URL si contiene parámetros antiguos

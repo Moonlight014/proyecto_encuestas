@@ -3,6 +3,9 @@
 require_once '../includes/session_guard.php';
 
 require_once '../config/conexion.php';
+require_once '../config/path_helper.php';
+
+$base_url = detectar_base_url();
 
 $mensaje = '';
 $error = '';
@@ -93,175 +96,19 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- CSS del sistema -->
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/styles.css">
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/forms.css">
     <!-- Script de alertas auto-ocultables -->
     <script src="../assets/js/alerts.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Encuesta - DAS Hualpén</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background: #0d47a1;
-            color: white;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .back-btn {
-            background: #32CD32;
-            color: white;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-        .back-btn:hover {
-            background: #228B22;
-        }
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .form-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border-top: 4px solid #32CD32;
-        }
-        .form-title {
-            color: #0d47a1;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #e9ecef;
-            padding-bottom: 1rem;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #495057;
-            font-weight: 500;
-        }
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1.5px solid #ced4da;
-            border-radius: 6px;
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
-        .form-control:focus {
-            outline: none;
-            border-color: #0d47a1;
-            box-shadow: 0 0 0 2px rgba(13, 71, 161, 0.1);
-        }
-        textarea.form-control {
-            height: 120px;
-            resize: vertical;
-        }
-        .btn-primary {
-            background: #0d47a1;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .btn-primary:hover {
-            background: #1565c0;
-        }
-        .alert {
-            padding: 12px 16px;
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-            border-left: 4px solid;
-        }
-        .alert-success {
-            background-color: #f0f8f0;
-            border-left-color: #32CD32;
-            color: #0f5132;
-        }
-        .alert-danger {
-            background-color: #f8d7da;
-            border-left-color: #dc3545;
-            color: #721c24;
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        
-        /* Media queries para responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 0.5rem;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 0.75rem;
-            }
-            
-            /* Reducir espacio específicamente para fechas en móvil */
-            .form-row .form-group {
-                margin-bottom: 1rem;
-            }
-            
-            .form-card {
-                padding: 1rem;
-                margin: 1rem 0;
-            }
-            
-            .welcome-section h2 {
-                font-size: 1.5rem;
-            }
-            
-            .form-title {
-                font-size: 1.2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .main-content {
-                padding: 0.5rem;
-            }
-            
-            .container {
-                padding: 0 0.25rem;
-            }
-            
-            .form-card {
-                padding: 0.75rem;
-            }
-        }
-    </style>
+
 </head>
-<body>
+<body class="form-page-body">
     <?php include '../includes/navbar_complete.php'; ?>
     
     <div class="main-content">
-        <div class="container">
+        <div class="form-page-container">
             <div class="welcome-section">
                 <h2>Crear Nueva Encuesta</h2>
                 <p>Complete la información básica para crear una nueva encuesta</p>
@@ -385,7 +232,7 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
                     const selectedDateTime = new Date(this.value);
                     const currentDateTime = new Date();
                     
-                    // Debe ser estrictamente mayor al momento actual (no igual)
+                    // Debe ser estrictamente mayor al momento actual (NO PUEDE SER IGUAL)
                     if (selectedDateTime <= currentDateTime) {
                         alert('La fecha de cierre debe ser futura. No puedes seleccionar una fecha que ya pasó o es el momento actual.');
                         this.value = '';
@@ -426,6 +273,6 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
             window.history.replaceState(null, null, window.location.href);
         }
     </script>
-    </div> <!-- /main-content -->
+    </div> 
 </body>
 </html>

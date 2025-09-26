@@ -1,6 +1,9 @@
-<?php
+﻿<?php
 session_start();
 require_once '../config/conexion.php';
+require_once '../config/path_helper.php';
+
+$base_url = detectar_base_url();
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -47,127 +50,14 @@ try {
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- CSS del sistema -->
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background: #0d47a1;
-            color: white;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .back-btn {
-            background: #32CD32;
-            color: white;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-        .back-btn:hover {
-            background: #228B22;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-        }
-        .stat-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #0d47a1;
-            margin-bottom: 0.5rem;
-        }
-        .stat-label {
-            color: #6c757d;
-            font-size: 1rem;
-        }
-        .section {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .section-title {
-            color: #0d47a1;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid #32CD32;
-            padding-bottom: 0.5rem;
-        }
-        .chart-bar {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding: 0.75rem;
-            background: #f8f9fa;
-            border-radius: 4px;
-        }
-        .chart-label {
-            min-width: 120px;
-            font-weight: 500;
-        }
-        .chart-progress {
-            flex: 1;
-            height: 20px;
-            background: #e9ecef;
-            border-radius: 10px;
-            margin: 0 1rem;
-            overflow: hidden;
-        }
-        .chart-fill {
-            height: 100%;
-            background: #32CD32;
-            border-radius: 10px;
-            transition: width 0.3s ease;
-        }
-        .chart-value {
-            min-width: 40px;
-            text-align: right;
-            font-weight: bold;
-            color: #0d47a1;
-        }
-        .coming-soon {
-            text-align: center;
-            padding: 3rem;
-            color: #6c757d;
-            font-style: italic;
-        }
-    </style>
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/styles.css">
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/forms.css">
 </head>
-<body>
+<body class="form-page-body">
     <?php include '../includes/navbar_complete.php'; ?>
     
     <div class="main-content">
-        <div class="container">
+        <div class="form-page-container">
             <div class="welcome-section">
                 <h2>Reportes del Sistema</h2>
                 <p>Visualiza estadísticas y métricas del sistema de encuestas DAS Hualpén</p>
@@ -236,7 +126,7 @@ try {
                 <p>• Análisis de respuestas por pregunta<br>
                 • Exportación a Excel<br>
                 • Gráficos interactivos<br>
-                • Comparativas temporales</p>
+                â€¢ Comparativas temporales</p>
             </div>
         </div>
     </div>

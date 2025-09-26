@@ -1,0 +1,91 @@
+/* =========================================
+   ARCHIVO CSS PARA VISTA PREVIA ADMIN
+   ========================================= */
+
+/* Estilos específicos para vista_previa_admin.php */
+
+.vista-previa-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #F8F9FA;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.vista-previa-main-content {
+    padding: 2rem 0;
+    min-height: calc(100vh - 65px);
+}
+
+.vista-previa-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.header-admin {
+    background: #0d47a1;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.admin-notice {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    color: #856404;
+    padding: 1rem;
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.encuesta-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.encuesta-header {
+    background: #21bd00;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.encuesta-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.encuesta-descripcion {
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+.encuesta-meta {
+    background: #f8f9fa;
+    padding: 1rem 2rem;
+    font-size: 0.9rem;
+    color: #6c757d;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.preguntas-container {
+    padding: 2rem;
+}
+
+.pregunta-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid #21bd00;
+}
+
+/* Los demás estilos se mantendrán temporalmente como inline mientras continuamos con otros archivos */

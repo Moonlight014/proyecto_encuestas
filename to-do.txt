@@ -253,8 +253,16 @@ confuso, ponerle otro color que se mantenga en la paleta de colores del sistema.
 
 - Quitar en todos los archivos los estilos inline (dentro de etiquetas <style>) y moverlos a un el archivo CSS externo que corresponda, sin que
 esto rompa el interfaz o cambie como se veia con los estilos inline.
+    - Se 'rompió' el 'crear_encuesta.php' de 'https://localhost/php/proyecto_encuestas', el servidor php se ve bien.
+    - Reportes.php igual se rompió (en ambas URLS)
+    - En 'crear_pregunta.php' se ve una font más grande en el servidor php que en localhost/php/proyecto_encuestas.
+    - En 'editar_encuesta.php' los tildes y caracteres especiales se ven mal en localhost:8000, mientras que en localhost/php/proyecto_encuestas 
+    se ven mal tambien pero en este no se ve que estén cargando los estilos del archivo css externo. (DescripciÃ³n *, TÃ­tulo , cuÃ¡ndo etc).
 
 
+- Cambiar el color de los botones de Banco de Preguntas y Reportes del 'dashboard.php' para que no sean color gris todo feo y que en vez
+sean de un color que combine con la paleta de colores y encaje en el contexto de la funcion del boton(para qué es, como por ejemplo no 
+pondriamos de color verde un boton que es para borrar algo verdad?).
 
 
 

@@ -357,3 +357,312 @@
         text-align: center;
     }
 }
+
+/* =========================================
+   ESTILOS PARA PÁGINAS DE FORMULARIOS GENERALES
+   ========================================= */
+
+/* Estilos para páginas de formularios como crear_encuesta.php, editar_encuesta.php, etc. */
+
+.form-page-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background: #0d47a1;
+    color: white;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-btn {
+    background: #32CD32;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: #228B22;
+}
+
+.form-page-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.form-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-top: 4px solid #32CD32;
+}
+
+.form-title {
+    color: #0d47a1;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #495057;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #0d47a1;
+    box-shadow: 0 0 0 2px rgba(13, 71, 161, 0.1);
+}
+
+textarea.form-control {
+    height: 120px;
+    resize: vertical;
+}
+
+.btn-primary {
+    background: #0d47a1;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover {
+    background: #1565c0;
+}
+
+.alert {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid;
+}
+
+.alert-success {
+    background-color: #f0f8f0;
+    border-left-color: #32CD32;
+    color: #0f5132;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-left-color: #dc3545;
+    color: #721c24;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Media queries para responsive */
+@media (max-width: 768px) {
+    .form-page-container {
+        padding: 0 0.5rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    /* Reducir espacio específicamente para fechas en móvil */
+    .form-row .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .form-card {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .welcome-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .form-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 0.5rem;
+    }
+    
+    .form-page-container {
+        padding: 0 0.25rem;
+    }
+    
+    .form-card {
+        padding: 0.75rem;
+    }
+}
+
+/* =========================================
+   ESTILOS ESPECÍFICOS PARA EDITAR ENCUESTA
+   ========================================= */
+
+/* Estados de la encuesta con colores específicos */
+.estado-activa {
+    background: #22c55e;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.estado-pausada {
+    background: #f59e0b;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.estado-finalizada {
+    background: #ef4444;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Estilos para las fechas de edición */
+.fecha-info {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    border-left: 4px solid #0d47a1;
+    margin-bottom: 1.5rem;
+}
+
+.fecha-info h4 {
+    color: #0d47a1;
+    margin: 0 0 0.5rem 0;
+}
+
+.fecha-info p {
+    margin: 0.25rem 0;
+    color: #6c757d;
+}
+
+/* Mejorar las validaciones inline para fechas en edición */
+.form-error {
+    background: #f8d7da;
+    border: 1px solid #dc3545;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    color: #721c24;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.form-control.invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1);
+}
+
+/* Botones específicos para edición */
+.btn-warning {
+    background: #f59e0b;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 1rem;
+}
+
+.btn-warning:hover {
+    background: #d97706;
+}
+
+.btn-danger {
+    background: #ef4444;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 1rem;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+}
+
+.btn-success {
+    background: #22c55e;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 1rem;
+}
+
+.btn-success:hover {
+    background: #16a34a;
+}
+
+/* Media queries adicionales para editar encuesta */
+@media (max-width: 768px) {
+    .btn-primary, .btn-warning, .btn-danger, .btn-success {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}
