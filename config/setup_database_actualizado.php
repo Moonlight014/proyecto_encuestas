@@ -169,7 +169,9 @@ try {
             [6, 'escala_numerica', 'Escala numérica con rango personalizable'],
             [7, 'numero', 'Campo numérico simple'],
             [8, 'fecha', 'Selector de fecha'],
-            [9, 'email', 'Campo de correo electrónico con validación']
+            [11, 'matriz_seleccion', 'Matriz de opciones múltiples (grid de radio buttons)'],
+            [12, 'matriz_escala', 'Matriz de escalas (grid de escalas Likert)'],
+            [14, 'selector_fecha_pasada', 'Selector de fecha que solo permite fechas pasadas (anteriores a la fecha de creación)']
         ];
         
         $stmt = $pdo->prepare("INSERT INTO tipos_pregunta (id, nombre, descripcion) VALUES (?, ?, ?)");
@@ -244,7 +246,7 @@ try {
             'admin',
             'Administrador',
             'Sistema',
-            'admin@dashualpén.cl',
+            'admin@dashualpen.cl',
             $password_hash,
             1,
             'Administrador del Sistema',
@@ -272,7 +274,7 @@ try {
     
     echo "\n=== CONFIGURACIÓN INICIAL COMPLETADA ===\n";
     echo "Base de datos: das_encuestas\n";
-    echo "Usuario admin: admin@dashualpén.cl / admin123\n";
+    echo "Usuario admin: admin@dashualpen.cl / admin123\n";
     echo "\nAhora puedes ejecutar el script de inserción del banco de preguntas.\n";
     
 } catch(PDOException $e) {

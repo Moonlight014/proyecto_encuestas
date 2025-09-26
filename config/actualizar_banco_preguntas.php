@@ -16,11 +16,12 @@ try {
     // Insertar nuevas categorías
     echo "→ Insertando nuevas categorías...\n";
     $nuevas_categorias = [
-        [1, 'Generales', 'Preguntas generales sobre servicios de salud municipales', '#0d47a1'],
-        [2, 'CESFAM', 'Centro de Salud Familiar', '#32CD32'],
-        [3, 'CECOSF', 'Centro Comunitario de Salud Familiar', '#17a2b8'],
-        [4, 'SAR', 'Servicio de Atención Primaria de Urgencia', '#ffc107'],
-        [5, 'Urgencias', 'Servicios de urgencia hospitalaria', '#dc3545']
+        [1, 'Satisfacción', 'Preguntas sobre satisfacción general', '#28a745'],
+        [5, 'CESFAM', 'Preguntas específicas del Centro de Salud Familiar', '#ffc107'],
+        [6, 'CECOSF', 'Preguntas del Centro Comunitario de Salud Familiar', '#6f42c1'],
+        [7, 'SAPU', 'Preguntas del Servicio de Atención Primaria de Urgencia', '#fd7e14'],
+        [9, 'Servicios', 'Preguntas sobre servicios específicos de salud', '#0d6efd'],
+        [10, 'General', 'Preguntas demográficas y generales', '#6c757d']
     ];
     
     $stmt = $pdo->prepare("INSERT INTO categorias (id, nombre, descripcion, color) VALUES (?, ?, ?, ?)");
@@ -157,40 +158,40 @@ try {
     
     $total_insertadas = 0;
     
-    // Categoría Generales (ID: 1)
+    // Categoría Satisfacción (ID: 1)
     foreach ($preguntas_generales as $index => $pregunta) {
         $stmt->execute([1, 5, $pregunta, $index + 1, 'general', 'admin']); // tipo_pregunta_id = 5 (escala_likert)
         $total_insertadas++;
     }
-    echo "✓ " . count($preguntas_generales) . " preguntas generales insertadas\n";
+    echo "✓ " . count($preguntas_generales) . " preguntas de satisfacción insertadas\n";
     
-    // Categoría CESFAM (ID: 2)
+    // Categoría CESFAM (ID: 5)
     foreach ($preguntas_cesfam as $index => $pregunta) {
-        $stmt->execute([2, 5, $pregunta, $index + 1, 'cesfam', 'admin']);
+        $stmt->execute([5, 5, $pregunta, $index + 1, 'cesfam', 'admin']);
         $total_insertadas++;
     }
     echo "✓ " . count($preguntas_cesfam) . " preguntas CESFAM insertadas\n";
     
-    // Categoría CECOSF (ID: 3)
+    // Categoría CECOSF (ID: 6)
     foreach ($preguntas_cecosf as $index => $pregunta) {
-        $stmt->execute([3, 5, $pregunta, $index + 1, 'cecosf', 'admin']);
+        $stmt->execute([6, 5, $pregunta, $index + 1, 'cecosf', 'admin']);
         $total_insertadas++;
     }
     echo "✓ " . count($preguntas_cecosf) . " preguntas CECOSF insertadas\n";
     
-    // Categoría SAR (ID: 4)
+    // Categoría SAPU (ID: 7) - Renombrado de SAR
     foreach ($preguntas_sar as $index => $pregunta) {
-        $stmt->execute([4, 5, $pregunta, $index + 1, 'sar', 'admin']);
+        $stmt->execute([7, 5, $pregunta, $index + 1, 'sapu', 'admin']); // Cambiado departamento de 'sar' a 'sapu'
         $total_insertadas++;
     }
-    echo "✓ " . count($preguntas_sar) . " preguntas SAR insertadas\n";
+    echo "✓ " . count($preguntas_sar) . " preguntas SAPU insertadas\n";
     
-    // Categoría Urgencias (ID: 5)
+    // Categoría Servicios (ID: 9) - Reasignado desde Urgencias
     foreach ($preguntas_urgencias as $index => $pregunta) {
-        $stmt->execute([5, 5, $pregunta, $index + 1, 'urgencias', 'admin']);
+        $stmt->execute([9, 5, $pregunta, $index + 1, 'servicios', 'admin']); // Cambiado departamento
         $total_insertadas++;
     }
-    echo "✓ " . count($preguntas_urgencias) . " preguntas de urgencias insertadas\n";
+    echo "✓ " . count($preguntas_urgencias) . " preguntas de servicios insertadas\n";
     
     echo "\n=== ACTUALIZACIÓN COMPLETADA ===\n";
     echo "Total de categorías: " . count($nuevas_categorias) . "\n";

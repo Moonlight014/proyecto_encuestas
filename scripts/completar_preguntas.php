@@ -6,7 +6,7 @@ try {
     
     echo "=== COMPLETANDO PREGUNTAS FALTANTES ===\n\n";
     
-    // Preguntas CECOSF (categoría 3)
+    // Preguntas CECOSF (categoría 6)
     $preguntas_cecosf = [
         "¿Conoce los servicios que entrega su CECOSF más cercano?",
         "¿Le resulta accesible acudir a un CECOSF en su barrio?",
@@ -30,31 +30,31 @@ try {
         "¿Recomendaría el CECOSF a sus vecinos?"
     ];
     
-    // Preguntas SAR (categoría 4)
+    // Preguntas SAPU (categoría 7)
     $preguntas_sar = [
-        "¿Ha utilizado el Servicio de Atención Primaria de Urgencia (SAR) en Hualpén?",
-        "¿Cómo calificaría la rapidez de la atención en el SAR?",
-        "¿Considera adecuado el tiempo de espera en el SAR?",
-        "¿Está conforme con la atención del personal médico en el SAR?",
-        "¿Cómo evalúa la atención del equipo de enfermería en el SAR?",
-        "¿Se siente seguro al acudir al SAR por una urgencia?",
-        "¿Ha recibido información clara sobre su diagnóstico en el SAR?",
-        "¿El personal del SAR le brinda un trato amable y respetuoso?",
-        "¿Está conforme con la infraestructura del SAR?",
-        "¿Considera que el SAR está bien equipado?",
-        "¿Qué tan fácil le resulta acceder al SAR desde su hogar?",
-        "¿Se siente satisfecho con la resolución de su problema de salud en el SAR?",
+        "¿Ha utilizado el Servicio de Atención Primaria de Urgencia (SAPU) en Hualpén?",
+        "¿Cómo calificaría la rapidez de la atención en el SAPU?",
+        "¿Considera adecuado el tiempo de espera en el SAPU?",
+        "¿Está conforme con la atención del personal médico en el SAPU?",
+        "¿Cómo evalúa la atención del equipo de enfermería en el SAPU?",
+        "¿Se siente seguro al acudir al SAPU por una urgencia?",
+        "¿Ha recibido información clara sobre su diagnóstico en el SAPU?",
+        "¿El personal del SAPU le brinda un trato amable y respetuoso?",
+        "¿Está conforme con la infraestructura del SAPU?",
+        "¿Considera que el SAPU está bien equipado?",
+        "¿Qué tan fácil le resulta acceder al SAPU desde su hogar?",
+        "¿Se siente satisfecho con la resolución de su problema de salud en el SAPU?",
         "¿Recibe derivaciones oportunas a hospitales u otros servicios?",
-        "¿Cómo evalúa la limpieza en las instalaciones del SAR?",
-        "¿Ha tenido acceso oportuno a medicamentos en el SAR?",
-        "¿Considera que el SAR ayuda a descongestionar hospitales?",
+        "¿Cómo evalúa la limpieza en las instalaciones del SAPU?",
+        "¿Ha tenido acceso oportuno a medicamentos en el SAPU?",
+        "¿Considera que el SAPU ayuda a descongestionar hospitales?",
         "¿Cómo calificaría la atención en situaciones de urgencia nocturna?",
-        "¿Está conforme con la atención de niños en el SAR?",
-        "¿Recomendaría el SAR a familiares o vecinos?",
-        "¿Qué mejoras propondría para el SAR de Hualpén?"
+        "¿Está conforme con la atención de niños en el SAPU?",
+        "¿Recomendaría el SAPU a familiares o vecinos?",
+        "¿Qué mejoras propondría para el SAPU de Hualpén?"
     ];
     
-    // Preguntas Urgencias (categoría 5)
+    // Preguntas Servicios (categoría 9)
     $preguntas_urgencias = [
         "¿Ha acudido a un servicio de urgencias en Hualpén en el último año?",
         "¿Cómo evalúa el tiempo de espera en la urgencia?",
@@ -82,21 +82,21 @@ try {
     
     // Insertar CECOSF
     foreach ($preguntas_cecosf as $index => $pregunta) {
-        $stmt->execute([3, 5, $pregunta, $index + 1, 'cecosf', 'admin']);
+        $stmt->execute([6, 5, $pregunta, $index + 1, 'cecosf', 'admin']); // Corregido de 3 a 6
     }
     echo "✓ " . count($preguntas_cecosf) . " preguntas CECOSF insertadas\n";
     
-    // Insertar SAR
+    // Insertar SAPU
     foreach ($preguntas_sar as $index => $pregunta) {
-        $stmt->execute([4, 5, $pregunta, $index + 1, 'sar', 'admin']);
+        $stmt->execute([7, 5, $pregunta, $index + 1, 'sapu', 'admin']); // Corregido de 4 a 7, y 'sar' a 'sapu'
     }
-    echo "✓ " . count($preguntas_sar) . " preguntas SAR insertadas\n";
+    echo "✓ " . count($preguntas_sar) . " preguntas SAPU insertadas\n";
     
-    // Insertar Urgencias
+    // Insertar Servicios (antes Urgencias)
     foreach ($preguntas_urgencias as $index => $pregunta) {
-        $stmt->execute([5, 5, $pregunta, $index + 1, 'urgencias', 'admin']);
+        $stmt->execute([9, 5, $pregunta, $index + 1, 'servicios', 'admin']); // Corregido de 5 a 9, y 'urgencias' a 'servicios'
     }
-    echo "✓ " . count($preguntas_urgencias) . " preguntas Urgencias insertadas\n";
+    echo "✓ " . count($preguntas_urgencias) . " preguntas de Servicios insertadas\n";
     
     // Verificar total
     $stmt = $pdo->query("SELECT COUNT(*) FROM banco_preguntas");

@@ -169,7 +169,9 @@ try {
             [6, 'escala_numerica', 'Escala numérica con rango personalizable'],
             [7, 'numero', 'Campo numérico simple'],
             [8, 'fecha', 'Selector de fecha'],
-            [9, 'email', 'Campo de correo electrónico con validación']
+            [11, 'matriz_seleccion', 'Matriz de opciones múltiples (grid de radio buttons)'],
+            [12, 'matriz_escala', 'Matriz de escalas (grid de escalas Likert)'],
+            [14, 'selector_fecha_pasada', 'Selector de fecha que solo permite fechas pasadas (anteriores a la fecha de creación)']
         ];
 
         $stmt = $pdo->prepare("INSERT INTO tipos_pregunta (id, nombre, descripcion) VALUES (?, ?, ?)");
@@ -244,7 +246,7 @@ try {
             'admin',
             'Administrador',
             'Sistema',
-            'admin@dashualpén.cl',
+            'admin@dashualpen.cl',
             $password_hash,
             1,
             'Administrador del Sistema',
@@ -466,10 +468,10 @@ try {
 
     echo "\n=== CONFIGURACIÓN COMPLETA FINALIZADA ===\n";
     echo "Base de datos: das_encuestas\n";
-    echo "Usuario admin: admin@dashualpén.cl / admin123\n";
+    echo "Usuario admin: admin@dashualpen.cl / admin123\n";
     echo "Total de categorías: 10\n";
     echo "Total de preguntas: $total_insertadas\n";
-    echo "Total de tipos de pregunta: 9\n";
+    echo "Total de tipos de pregunta: 11\n";
     echo "Total de departamentos: 10\n";
     echo "\nEl sistema está listo para usar.\n";
 

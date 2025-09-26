@@ -95,6 +95,8 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
     <!-- CSS del sistema -->
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <!-- Script de alertas auto-ocultables -->
+    <script src="../assets/js/alerts.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Encuesta - DAS Hualpén</title>
     <style>
@@ -265,7 +267,7 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
                 <h3 class="form-title">Información Básica de la Encuesta</h3>
             
             <?php if ($mensaje): ?>
-                <div class="alert alert-success"><?= htmlspecialchars($mensaje) ?></div>
+                <div class="alert alert-success auto-hide-alert"><?= htmlspecialchars($mensaje) ?></div>
             <?php endif; ?>
             
             <?php if ($error): ?>

@@ -51,27 +51,33 @@ try {
         $encuesta_id = $_POST['encuesta_id'];
         $nuevo_estado = $_POST['nuevo_estado'];
         
+        // Obtener información de la encuesta antes de actualizar
+        $stmt_info = $pdo->prepare("SELECT titulo FROM encuestas WHERE id = ?");
+        $stmt_info->execute([$encuesta_id]);
+        $encuesta_info = $stmt_info->fetch();
+        $titulo_encuesta = $encuesta_info ? htmlspecialchars($encuesta_info['titulo']) : "la encuesta";
+        
         // Validar permisos: solo super_admin puede finalizar encuestas
         if ($nuevo_estado === 'finalizada' && !$es_super_admin) {
-            $error = "Solo el Super Administrador puede finalizar encuestas.";
+            $error = "<i class='fas fa-exclamation-triangle'></i> Solo el Super Administrador puede finalizar la encuesta <strong>$titulo_encuesta</strong>.";
         } else {
             $stmt = $pdo->prepare("UPDATE encuestas SET estado = ? WHERE id = ?");
             if ($stmt->execute([$nuevo_estado, $encuesta_id])) {
                 switch($nuevo_estado) {
                     case 'finalizada':
-                        $mensaje = "Encuesta finalizada correctamente.";
+                        $mensaje = "<i class='fas fa-check-circle'></i> La encuesta <strong>$titulo_encuesta</strong> ha sido finalizada correctamente.";
                         break;
                     case 'pausada':
-                        $mensaje = "Encuesta pausada correctamente.";
+                        $mensaje = "<i class='fas fa-pause-circle'></i> La encuesta <strong>$titulo_encuesta</strong> ha sido pausada correctamente.";
                         break;
                     case 'activa':
-                        $mensaje = "Encuesta activada/reactivada correctamente.";
+                        $mensaje = "<i class='fas fa-play-circle'></i> La encuesta <strong>$titulo_encuesta</strong> ha sido activada/reactivada correctamente.";
                         break;
                     default:
-                        $mensaje = "Estado de la encuesta actualizado correctamente.";
+                        $mensaje = "<i class='fas fa-info-circle'></i> El estado de la encuesta <strong>$titulo_encuesta</strong> ha sido actualizado correctamente.";
                 }
             } else {
-                $error = "Error al actualizar el estado.";
+                $error = "<i class='fas fa-exclamation-circle'></i> Error al actualizar el estado de la encuesta <strong>$titulo_encuesta</strong>.";
             }
         }
     }
@@ -103,6 +109,8 @@ try {
     <!-- Estilos del sistema -->
     <link rel="stylesheet" href="<?= $base_url ?>/assets/css/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= $base_url ?>/assets/css/lists.css?v=<?= time() ?>">
+    <!-- Script de alertas auto-ocultables -->
+    <script src="<?= $base_url ?>/assets/js/alerts.js?v=<?= time() ?>"></script>
 
 </head>
 <body>
@@ -134,11 +142,11 @@ try {
         </div>
         
         <?php if ($mensaje): ?>
-            <div class="alert alert-success"><?= htmlspecialchars($mensaje) ?></div>
+            <div class="alert alert-success auto-hide-alert"><?= $mensaje ?></div>
         <?php endif; ?>
         
         <?php if ($error): ?>
-            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+            <div class="alert alert-danger auto-hide-alert"><?= $error ?></div>
         <?php endif; ?>
         
         <div class="encuestas-grid">
