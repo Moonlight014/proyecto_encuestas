@@ -441,11 +441,15 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
             background: #f8f9fa;
             font-weight: 600;
             color: #333;
-            font-size: 0.85rem;
-            line-height: 1.3;
-            min-width: 80px;
-            max-width: 120px;
-            width: auto;
+            font-size: 0.85rem !important;
+            line-height: 1.3 !important;
+            min-width: 90px !important;
+            max-width: 140px !important;
+            width: auto !important;
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            text-align: center !important;
+            padding: 0.75rem 0.3rem !important;
         }
         
         .matriz-label {
@@ -475,10 +479,56 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
         
         .matriz-escala-wrapper {
             margin: 1rem 0;
+            display: block;
+            font-family: inherit;
         }
         
         .matriz-escala-container {
             overflow-x: auto;
+        }
+        
+        /* Estilos específicos para matriz_escala con máxima especificidad */
+        .matriz-escala-container .matriz-escala-table {
+            table-layout: fixed !important;
+            width: 100% !important;
+            border-spacing: 2px !important;
+        }
+
+        .matriz-escala-container .matriz-escala-table thead th {
+            white-space: normal !important;
+            word-break: break-word !important;
+            overflow-wrap: break-word !important;
+            hyphens: auto !important;
+            text-overflow: clip !important;
+            min-width: 100px !important;
+            max-width: 140px !important;
+            width: 100px !important;
+            padding: 0.7rem 0.4rem !important;
+            font-size: 0.85rem !important;
+            line-height: 1.3 !important;
+            vertical-align: middle !important;
+            text-align: center !important;
+            border: 1px solid #e0e0e0 !important;
+            background: #f8f9fa !important;
+            font-weight: 600 !important;
+            color: #333 !important;
+        }
+
+        .matriz-escala-container .matriz-escala-table .matriz-label {
+            min-width: 200px !important;
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            padding: 0.7rem 1rem !important;
+            font-size: 0.9rem !important;
+        }
+
+        /* Forzar wrapping de texto solo en headers de matriz_seleccion */
+        .matriz-table thead th {
+            white-space: normal !important;
+            word-break: break-word !important;
+            overflow-wrap: break-word !important;
+            hyphens: auto !important;
+            text-overflow: clip !important;
         }
         
         /* Responsive para matrices */
@@ -504,12 +554,33 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
                 line-height: 1.2;
             }
             
-            .matriz-table th,
-            .matriz-escala-table th {
-                min-width: 70px;
-                max-width: 100px;
-                font-size: 0.7rem;
-                padding: 0.6rem 0.2rem;
+            .matriz-table th {
+                min-width: 75px !important;
+                max-width: 110px !important;
+                font-size: 0.7rem !important;
+                padding: 0.6rem 0.2rem !important;
+                white-space: normal !important;
+                word-wrap: break-word !important;
+                line-height: 1.2 !important;
+            }
+            
+            .matriz-escala-container .matriz-escala-table thead th {
+                min-width: 80px !important;
+                max-width: 110px !important;
+                width: 80px !important;
+                font-size: 0.7rem !important;
+                padding: 0.6rem 0.25rem !important;
+                white-space: normal !important;
+                word-wrap: break-word !important;
+                line-height: 1.2 !important;
+                border-spacing: 1px !important;
+            }
+            
+            .matriz-escala-container .matriz-escala-table .matriz-label {
+                min-width: 160px !important;
+                font-size: 0.75rem !important;
+                white-space: normal !important;
+                word-wrap: break-word !important;
             }
             
             .matriz-label {
@@ -551,13 +622,35 @@ if (empty($encuesta_id) || !is_numeric($encuesta_id)) {
                 line-height: 1.1;
             }
             
-            .matriz-table th,
-            .matriz-escala-table th {
-                min-width: 60px;
-                max-width: 80px;
-                font-size: 0.6rem;
-                font-weight: 700;
-                padding: 0.5rem 0.1rem;
+            .matriz-table th {
+                min-width: 65px !important;
+                max-width: 85px !important;
+                font-size: 0.6rem !important;
+                font-weight: 700 !important;
+                padding: 0.5rem 0.15rem !important;
+                white-space: normal !important;
+                word-wrap: break-word !important;
+                line-height: 1.1 !important;
+            }
+            
+            .matriz-escala-container .matriz-escala-table thead th {
+                min-width: 70px !important;
+                max-width: 85px !important;
+                width: 70px !important;
+                font-size: 0.6rem !important;
+                font-weight: 700 !important;
+                padding: 0.5rem 0.15rem !important;
+                white-space: normal !important;
+                word-wrap: break-word !important;
+                line-height: 1.1 !important;
+                border-spacing: 1px !important;
+            }
+            
+            .matriz-escala-container .matriz-escala-table .matriz-label {
+                min-width: 140px !important;
+                font-size: 0.65rem !important;
+                white-space: normal !important;
+                word-wrap: break-word !important;
             }
             
             .matriz-label {

@@ -197,26 +197,32 @@ paginas que se queda en la parte superior pero se ve el logo y el boton de usuar
 ✅✅- En movil las preguntas tipo 'matriz_seleccion ' los textos de 'Muy insatisfecho' 'Insatisfecho' 'Neutral' 'Satisfecho' 'Muy satisfecho' se ven 
 a veces muy juntos, y otras veces separados, esto sucede tanto en movil como en desktop y vista_previa_admin y responder.php. Hay que ajustarlo 
 para que se vean bien en ambos dispositivos.
-    - Lo mismo pasa en las preguntas tipo 'matriz_escala' con los textos 'Muy insatisfecho	Insatisfecho	Neutral	Satisfecho	Muy satisfecho' y 
-    las opciones (la columna de la izquierda) se ven a veces muy juntos y otras separados, hay que ajustarlo para que se vean bien.
+    ✅✅- Lo mismo pasa en las preguntas tipo 'matriz_escala' con los textos 'Muy insatisfecho	Insatisfecho	Neutral	Satisfecho	Muy satisfecho' 
+    y las opciones (la columna de la izquierda) se ven a veces muy juntos y otras separados, hay que ajustarlo para que se vean bien.
 
 
 ✅- La vista_previa_admin.php debe ser estrictamente igual a la vista que verá el encuestado, con la única diferencia de que en la 
 vista_previa_admin.php deben verse las categorias, tipos de preguntas y su ID, mientras que en la vista del encuestado NO.
-- En vista_previa_admin.php en movil se ve todo muy junto y no se entiende, debe verse bien, entenderse y ser intuitivo.
+✅- En vista_previa_admin.php en movil se ve todo muy junto y no se entiende, debe verse bien, entenderse y ser intuitivo.
+
 - En interfaz de desktop, el navbar en agregar_preguntas.php se ve raro (hay espacio blanco a la izquierda del logo y a la derecha del usuario,
 osea a los dos extremos del navbar) y en movil igual hay un espacio en blanco al rededor del navbar. En vista_previa_admin.php pasa algo 
 similar, solo que el espacio en blanco (en desktop y movil) es en la parte superior del navbar, no a los lados como en agregar_preguntas.php. 
 Hay que ajustarlo para que se vea bien en ambos archivos.
+
+- en 'dashboard.php' la parte superior derecha del navbar se ve diferente que en las otras paginas, como si estuviera el nombre del usuario
+luego el Dropdown y luego su rol. Esto no debe ser así, debe ser siempre igual en todas las paginas y verse bien. En 'gestionar_preguntas.php' por 
+ejemplo se ve bien, pero en 'dashboard.php', 'crear_encuesta.php', 'editar_encuesta.php', 'reportes.php' no.
+
+- Al retroceder en el navegador desde 'vista_previa_admin.php' a me manda al login/index, lo mismo si retrocedo en el navegador desde 
+'editar_encuesta.php' 
+
 ✅✅- las preguntas tipo 'escala_numerica' debe verse de forma horizontal, no vertical como actualmente se ve en vista_previa_admin.php 
 (en responder.php si se ve como debe ser, horizontalmente)
 ✅✅- en el interfaz MOVIL de vista_previa_admin.php las opciones de las preguntas tipo 'escala_likert' se ven muy juntas, hay que ajustarlas para que 
 se vean bien, tanto en vista_previa_admin como en responder.php.
     - Al ajustarlas claramente no caeran todas las opciones de forma horizontal sin tener que reducir extremadamente el tamaño de letra, por lo que se 
     puede hacer que en movil se vean de forma vertical, y en desktop de forma horizontal. (tanto en vista_previa_admin.php como en responder.php)
-
-- Al retroceder en el navegador desde 'vista_previa_admin.php' a me manda al login/index, no a 'agregar_preguntas.php' como deberia ser.
-
 
 - Replantear como dejar lo de 'Departamentos' ya que es muy similar a 'Categorías' y puede generar confusión. Quizás dejar solo 'Categorías'
 y eliminar 'Departamentos'. Hay que consultar con Ale.

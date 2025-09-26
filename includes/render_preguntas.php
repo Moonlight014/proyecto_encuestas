@@ -1339,7 +1339,7 @@ function renderizarMatrizEscala($name, $opciones, $valor_actual = null, $require
     $filas = $opciones['filas'] ?? ['Aspecto 1', 'Aspecto 2', 'Aspecto 3'];
     $escala = $opciones['escala'] ?? ['Muy malo', 'Malo', 'Regular', 'Bueno', 'Muy bueno'];
     
-    $html = "<div class='matriz-escala-wrapper' style='all: initial; font-family: inherit; display: block; margin: 15px 0;'>";
+    $html = "<div class='matriz-escala-wrapper'>";
     $html .= "<div class='matriz-escala-container'>";
     $html .= "<table class='matriz-escala-table'>";
     
