@@ -603,6 +603,113 @@ if (empty($enlace_publico)) {
             }
         }
         
+        /* Estilos específicos para escala Likert - mejorar espaciado en móvil */
+        .escala-likert .escala-valores {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: flex-start !important;
+            gap: 10px !important;
+            flex-wrap: wrap !important;
+            margin: 15px 0 !important;
+        }
+        
+        .escala-likert .escala-item {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            flex: 1 !important;
+            min-width: 80px !important;
+            max-width: 120px !important;
+            padding: 10px 3px !important;
+            margin-bottom: 10px !important;
+        }
+        
+        .escala-likert .escala-radio {
+            margin-bottom: 8px !important;
+            width: 18px !important;
+            height: 18px !important;
+            accent-color: #21bd00 !important;
+        }
+        
+        .escala-likert .escala-label {
+            text-align: center !important;
+            cursor: pointer !important;
+            font-size: 0.85rem !important;
+            transition: all 0.2s !important;
+            padding: 5px 2px !important;
+            border-radius: 4px !important;
+            line-height: 1.3 !important;
+        }
+        
+        .escala-likert .escala-label:hover {
+            color: #0d47a1 !important;
+            background-color: #f0f4ff !important;
+        }
+        
+        .escala-likert .escala-texto {
+            display: block !important;
+            font-size: 0.8rem !important;
+            color: #333 !important;
+            font-weight: 500 !important;
+            line-height: 1.2 !important;
+            word-wrap: break-word !important;
+            hyphens: auto !important;
+        }
+        
+        /* Responsive específico para escala Likert */
+        @media (max-width: 768px) {
+            .escala-likert .escala-valores {
+                gap: 8px !important;
+                flex-wrap: wrap !important;
+            }
+            
+            .escala-likert .escala-item {
+                min-width: 70px !important;
+                max-width: 90px !important;
+                padding: 8px 2px !important;
+                margin-bottom: 8px !important;
+            }
+            
+            .escala-likert .escala-label {
+                font-size: 0.8rem !important;
+                padding: 4px 1px !important;
+            }
+            
+            .escala-likert .escala-texto {
+                font-size: 0.75rem !important;
+                line-height: 1.1 !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .escala-likert .escala-valores {
+                gap: 6px !important;
+                justify-content: center !important;
+            }
+            
+            .escala-likert .escala-item {
+                min-width: 60px !important;
+                max-width: 75px !important;
+                padding: 6px 1px !important;
+                margin-bottom: 6px !important;
+            }
+            
+            .escala-likert .escala-label {
+                font-size: 0.75rem !important;
+                padding: 3px 1px !important;
+            }
+            
+            .escala-likert .escala-texto {
+                font-size: 0.7rem !important;
+                line-height: 1.0 !important;
+            }
+            
+            .escala-likert .escala-radio {
+                width: 16px !important;
+                height: 16px !important;
+            }
+        }
+        
         /* Estilos para matrices */
         .matriz-container {
             width: 100%;

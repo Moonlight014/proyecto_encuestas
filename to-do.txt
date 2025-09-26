@@ -211,6 +211,10 @@ similar, solo que el espacio en blanco (en desktop y movil) es en la parte super
 Hay que ajustarlo para que se vea bien en ambos archivos.
 ✅✅- las preguntas tipo 'escala_numerica' debe verse de forma horizontal, no vertical como actualmente se ve en vista_previa_admin.php 
 (en responder.php si se ve como debe ser, horizontalmente)
+✅✅- en el interfaz MOVIL de vista_previa_admin.php las opciones de las preguntas tipo 'escala_likert' se ven muy juntas, hay que ajustarlas para que 
+se vean bien, tanto en vista_previa_admin como en responder.php.
+    - Al ajustarlas claramente no caeran todas las opciones de forma horizontal sin tener que reducir extremadamente el tamaño de letra, por lo que se 
+    puede hacer que en movil se vean de forma vertical, y en desktop de forma horizontal. (tanto en vista_previa_admin.php como en responder.php)
 
 - Al retroceder en el navegador desde 'vista_previa_admin.php' a me manda al login/index, no a 'agregar_preguntas.php' como deberia ser.
 

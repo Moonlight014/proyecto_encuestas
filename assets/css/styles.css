@@ -1311,3 +1311,116 @@ span.estado-pausada.estado-badge {
         font-size: 0.8rem;
     }
 }
+
+/* ========================================
+   ESTILOS PARA ESCALAS LIKERT
+   ======================================== */
+.escala-likert {
+    margin: 15px 0;
+}
+
+.escala-likert .escala-valores {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.escala-likert .escala-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-width: 80px;
+    max-width: 120px;
+    padding: 10px 3px;
+    margin-bottom: 10px;
+}
+
+.escala-likert .escala-radio {
+    margin-bottom: 8px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-success-hover);
+}
+
+.escala-likert .escala-label {
+    text-align: center;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    padding: 5px 2px;
+    border-radius: 4px;
+    line-height: 1.3;
+}
+
+.escala-likert .escala-label:hover {
+    color: var(--color-primary);
+    background-color: #f0f4ff;
+}
+
+.escala-likert .escala-texto {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-dark);
+    font-weight: 500;
+    line-height: 1.2;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Responsive para escalas Likert */
+@media (max-width: 768px) {
+    .escala-likert .escala-valores {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .escala-likert .escala-item {
+        min-width: 70px;
+        max-width: 90px;
+        padding: 8px 2px;
+        margin-bottom: 8px;
+    }
+    
+    .escala-likert .escala-label {
+        font-size: 0.8rem;
+        padding: 4px 1px;
+    }
+    
+    .escala-likert .escala-texto {
+        font-size: 0.75rem;
+        line-height: 1.1;
+    }
+}
+
+@media (max-width: 480px) {
+    .escala-likert .escala-valores {
+        gap: 6px;
+        justify-content: center;
+    }
+    
+    .escala-likert .escala-item {
+        min-width: 60px;
+        max-width: 75px;
+        padding: 6px 1px;
+        margin-bottom: 6px;
+    }
+    
+    .escala-likert .escala-label {
+        font-size: 0.75rem;
+        padding: 3px 1px;
+    }
+    
+    .escala-likert .escala-texto {
+        font-size: 0.7rem;
+        line-height: 1.0;
+    }
+    
+    .escala-likert .escala-radio {
+        width: 16px;
+        height: 16px;
+    }
+}
