@@ -143,10 +143,17 @@ try {
             border-radius: 6px;
             font-size: 1rem;
             font-weight: 600;
+            /* Asegurar mismo tamaño que .btn-secondary */
+            box-sizing: border-box;
+            line-height: 1.5;
+            min-height: 3.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         .btn:hover { background: #228B22; }
         .btn-secondary { 
-            background: #0d47a1; 
+            background: #8B4513; /* Marrón para diferenciarlo de los toggles azules */
             color: white; 
             padding: 1rem 2rem; 
             border: none; 
@@ -155,17 +162,23 @@ try {
             font-size: 1rem;
             font-weight: 600;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            /* Asegurar mismo tamaño que .btn */
+            box-sizing: border-box;
+            line-height: 1.5;
+            min-height: 3.5rem;
+            align-items: center;
+            justify-content: center;
         }
         .btn-secondary:hover { 
-            background: #1565c0; 
+            background: #A0522D; 
             color: white;
         }
         .botones-container {
             display: flex;
             gap: 1rem;
             margin-top: 2rem;
-            align-items: center;
+            align-items: stretch; /* Cambio de center a stretch para igualar alturas */
             flex-wrap: wrap;
         }
         .botones-info {
