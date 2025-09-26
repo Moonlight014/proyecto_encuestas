@@ -175,6 +175,43 @@ try {
     <!-- Estilos del sistema -->
     <link rel="stylesheet" href="<?= $base_url ?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?= $base_url ?>/assets/css/forms.css">
+    
+    <!-- Estilos específicos para uniformidad de botones -->
+    <style>
+        .button-container {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+        
+        .button-container .btn {
+            min-height: 42px !important;
+            min-width: 120px !important;
+            padding: 0.5rem 1rem !important;
+            font-size: 0.9rem !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+            line-height: 1.2 !important;
+        }
+        
+        /* Estilos responsive para móvil */
+        @media (max-width: 768px) {
+            .button-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .button-container .btn {
+                width: 100% !important;
+                min-width: unset !important;
+                margin-bottom: 0.5rem !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <?php include '../includes/navbar_complete.php'; ?>
@@ -276,10 +313,10 @@ try {
                     <div id="previewContent"></div>
                 </div>
                 
-                <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                <div class="button-container">
                     <button type="submit" name="crear_pregunta" class="btn btn-success"><i class="fa-solid fa-save"></i> Crear Pregunta</button>
                     <button type="button" onclick="limpiarFormulario()" class="btn btn-secondary"><i class="fa-solid fa-trash"></i> Limpiar</button>
-                    <button type="button" onclick="history.back()" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+                    <button type="button" onclick="history.back()" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Volver</button>
                 </div>
             </form>
         </div>

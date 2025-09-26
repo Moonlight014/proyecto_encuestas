@@ -190,6 +190,15 @@ try {
         .pregunta-actions {
             display: flex;
             gap: 0.5rem;
+            align-items: stretch; /* Igualar alturas de todos los botones */
+            flex-wrap: wrap;
+        }
+        
+        /* Asegurar que los formularios inline no afecten el layout */
+        .pregunta-actions form {
+            display: inline-flex !important;
+            align-items: stretch !important;
+            margin: 0 !important;
         }
         .btn {
             padding: 0.25rem 0.5rem;
@@ -202,6 +211,32 @@ try {
         .btn-sm {
             padding: 0.25rem 0.5rem;
             font-size: 0.75rem;
+            min-height: 28px; /* Altura mínima uniforme */
+            min-width: 70px;  /* Ancho mínimo uniforme */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            line-height: 1.2;
+            text-decoration: none; /* Para enlaces */
+        }
+        
+        /* Estilos específicos para asegurar uniformidad entre enlaces y botones */
+        .pregunta-actions .btn-sm,
+        .pregunta-actions a.btn-sm,
+        .pregunta-actions button.btn-sm {
+            min-height: 28px !important;
+            min-width: 80px !important;
+            padding: 0.25rem 0.5rem !important;
+            font-size: 0.75rem !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+            line-height: 1.2 !important;
+            text-decoration: none !important;
+            border: 1px solid transparent !important;
+            vertical-align: middle !important;
         }
         .btn-primary {
             background: #0d47a1;
@@ -218,6 +253,16 @@ try {
         .btn-danger {
             background: #dc3545;
             color: white;
+        }
+        
+        /* Uniformidad específica para botones en pregunta-actions */
+        .pregunta-actions .btn-primary.btn-sm,
+        .pregunta-actions .btn-success.btn-sm,
+        .pregunta-actions .btn-warning.btn-sm {
+            height: 28px !important;
+            min-height: 28px !important;
+            max-height: 28px !important;
+            font-weight: 500 !important;
         }
         .btn:hover {
             opacity: 0.8;
@@ -324,9 +369,62 @@ try {
                 gap: 0.5rem;
             }
             
+            /* Forzar uniformidad de botones en móvil */
+            .pregunta-actions .btn-sm,
+            .pregunta-actions a.btn-sm,
+            .pregunta-actions button.btn-sm {
+                width: auto !important;
+                min-width: 80px !important;
+                max-width: none !important;
+                height: 32px !important;
+                min-height: 32px !important;
+                max-height: 32px !important;
+                padding: 0.25rem 0.75rem !important;
+                font-size: 0.75rem !important;
+                font-weight: 500 !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                box-sizing: border-box !important;
+                line-height: 1.2 !important;
+                margin: 0 !important;
+                border-radius: 4px !important;
+            }
+            
             .pregunta-actions {
-                width: 100%;
-                justify-content: flex-start;
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                gap: 0.5rem !important;
+                align-items: stretch !important;
+            }
+            
+            .pregunta-actions form {
+                display: inline-flex !important;
+                align-items: stretch !important;
+                margin: 0 !important;
+            }
+        }
+        
+        /* Estilos adicionales con máxima especificidad para móvil */
+        @media (max-width: 768px) {
+            .categoria-content .pregunta-item .pregunta-meta .pregunta-actions .btn.btn-sm,
+            .categoria-content .pregunta-item .pregunta-meta .pregunta-actions a.btn.btn-sm,
+            .categoria-content .pregunta-item .pregunta-meta .pregunta-actions button.btn.btn-sm {
+                height: 32px !important;
+                min-height: 32px !important;
+                max-height: 32px !important;
+                min-width: 85px !important;
+                padding: 4px 8px !important;
+                font-size: 0.75rem !important;
+                line-height: 1.2 !important;
+                border-radius: 4px !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                box-sizing: border-box !important;
+                text-decoration: none !important;
+                vertical-align: top !important;
+                margin: 0 !important;
             }
         }
     </style>

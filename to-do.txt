@@ -202,8 +202,9 @@ Hay que ajustarlo para que se vea bien en ambos archivos.
 - Replantear como dejar lo de 'Departamentos' ya que es muy similar a 'Categorías' y puede generar confusión. Quizás dejar solo 'Categorías'
 y eliminar 'Departamentos'. Hay que consultar con Ale.
 
-- El boton de 'editar' pregunta en gestionar_preguntas.php se ve de diferente tamaño que el de 'desactivar'.
-- En interfaz movil, el boton de 'Volver' de crear_pregunta.php se ve ligeramente más grande que los otros dos (Crear Pregunta y Limpiar).
+✅❌- El boton de 'editar' pregunta (de el div 'pregunta-actions') en gestionar_preguntas.php se ve de diferente tamaño que el de 'desactivar' 
+y/o 'activar'. (CORREGIDO PARA DESKTOP - PENDIENTE VERIFICAR EN MÓVIL)
+✅✅- En interfaz movil, el boton de 'Volver' de crear_pregunta.php se ve ligeramente más grande que los otros dos (Crear Pregunta y Limpiar).
 
 ✅✅- Hacer que el mensaje o los spans de 'Activa' y 'Pausada' se vean de un color que sea entendible, ya que actualmente solo es un texto con 
 fondo blanco y no se distingue bien. 
