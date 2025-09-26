@@ -199,14 +199,21 @@ osea a los dos extremos del navbar) y en movil igual hay un espacio en blanco al
 similar, solo que el espacio en blanco (en desktop y movil) es en la parte superior del navbar, no a los lados como en agregar_preguntas.php. 
 Hay que ajustarlo para que se vea bien en ambos archivos.
 
-- El boton de 'editar' en gestionar_preguntas.php se ve de diferente tamaño que el de 'desactivar'.
-
 - Replantear como dejar lo de 'Departamentos' ya que es muy similar a 'Categorías' y puede generar confusión. Quizás dejar solo 'Categorías'
 y eliminar 'Departamentos'. Hay que consultar con Ale.
 
-- Hacer que el mensaje o los spans de 'Activa' y 'Pausada' se vean de un color que sea entendible, ya que actualmente solo es un texto con 
+- El boton de 'editar' pregunta en gestionar_preguntas.php se ve de diferente tamaño que el de 'desactivar'.
+- En interfaz movil, el boton de 'Volver' de crear_pregunta.php se ve ligeramente más grande que los otros dos (Crear Pregunta y Limpiar).
+
+
+
+✅✅- Hacer que el mensaje o los spans de 'Activa' y 'Pausada' se vean de un color que sea entendible, ya que actualmente solo es un texto con 
 fondo blanco y no se distingue bien. 
 
-- Los mensajes de 'Encuesta activada/reactivada correctamente.' y 'Encuesta pausada correctamente.' debe mostrarse solo por 3 segundos (como
-está implementado en otros mensajes) y no quedarse ahi permanentemente.
-    - Hacer que los mensajes muestren el nombre de la encuesta que se activó/pausó.
+✅✅- Los mensajes de 'Encuesta activada/reactivada correctamente.' y 'Encuesta pausada correctamente.' debe mostrarse solo por 3 segundos 
+(como está implementado en otros mensajes) y no quedarse ahi permanentemente.
+    ✅✅- Hacer que los mensajes muestren el nombre de la encuesta que se activó/pausó.
+
+- En 'agregar_preguntas.php' el boton de 'Crear Nueva Pregunta' se ve ligeramente más grande que el de Agregar Preguntas Seleccionadas,
+tambien el color de el boton 'Crear Nueva Pregunta' es el mismo color que el de los 'toglear' que hay en la parte superior, lo que lo hace
+confuso, ponerle otro color que se mantenga en la paleta de colores del sistema.

@@ -1,7 +1,7 @@
 <?php
 // Protección de sesión - DEBE ser lo primero
 require_once '../includes/session_guard.php';
-header("Pragma: no-cache");
+header("Cache-Control: no-cache");
 header("Expires: 0");
 
 // Comentar temporalmente la verificación de login para testing
@@ -107,10 +107,24 @@ try {
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Estilos del sistema -->
-    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/styles.css?v=<?= time() ?>">
     <link rel="stylesheet" href="<?= $base_url ?>/assets/css/lists.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/styles.css?v=<?= time() ?>">
     <!-- Script de alertas auto-ocultables -->
     <script src="<?= $base_url ?>/assets/js/alerts.js?v=<?= time() ?>"></script>
+    <!-- Estilos inline de respaldo para badges -->
+    <style>
+        span.estado-badge.estado-activa {
+            background-color: #28a745 !important;
+            color: white !important;
+            border: 1px solid rgba(40, 167, 69, 0.3) !important;
+        }
+        span.estado-badge.estado-pausada {
+            background-color: #ffc107 !important;
+            color: #212529 !important;
+            border: 1px solid rgba(255, 193, 7, 0.3) !important;
+            font-weight: 700 !important;
+        }
+    </style>
 
 </head>
 <body>
