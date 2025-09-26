@@ -215,7 +215,8 @@ luego el Dropdown y luego su rol. Esto no debe ser así, debe ser siempre igual 
 ejemplo se ve bien, pero en 'dashboard.php', 'crear_encuesta.php', 'editar_encuesta.php', 'reportes.php' no.
 
 - Al retroceder en el navegador desde 'vista_previa_admin.php' a me manda al login/index, lo mismo si retrocedo en el navegador desde 
-'editar_encuesta.php' 
+'editar_encuesta.php'. Se supone que al retroceder en el navegador desde CUALQUIER pagina me debe mandar a la pagina anterior, no al login/index.
+Se redirige al login/index solo si no hay una sesion activa o es una pagina protegida.
 
 ✅✅- las preguntas tipo 'escala_numerica' debe verse de forma horizontal, no vertical como actualmente se ve en vista_previa_admin.php 
 (en responder.php si se ve como debe ser, horizontalmente)
@@ -250,7 +251,8 @@ confuso, ponerle otro color que se mantenga en la paleta de colores del sistema.
     - Badges de estado usando verde 600 (#21bd00) en lugar de #28a745
     - Hover de botones usando colores oficiales de la paleta
 
-- Quitar en todos los archivos los estilos inline (dentro de etiquetas <style>) y moverlos a un el archivo CSS externo que corresponda.
+- Quitar en todos los archivos los estilos inline (dentro de etiquetas <style>) y moverlos a un el archivo CSS externo que corresponda, sin que
+esto rompa el interfaz o cambie como se veia con los estilos inline.
 
 
 

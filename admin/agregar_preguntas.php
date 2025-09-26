@@ -70,7 +70,6 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- CSS del sistema -->
     <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <style>
         body { font-family: Arial, sans-serif; padding: 2rem; background: #f8f9fa; }
         h1 { color: #0d47a1; }

@@ -109,7 +109,6 @@ if (strpos($referer, 'ver_encuestas.php') !== false) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- CSS del sistema -->
     <link rel="stylesheet" href="../assets/css/styles.css">
-    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <title>Editar Encuesta - DAS Hualpén</title>
     <style>
         body {

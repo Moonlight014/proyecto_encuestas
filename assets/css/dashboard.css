@@ -174,19 +174,19 @@
     color: var(--text-white);
 }
 
-/* Información del usuario en header */
-.user-info {
+/* Información del usuario en header - específico para contenido de dashboard */
+.dashboard-user-info {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.user-info .user-greeting {
+.dashboard-user-info .user-greeting {
     font-size: 0.9rem;
     opacity: 0.9;
 }
 
-.user-info .user-role {
+.dashboard-user-info .user-role {
     font-size: 0.8rem;
     opacity: 0.7;
     font-style: italic;
@@ -257,7 +257,7 @@
         font-size: 2.5rem;
     }
     
-    .user-info {
+    .dashboard-user-info {
         flex-direction: column;
         gap: 0.5rem;
         text-align: center;
