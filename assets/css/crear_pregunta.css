@@ -1,0 +1,363 @@
+/* 
+ * Estilos específicos para crear_pregunta.php
+ * CSS dedicado para garantizar consistencia de font-size entre entornos
+ */
+
+/* ==========================================
+   FUERZAS DE ESPECIFICIDAD PARA CREAR_PREGUNTA
+   ========================================== */
+
+/* Forzar font-size base del body en crear_pregunta */
+body.crear-pregunta-page {
+    font-size: 16px !important; /* Tamaño base fijo */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+/* Títulos principales */
+body.crear-pregunta-page .page-title {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+}
+
+/* Formularios y inputs */
+body.crear-pregunta-page .form-label {
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+}
+
+body.crear-pregunta-page .form-control {
+    font-size: 0.9rem !important;
+    padding: 0.5rem !important;
+    line-height: 1.4 !important;
+}
+
+body.crear-pregunta-page .form-control::placeholder {
+    font-size: 0.85rem !important;
+}
+
+/* Textareas específicamente - forzar tamaño consistente */
+body.crear-pregunta-page textarea.form-control {
+    font-size: 0.9rem !important;
+    padding: 0.5rem !important;
+    line-height: 1.4 !important;
+    resize: vertical !important;
+    min-height: 100px !important;
+    max-height: 200px !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+body.crear-pregunta-page textarea[name="texto"] {
+    min-height: 100px !important;
+    height: 100px !important;
+    font-size: 0.9rem !important;
+    padding: 0.5rem !important;
+    line-height: 1.4 !important;
+}
+
+/* Texto descriptivo */
+body.crear-pregunta-page .description-text {
+    font-size: 0.9rem !important;
+    color: #6c757d !important;
+    margin-bottom: 2rem !important;
+}
+
+/* Texto de ayuda */
+body.crear-pregunta-page .help-text,
+body.crear-pregunta-page .help-text-block,
+body.crear-pregunta-page .help-text-small {
+    font-size: 0.85rem !important;
+    color: #6c757d !important;
+}
+
+/* Botones */
+body.crear-pregunta-page .btn {
+    font-size: 0.9rem !important;
+    padding: 0.5rem 1rem !important;
+    font-weight: 500 !important;
+    border-radius: 4px !important;
+    border: none !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    transition: background-color 0.15s ease-in-out !important;
+}
+
+body.crear-pregunta-page .button-container .btn {
+    min-height: 42px !important;
+    min-width: 120px !important;
+    font-size: 0.9rem !important;
+    line-height: 1.2 !important;
+    padding: 0.5rem 1rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    font-weight: 500 !important;
+}
+
+/* Colores específicos de botones */
+body.crear-pregunta-page .btn-success {
+    background-color: #32CD32 !important;
+    color: white !important;
+    border: 1px solid #32CD32 !important;
+}
+
+body.crear-pregunta-page .btn-success:hover {
+    background-color: #21bd00 !important;
+    border-color: #21bd00 !important;
+}
+
+body.crear-pregunta-page .btn-secondary {
+    background-color: #A9A9A9 !important;
+    color: white !important;
+    border: 1px solid #A9A9A9 !important;
+}
+
+body.crear-pregunta-page .btn-secondary:hover {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+}
+
+body.crear-pregunta-page .btn-primary {
+    background-color: #0d47a1 !important;
+    color: white !important;
+    border: 1px solid #0d47a1 !important;
+}
+
+body.crear-pregunta-page .btn-primary:hover {
+    background-color: #1565c0 !important;
+    border-color: #1565c0 !important;
+}
+
+/* Contenedor de botones */
+body.crear-pregunta-page .button-container {
+    margin-top: 2rem !important;
+    display: flex !important;
+    gap: 1rem !important;
+    flex-wrap: wrap !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+}
+
+/* Botones específicos del formulario */
+body.crear-pregunta-page button[type="submit"],
+body.crear-pregunta-page button[type="button"],
+body.crear-pregunta-page input[type="submit"],
+body.crear-pregunta-page .btn-success,
+body.crear-pregunta-page .btn-secondary,
+body.crear-pregunta-page .btn-primary {
+    height: 42px !important;
+    min-width: 120px !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    border-radius: 4px !important;
+    border: none !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+}
+
+/* Aviso informativo */
+body.crear-pregunta-page .info-notice {
+    background: #e7f3ff !important;
+    border-left: 4px solid #0d47a1 !important;
+    padding: 1rem !important;
+    margin-bottom: 1.5rem !important;
+    border-radius: 4px !important;
+    font-size: 0.9rem !important;
+    color: #084298 !important;
+}
+
+/* Inputs específicos */
+body.crear-pregunta-page .input-width-200 {
+    width: 200px !important;
+    font-size: 0.9rem !important;
+}
+
+/* Área del contenedor principal */
+body.crear-pregunta-page .container {
+    font-size: 16px !important; /* Base font-size forzado */
+}
+
+body.crear-pregunta-page .card {
+    font-size: inherit !important;
+}
+
+/* Form groups - consistencia completa */
+body.crear-pregunta-page .form-group {
+    margin-bottom: 1.5rem !important;
+}
+
+body.crear-pregunta-page .form-group textarea {
+    width: 100% !important;
+    font-size: 0.9rem !important;
+    padding: 0.5rem !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    line-height: 1.4 !important;
+    resize: vertical !important;
+}
+
+/* Específicamente para el textarea principal de texto de pregunta */
+body.crear-pregunta-page textarea#texto,
+body.crear-pregunta-page textarea[name="texto"] {
+    min-height: 100px !important;
+    max-height: 200px !important;
+    height: 100px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body.crear-pregunta-page .button-container {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+    
+    body.crear-pregunta-page .button-container .btn {
+        width: 100% !important;
+        min-width: unset !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    body.crear-pregunta-page .input-width-200 {
+        width: 100% !important;
+        max-width: 300px !important;
+    }
+}
+
+/* Forzar consistencia en elementos críticos */
+body.crear-pregunta-page * {
+    box-sizing: border-box !important;
+}
+
+/* REGLA UNIVERSAL PARA TODOS LOS TEXTAREAS - MÁXIMA ESPECIFICIDAD */
+body.crear-pregunta-page textarea,
+body.crear-pregunta-page textarea.form-control,
+body.crear-pregunta-page .form-group textarea,
+body.crear-pregunta-page div textarea {
+    font-size: 0.9rem !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    line-height: 1.4 !important;
+    padding: 0.5rem !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    resize: vertical !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: 80px !important;
+}
+
+/* REGLA UNIVERSAL PARA TODOS LOS BOTONES - MÁXIMA ESPECIFICIDAD */
+body.crear-pregunta-page button,
+body.crear-pregunta-page .btn,
+body.crear-pregunta-page input[type="submit"],
+body.crear-pregunta-page input[type="button"],
+body.crear-pregunta-page .button-container button,
+body.crear-pregunta-page .button-container .btn {
+    font-size: 0.9rem !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    font-weight: 500 !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 4px !important;
+    border: none !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    line-height: 1.2 !important;
+    min-height: 42px !important;
+    transition: background-color 0.15s ease-in-out !important;
+}
+
+/* Evitar herencia de font-size problemática */
+body.crear-pregunta-page h1, 
+body.crear-pregunta-page h2, 
+body.crear-pregunta-page h3, 
+body.crear-pregunta-page h4, 
+body.crear-pregunta-page h5, 
+body.crear-pregunta-page h6 {
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+}
+
+body.crear-pregunta-page h3 {
+    font-size: 1.3rem !important;
+}
+
+body.crear-pregunta-page h4 {
+    font-size: 1.1rem !important;
+}
+
+/* Forzar consistencia en selects */
+body.crear-pregunta-page select.form-control {
+    font-size: 0.9rem !important;
+    padding: 0.5rem !important;
+}
+
+/* Texto de opciones dinámicas */
+body.crear-pregunta-page .opciones-container {
+    font-size: 0.9rem !important;
+}
+
+body.crear-pregunta-page .opciones-container .form-control {
+    font-size: 0.9rem !important;
+}
+
+body.crear-pregunta-page .opciones-container textarea {
+    min-height: 80px !important;
+    height: 80px !important;
+    font-size: 0.9rem !important;
+    padding: 0.5rem !important;
+    line-height: 1.4 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Textareas en preview */
+body.crear-pregunta-page .preview-textarea {
+    width: 300px !important;
+    height: 80px !important;
+    padding: 5px !important;
+    font-size: 0.9rem !important;
+    line-height: 1.4 !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    resize: vertical !important;
+    box-sizing: border-box !important;
+}
+
+/* Botón Continuar específico */
+body.crear-pregunta-page .continue-btn {
+    margin-left: 1rem !important;
+    background: #0d47a1 !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    height: auto !important;
+    min-height: 36px !important;
+    line-height: 1.2 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+body.crear-pregunta-page .continue-btn:hover {
+    background: #1565c0 !important;
+}

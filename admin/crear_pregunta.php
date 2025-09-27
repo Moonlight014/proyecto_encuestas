@@ -175,52 +175,17 @@ try {
     <!-- Estilos del sistema -->
     <link rel="stylesheet" href="<?= $base_url ?>/assets/css/styles.css">
     <link rel="stylesheet" href="<?= $base_url ?>/assets/css/forms.css">
-    
-    <!-- Estilos específicos para uniformidad de botones -->
-    <style>
-        .button-container {
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: stretch;
-        }
-        
-        .button-container .btn {
-            min-height: 42px !important;
-            min-width: 120px !important;
-            padding: 0.5rem 1rem !important;
-            font-size: 0.9rem !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            box-sizing: border-box !important;
-            line-height: 1.2 !important;
-        }
-        
-        /* Estilos responsive para móvil */
-        @media (max-width: 768px) {
-            .button-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .button-container .btn {
-                width: 100% !important;
-                min-width: unset !important;
-                margin-bottom: 0.5rem !important;
-            }
-        }
-    </style>
+    <!-- CSS específico para crear_pregunta con forzado de font-size -->
+    <link rel="stylesheet" href="<?= $base_url ?>/assets/css/crear_pregunta.css">
 </head>
-<body>
+<body class="crear-pregunta-page">
     <?php include '../includes/navbar_complete.php'; ?>
     
     <div class="container">
         <?php if ($mensaje): ?>
             <div class="alert alert-success auto-hide-alert">
                 <?= htmlspecialchars($mensaje) ?>
-                <button onclick="history.back()" style="margin-left: 1rem; background: #0d47a1; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">
+                <button onclick="history.back()" class="continue-btn">
                     ← Continuar
                 </button>
             </div>
@@ -233,12 +198,12 @@ try {
         <div class="card">
             <h2 class="page-title"><i class="fa-solid fa-plus-circle"></i> Nueva Pregunta para el Banco</h2>
             <?php if ($from === 'agregar' && $encuesta_id): ?>
-                <div style="background: #e7f3ff; border-left: 4px solid #0d47a1; padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px; font-size: 0.9rem; color: #084298;">
+                <div class="info-notice">
                     <strong><i class="fa-solid fa-lightbulb"></i> Creando desde Agregar Preguntas:</strong><br>
                     Esta pregunta se agregará al Banco y podrás seleccionarla inmediatamente para tu encuesta.
                 </div>
             <?php endif; ?>
-            <p style="color: #6c757d; margin-bottom: 2rem;">
+            <p class="description-text">
                 Complete el formulario para agregar una nueva pregunta personalizable al banco de preguntas.
             </p>
             
@@ -289,7 +254,7 @@ try {
                             </option>
                         <?php endforeach; ?>
                     </select>
-                    <small style="color: #6c757d;">Departamento al que pertenece esta pregunta</small>
+                    <small class="help-text">Departamento al que pertenece esta pregunta</small>
                 </div>
                 
                 <div class="form-group">
@@ -396,10 +361,9 @@ try {
                     <div class="opciones-container">
                         <div class="form-group">
                             <label class="form-label">Límite de Caracteres</label>
-                            <input type="number" name="limite_caracteres" class="form-control" 
-                                   placeholder="255" min="1" max="500" value="255" 
-                                   style="width: 200px;">
-                            <small style="color: #6c757d;">Máximo permitido: 500 caracteres. Por defecto: 255</small>
+                            <input type="number" name="limite_caracteres" class="form-control input-width-200" 
+                                   placeholder="255" min="1" max="500" value="255">
+                            <small class="help-text">Máximo permitido: 500 caracteres. Por defecto: 255</small>
                         </div>
                     </div>
                 </div>
@@ -414,10 +378,9 @@ try {
                     <div class="opciones-container">
                         <div class="form-group">
                             <label class="form-label">Límite de Caracteres</label>
-                            <input type="number" name="limite_caracteres" class="form-control" 
-                                   placeholder="1000" min="1" max="5000" value="1000" 
-                                   style="width: 200px;">
-                            <small style="color: #6c757d;">Máximo permitido: 5000 caracteres. Por defecto: 1000</small>
+                            <input type="number" name="limite_caracteres" class="form-control input-width-200" 
+                                   placeholder="1000" min="1" max="5000" value="1000">
+                            <small class="help-text">Máximo permitido: 5000 caracteres. Por defecto: 1000</small>
                         </div>
                     </div>
                 </div>
@@ -436,7 +399,7 @@ try {
                             <strong>Información:</strong> Este selector solo permitirá a los usuarios seleccionar fechas anteriores o iguales a la fecha de creación de la pregunta (${fechaActual}).
                         </div>
                         <p><strong>Fecha máxima permitida:</strong> ${fechaActual}</p>
-                        <small style="color: #6c757d;">
+                        <small class="help-text">
                             Los usuarios no podrán seleccionar fechas posteriores a esta fecha. 
                             Esta configuración se establece automáticamente al crear la pregunta.
                         </small>
@@ -449,13 +412,13 @@ try {
         function mostrarOpcionesLista(tipoId) {
             const titulo = tipoId === '3' ? 'Opciones (Selección Única)' : 'Opciones (Selección Múltiple)';
             const limiteField = tipoId === '4' ? `
-                <div class="form-group" style="margin-top: 1rem;">
+                <div class="form-group limit-group">
                     <label class="form-label">Límite Máximo de Selecciones</label>
                     <input type="number" name="limite_maximo" class="form-control" 
-                           placeholder="0 = Sin límite" min="0" max="2" style="width: 200px;"
+                           placeholder="0 = Sin límite" min="0" max="2" class="input-width-200"
                            oninput="validarLimiteInput(this)">
-                    <small id="limite-help-text" style="color: #6c757d; display: block; margin-top: 0.5rem;">Máximo actual: 2 opciones</small>
-                    <small style="color: #6c757d; display: block; margin-top: 0.25rem;">Deja en 0 para selecciones ilimitadas (Máximo recomendado: 5).</small>
+                    <small id="limite-help-text" class="help-text-block">Máximo actual: 2 opciones</small>
+                    <small class="help-text-small">Deja en 0 para selecciones ilimitadas (Máximo recomendado: 5).</small>
                 </div>
             ` : '';
             
@@ -741,10 +704,10 @@ try {
                 
                 switch (tipoId) {
                     case '1':
-                        previewHtml += '<input type="text" style="width: 300px; padding: 5px;" placeholder="Respuesta...">';
+                        previewHtml += '<input type="text" class="preview-input" placeholder="Respuesta...">';
                         break;
                     case '2':
-                        previewHtml += '<textarea style="width: 300px; height: 80px; padding: 5px;" placeholder="Respuesta..."></textarea>';
+                        previewHtml += '<textarea class="preview-textarea" placeholder="Respuesta..."></textarea>';
                         break;
                     case '5':
                         previewHtml += '😞 1 ⚪ 2 ⚪ 3 ⚪ 4 ⚪ 5 😊';

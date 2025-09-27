@@ -255,8 +255,8 @@ confuso, ponerle otro color que se mantenga en la paleta de colores del sistema.
 esto rompa el interfaz o cambie como se veia con los estilos inline.
     - Se 'rompió' el 'crear_encuesta.php' de 'https://localhost/php/proyecto_encuestas', el servidor php se ve bien.
     - Reportes.php igual se rompió (en ambas URLS)
-    - En 'crear_pregunta.php' se ve una font más grande en el servidor php que en localhost/php/proyecto_encuestas.
-    - En 'editar_encuesta.php' los tildes y caracteres especiales se ven mal en localhost:8000, mientras que en localhost/php/proyecto_encuestas 
+    ✅✅- En 'crear_pregunta.php' se ve una font más grande en el servidor php que en localhost/php/proyecto_encuestas.
+    ✅✅- En 'editar_encuesta.php' los tildes y caracteres especiales se ven mal en localhost:8000, mientras que en localhost/php/proyecto_encuestas 
     se ven mal tambien pero en este no se ve que estén cargando los estilos del archivo css externo. (DescripciÃ³n *, TÃ­tulo , cuÃ¡ndo etc).
 
 

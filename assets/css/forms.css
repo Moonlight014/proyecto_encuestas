@@ -659,10 +659,108 @@ textarea.form-control {
     background: #16a34a;
 }
 
+/* ==========================================
+   ESTILOS ESPECÍFICOS PARA CREAR_PREGUNTA.PHP
+   ========================================== */
+
+/* Contenedor de botones en crear pregunta */
+.button-container {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+.button-container .btn {
+    min-height: 42px !important;
+    min-width: 120px !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    line-height: 1.2 !important;
+}
+
 /* Media queries adicionales para editar encuesta */
 @media (max-width: 768px) {
     .btn-primary, .btn-warning, .btn-danger, .btn-success {
         width: 100%;
         margin: 0.5rem 0;
     }
+    
+    /* Responsive para botones de crear pregunta */
+    .button-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .button-container .btn {
+        width: 100% !important;
+        min-width: unset !important;
+        margin-bottom: 0.5rem !important;
+    }
+}
+
+/* Estilos específicos adicionales para crear_pregunta.php */
+.continue-btn {
+    margin-left: 1rem; 
+    background: #0d47a1; 
+    color: white; 
+    border: none; 
+    padding: 0.5rem 1rem; 
+    border-radius: 4px; 
+    cursor: pointer;
+}
+
+.info-notice {
+    background: #e7f3ff; 
+    border-left: 4px solid #0d47a1; 
+    padding: 1rem; 
+    margin-bottom: 1.5rem; 
+    border-radius: 4px; 
+    font-size: 0.9rem; 
+    color: #084298;
+}
+
+.description-text {
+    color: #6c757d; 
+    margin-bottom: 2rem;
+}
+
+.help-text {
+    color: #6c757d;
+}
+
+.help-text-block {
+    color: #6c757d; 
+    display: block; 
+    margin-top: 0.5rem;
+}
+
+.help-text-small {
+    color: #6c757d; 
+    display: block; 
+    margin-top: 0.25rem;
+}
+
+.limit-group {
+    margin-top: 1rem;
+}
+
+.input-width-200 {
+    width: 200px;
+}
+
+.preview-input {
+    width: 300px; 
+    padding: 5px;
+}
+
+.preview-textarea {
+    width: 300px; 
+    height: 80px; 
+    padding: 5px;
 }
